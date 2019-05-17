@@ -1,0 +1,29 @@
+{
+  "name": "@cosmostation/cosmosjs",
+  "version": "0.1.1",
+  "description": "A javascript open source library for Cosmos Network.",
+  "main": "./src/index.js",
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "keywords": [
+    "cosmosjs",
+    "cosmos",
+    "tendermint",
+    "javascript",
+    "atom",
+    "cosmostation"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cosmostation",
+  "license": "MIT",
+  "dependencies": {
+    "bech32": "^1.1.3",
+    "bip32": "^1.0.2",
+    "bip39": "^2.5.0",
+    "bitcoinjs-lib": "^4.0.2",
+    "secp256k1": "^3.6.2"
+  }
+}
