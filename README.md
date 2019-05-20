@@ -33,7 +33,7 @@ CosmosJS supports browserify.
 #### NodeJS
 
 ```js
-const cosmosjs = require("cosmosjs");
+const cosmosjs = require("@cosmostation/cosmosjs");
 ```
 
 #### Browser
