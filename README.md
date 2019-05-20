@@ -7,12 +7,14 @@
 
 *:star: Developed / Developing by [Cosmostation](https://www.cosmostation.io/)*
 
-
-**WARNING:** CosmosJS is under <b>ACTIVE DEVELOPMENT</b> and should be treated as alpha version. We will remove this warning when we have a release that is stable, secure, and ready to be used in production
-
 A JavasSript Open Source Library for [Cosmos Network](https://cosmos.network/)
 
 This library enables you to generate and verify cosmos address and create a different types of transaction messages. This library will eventually support all the other blockchains that are based on Tendermint in the future.
+
+[![MIT](https://img.shields.io/apm/l/vim-mode.svg)](https://github.com/cosmostation/cosmosjs/blob/master/LICENSE)
+[![NPM](https://img.shields.io/npm/v/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs)
+
+<b>WARNING:</b> CosmosJS is under <b>ACTIVE DEVELOPMENT</b> and should be treated as alpha version. We will remove this warning when we have a release that is stable, secure, and ready to be used in production
 
 ## Installation
 
