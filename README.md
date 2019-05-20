@@ -2,30 +2,31 @@
   <a href="https://www.cosmostation.io" target="_blank" rel="noopener noreferrer"><img width="100" src="https://user-images.githubusercontent.com/20435620/55696624-d7df2e00-59f8-11e9-9126-edf9a40b11a8.png" alt="Cosmostation logo"></a>
 </p>
 <h1 align="center">
-    Cosmos JavaScript Library 
+    CosmosJS - Cosmos JavaScript Library 
 </h1>
 
-*:star: Developed / Developing by [Cosmostation](https://www.cosmostation.io/)*.
+*:star: Developed / Developing by [Cosmostation](https://www.cosmostation.io/)*
 
-**WARNING:** CosmosJS is under ACTIVE DEVELOPMENT and should be treated as alpha version. We will remove this warning when we have a release that is stable, secure, and propoerly tested.
 
-## What is CosmosJS ?
+**WARNING:** CosmosJS is under <b>ACTIVE DEVELOPMENT</b> and should be treated as alpha version. We will remove this warning when we have a release that is stable, secure, and ready to be used in production
 
-A javascript open source library for [Cosmos Network](https://cosmos.network/)
+A JavasSript Open Source Library for [Cosmos Network](https://cosmos.network/)
 
-This library has functions to verify, generate cosmos address, and create a different types of transaction messages. Check out the currently supprting message types below. This library will support all the other blockchains that are based on Tendermint in the future.
+This library enables you to generate and verify cosmos address and create a different types of transaction messages. This library will eventually support all the other blockchains that are based on Tendermint in the future.
 
 ## Installation
 
-You need to run a local or remote Cosmos node to utilize this library.
+In order to fully use this library, you need to run a local or remote  Cosmos full node and set up the rest server, which acts as an intermediary between the front-end and the full-node
 
-#### NPM
+### NPM
 
-`npm install @cosmostation/cosmosjs`
+```bash
+npm install @cosmostation/cosmosjs
+```
 
-#### Browser Distribution
+### Browser Distribution
 
-CosmosJS can be converted to a library for browser using browserify.
+CosmosJS supports browserify.
 
 ## Import 
 
@@ -43,43 +44,36 @@ const cosmosjs = require("cosmosjs");
 
 ## Usage
 
+Generate Cosmos address from mnemonic 
 ```js
-const cosmosjs = require("cosmosjs");
+const cosmosjs = require("@cosmostation/cosmosjs");
 
 const chainId = "chain-id";
-const cosmos = cosmosjs.network(chainId);
+const cosmos = cosmosjs.network(chainId)
 
-```
-Get the Cosmos address from mnemonic
-```js
+const mnemonic = "..."
 const address = cosmos.getAddress(mnemonic);
+const ecpairPriv = cosmos.getECPairPriv(mnemonic);
 ```
 
-Get the ECPairPriv value that is needed for signing signatures.
+Generate ECPairPriv value that is needed for signing signatures
 ```js
 const ecpairPriv = cosmos.getECPairPriv(mnemonic);
 ```
 
-When transferring Cosmos Atom, you need to use MsgSend type. 
-Make sure to input proper type, account number, and sequence value of the cosmos account to make StdSignMsg. 
-> https://cosmos.network/rpc/, [GET], /auth/accounts/{address}
+Transfer ATOM to designated address. 
+* Make sure to input proper type, account number, and sequence of the cosmos account to generate StdSignMsg. You can get those account information on blockchain 
 
 ```js
 const stdSignMsg = cosmos.createStdSignMsg("cosmos-sdk/MsgSend", accountNumber, sequence, fromAddress, toAddress, "uatom", amount, "uatom", fee, gas, "");
 ```
 
-Signing the stdSignMsg will be used for broadcasting.
+Sign transaction by using stdSignMsg and broadcast by using [/txs](https://cosmos.network/rpc/) REST API
 ```js
 const signedTx = cosmos.sign(stdSignMsg, ecpairPriv);
 ```
-Broadcasting signedTx will send a Cosmos Atom. 
->https://cosmos.network/rpc/, [POST], /txs)
 
-## Documentation
-
-This library is pretty simple and easy to use. Presently, we do not have any formal documentation other than our examples. Ask for help if our examples aren't enough to guide you.
-
-## Supporting Message Types
+## Supporting Message Types (Updating...)
 
 - MsgSend
 - MsgDelegate
@@ -89,13 +83,22 @@ This library is pretty simple and easy to use. Presently, we do not have any for
 - MsgDeposit
 - MsgVote
 
+## Documentation
+
+This library is simple and easy to use. We don't have any formal documentation yet other than examples. Ask for help if our examples aren't enough to guide you.
+
 ## Contribution
 
 - All contributions are welcome
 - Suggestions or improvements are welcome
 
-## Cosmostation Community
+## Cosmostation's Services and Community
 
-- [Telegram](https://t.me/cosmostation)
-- [Kakao](https://open.kakao.com/o/g6KKSe5)
+- [Official Website](https://www.cosmostation.io)
+- [Mintscan Explorer](https://www.mintscan.io)
+- [Web Wallet](https://wallet.cosmostation.io)
+- [Android Wallet](https://bit.ly/2BWex9D)
+- [iOS Wallet](https://apple.co/2IAM3Xm)
+- [Telegram - International](https://t.me/cosmostation)
+- [Kakao - Koreans](https://open.kakao.com/o/g6KKSe5)
 
