@@ -2,8 +2,7 @@ const cosmosjs = require("../src");
 
 const chainId = "cosmoshub-2";
 /** [WARNING] Do not use this mnemonic phrases. Creating a wallet using this mnemonic phrases will make your wallet subject to attacks. **/
-// const mnemonic = "swear buyer security impulse public stereo peasant correct cross tornado bid discover anchor float venture deal patch property cool wreck eight dwarf december surface";
-const mnemonic = "sad faint ugly adult easy phone piano process whip ankle buffalo town consider stand first gap twin trap save glance wise twelve dog damage";
+const mnemonic = "swear buyer security impulse public stereo peasant correct cross tornado bid discover anchor float venture deal patch property cool wreck eight dwarf december surface";
 const cosmos = cosmosjs.network("https://lcd-do-not-abuse.cosmostation.io", chainId);
 const address = cosmos.getAddress(mnemonic);
 const ecpairPriv = cosmos.getECPairPriv(mnemonic);
