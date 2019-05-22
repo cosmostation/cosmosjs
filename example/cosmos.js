@@ -1,12 +1,13 @@
 const cosmosjs = require("../src");
 
-const chainId = "cosmoshub-2";
-/** [WARNING] Do not use this mnemonic phrases. Creating a wallet using this mnemonic phrases will make your wallet subject to attacks. **/
+// [WARNING] This mnemonic is just for the demo purpose. DO NOT USE THIS MNEMONIC for your own wallet.
 const mnemonic = "swear buyer security impulse public stereo peasant correct cross tornado bid discover anchor float venture deal patch property cool wreck eight dwarf december surface";
+const chainId = "cosmoshub-2";
 const cosmos = cosmosjs.network("https://lcd-do-not-abuse.cosmostation.io", chainId);
 const address = cosmos.getAddress(mnemonic);
 const ecpairPriv = cosmos.getECPairPriv(mnemonic);
 
+// Generate MsgSend transaction and broadcast 
 cosmos.getAccounts(address).then(data => {
 	let stdSignMsg = cosmos.NewStdMsg({
 		type: "cosmos-sdk/MsgSend",
