@@ -1,6 +1,8 @@
-// CosmosJS
-// Developed / Developing by Cosmostation.
-// [WARNING] CosmosJS is under ACTIVE DEVELOPMENT and should be treated as alpha version. We will remove this warning when we have a release that is stable, secure, and propoerly tested.
+/*
+    Developed / Developing by Cosmostation
+
+    [WARNING] CosmosJS is under ACTIVE DEVELOPMENT and should be treated as alpha version. We will remove this warning when we have a release that is stable, secure, and propoerly tested.
+*/
 
 'use strict'
 
