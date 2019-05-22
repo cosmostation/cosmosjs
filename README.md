@@ -26,6 +26,12 @@ In order to fully use this library, you need to run a local or remote  Cosmos fu
 npm install @cosmostation/cosmosjs
 ```
 
+### Yarn
+
+```bash
+yarn add @cosmostation/cosmosjs
+```
+
 ### Browser Distribution
 
 CosmosJS supports browserify.
