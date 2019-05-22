@@ -4,6 +4,7 @@
 
 'use strict'
 
+const fetch = require("node-fetch");
 const bip39 = require('bip39');
 const bip32 = require('bip32');
 const bech32 = require('bech32');
@@ -13,16 +14,20 @@ const bitcoinjs = require('bitcoinjs-lib');
 
 const PATH = "m/44'/118'/0'/0/0";
 
-let Cosmos = function (chainId) {
+let Cosmos = function (url, chainId) {
+	this.url = url;
 	this.chainId = chainId;
 
+	if (!this.url) {
+		throw new Error("url object was not set or invalid")
+	}
 	if (!this.chainId) {
 		throw new Error("chainId object was not set or invalid")
 	}
 }
 
-function network(chainId) {
-	return new Cosmos(chainId);
+function network(url, chainId) {
+	return new Cosmos(url, chainId);
 }
 
 function convertStringToBytes(str) {
@@ -40,6 +45,11 @@ function convertStringToBytes(str) {
 function getPubKeyBase64(ecpairPriv) {
 	const pubKeyByte = secp256k1.publicKeyCreate(ecpairPriv);
 	return Buffer.from(pubKeyByte, 'binary').toString('base64');
+}
+
+Cosmos.prototype.getAccounts = function(address) {
+	return fetch(this.url + "/auth/accounts/" + address)
+	.then(response => response.json())
 }
 
 Cosmos.prototype.getAddress = function(mnemonic) {
@@ -64,230 +74,253 @@ Cosmos.prototype.getECPairPriv = function(mnemonic) {
 	return ecpair.privateKey;
 }
 
-Cosmos.prototype.createStdSignMsg = function(msgType, accountNumber, sequence, fromAddress, toAddress, amountDenom, amount, feeDenom, fee, gas, memo, title = "", description = "", proposalId = 1, option = "") {
+Cosmos.prototype.NewStdMsg = function(input) {
 	const stdSignMsg = new Object;
 
-	if (msgType == "cosmos-sdk/MsgSend") {
-		stdSignMsg.json = 
-		{ 
-		  	account_number: String(accountNumber),
+	if (input.type == "cosmos-sdk/MsgSend") {
+		stdSignMsg.json =
+		{
+		  	account_number: String(input.account_number),
 			chain_id: this.chainId,
-			fee: { 
-				amount: [ 
-					{ 
-						amount: String(fee), 
-						denom: feeDenom 
-					} 
-				], 
-				gas: String(gas) 
+			fee: {
+				amount: [
+					{
+						amount: String(input.fee),
+						denom: input.feeDenom
+					}
+				],
+				gas: String(input.gas)
 			},
-			memo: memo,
-			msgs: [ 
-				{ 
-					type: msgType, 
+			memo: input.memo,
+			msgs: [
+				{
+					type: input.type,
 					value: {
 						amount: [
 							{
-								amount: String(amount), 
-								denom: amountDenom 
+								amount: String(input.amount),
+								denom: input.amountDenom
 							}
-						], 
-						from_address: fromAddress, 
-						to_address: toAddress 
-					} 
-				} 
+						],
+						from_address: input.from_address,
+						to_address: input.to_address
+					}
+				}
 			],
-			sequence: String(sequence) 
+			sequence: String(input.sequence)
 		}
-	} else if (msgType == "cosmos-sdk/MsgDelegate") {
+	} else if (input.type == "cosmos-sdk/MsgDelegate") {
 		stdSignMsg.json = 
 		{
-		  	account_number: String(accountNumber),
+		  	account_number: String(input.account_number),
 			chain_id: this.chainId,
-			fee: { 
-				amount: [ 
-					{ 
-						amount: String(fee), 
-						denom: feeDenom 
-					} 
-				], 
-				gas: String(gas) 
+			fee: {
+				amount: [
+					{
+						amount: String(input.fee),
+						denom: input.feeDenom
+					}
+				],
+				gas: String(input.gas)
 			},
-			memo: memo,
+			memo: input.memo,
 			msgs: [
-				{ 
-					type: msgType, 
+				{
+					type: input.type,
 					value: {
-						delegator_address: fromAddress,
-						validator_address: toAddress,
 						amount: {
-							amount: String(amount),
-							denom: amountDenom
-						}
+							amount: String(input.amount),
+							denom: input.amountDenom
+						},
+						delegator_address: input.delegator_address,
+						validator_address: input.validator_address
 					}
 				}
 			],
-			sequence: String(sequence) 
+			sequence: String(input.sequence)
 		}
-	} else if (msgType == "cosmos-sdk/MsgUndelegate") {
+	} else if (input.type == "cosmos-sdk/MsgUndelegate") {
 		stdSignMsg.json = 
 		{
-		  	account_number: String(accountNumber),
+		  	account_number: String(input.account_number),
 			chain_id: this.chainId,
 			fee: { 
 				amount: [ 
 					{ 
-						amount: String(fee), 
-						denom: feeDenom 
+						amount: String(input.fee), 
+						denom: input.feeDenom 
 					} 
 				], 
-				gas: String(gas) 
+				gas: String(input.gas) 
 			},
-			memo: memo,
+			memo: input.memo,
 			msgs: [
 				{ 
-					type: msgType, 
+					type: input.type, 
 					value: {
-						delegator_address: fromAddress,
-						validator_address: toAddress,
 						amount: {
-							amount: String(amount),
-							denom: amountDenom
-						}
+							amount: String(input.amount),
+							denom: input.amountDenom
+						},
+						delegator_address: input.delegator_address,
+						validator_address: input.validator_address
 					}
 				}
 			],
-			sequence: String(sequence) 
+			sequence: String(input.sequence) 
 		}
-	} else if (msgType == "cosmos-sdk/MsgWithdrawDelegationReward") {
+	} else if (input.type == "cosmos-sdk/MsgWithdrawDelegationReward") {
 		stdSignMsg.json = 
 		{
-		  	account_number: String(accountNumber),
+		  	account_number: String(input.account_number),
 			chain_id: this.chainId,
 			fee: { 
 				amount: [ 
 					{ 
-						amount: String(fee), 
-						denom: feeDenom 
+						amount: String(input.fee), 
+						denom: input.feeDenom 
 					} 
 				], 
-				gas: String(gas) 
+				gas: String(input.gas) 
 			},
-			memo: memo,
+			memo: input.memo,
 			msgs: [
 				{ 
-					type: msgType, 
+					type: input.type, 
 					value: {
-						delegator_address: toAddress,
-						validator_address: fromAddress
+						delegator_address: input.delegator_address,
+						validator_address: input.validator_address
 					}
 				}
 			],
-			sequence: String(sequence) 
+			sequence: String(input.sequence) 
 		}
-	} else if (msgType == "cosmos-sdk/MsgSubmitProposal") {
-		if (title == "") {
-			throw new Error("Does not exist: " + title)
-		}
-
-		if (description == "") {
-			throw new Error("Does not exist: " + description)
-		}
-
+	} else if (input.type == "cosmos-sdk/MsgSubmitProposal") {
 		stdSignMsg.json = 
 		{
-		  	account_number: String(accountNumber),
+		  	account_number: String(input.account_number),
 			chain_id: this.chainId,
 			fee: { 
 				amount: [ 
 					{ 
-						amount: String(fee), 
-						denom: feeDenom 
+						amount: String(input.fee), 
+						denom: input.feeDenom 
 					} 
 				], 
-				gas: String(gas) 
+				gas: String(input.gas) 
 			},
-			memo: memo,
+			memo: input.memo,
 			msgs: [
 				{ 
-					type: msgType,
+					type: input.type,
 					value: {
-						description: description,
+						description: input.description,
 						initial_deposit: [
 	                        {
-	                        	amount: String(amount),
-	                            denom: amountDenom
+	                        	amount: String(input.initialDepositAmount),
+	                            denom: input.initialDepositDenom
 	                        }
 	                    ],
-	                    proposal_type: "Text",
-	                    proposer: fromAddress,
-						title: title
+	                    proposal_type: input.proposal_type,
+	                    proposer: input.proposer,
+						title: input.title
 					}
 				}
 			],
-			sequence: String(sequence) 
+			sequence: String(input.sequence) 
 		}
-	} else if (msgType == "cosmos-sdk/MsgDeposit") {
+	} else if (input.type == "cosmos-sdk/MsgDeposit") {
 		stdSignMsg.json = 
 		{
-		  	account_number: String(accountNumber),
+		  	account_number: String(input.account_number),
 			chain_id: this.chainId,
 			fee: { 
 				amount: [ 
 					{ 
-						amount: String(fee), 
-						denom: feeDenom 
+						amount: String(input.fee), 
+						denom: input.feeDenom 
 					} 
 				], 
-				gas: String(gas) 
+				gas: String(input.gas) 
 			},
-			memo: memo,
+			memo: input.memo,
 			msgs: [
 				{ 
-					type: msgType,
+					type: input.type,
 					value: {
 						amount: [
 	                        {
-	                        	amount: String(amount),
-	                            denom: amountDenom
+	                        	amount: String(input.amount),
+	                            denom: input.amountDenom
 	                        }
 	                    ],
-	                    depositor: fromAddress,
-						proposal_id: String(proposalId)
+	                    depositor: input.depositor,
+						proposal_id: String(input.proposal_id)
 					}
 				}
 			],
-			sequence: String(sequence) 
+			sequence: String(input.sequence) 
 		}
-	} else if (msgType == "cosmos-sdk/MsgVote") {
+	} else if (input.type == "cosmos-sdk/MsgVote") {
 		stdSignMsg.json = 
 		{
-		  	account_number: String(accountNumber),
+		  	account_number: String(input.account_number),
 			chain_id: this.chainId,
 			fee: { 
 				amount: [ 
 					{ 
-						amount: String(fee), 
-						denom: feeDenom 
+						amount: String(input.fee), 
+						denom: input.feeDenom 
 					} 
 				], 
-				gas: String(gas) 
+				gas: String(input.gas) 
 			},
-			memo: memo,
+			memo: input.memo,
 			msgs: [
 				{ 
-					type: msgType,
+					type: input.type,
 					value: {
-						option: option, // NoWithVeto
-						proposal_id: String(proposalId),
-	                    voter: fromAddress
+						option: input.option,
+						proposal_id: String(input.proposal_id),
+	                    voter: input.voter
 					}
 				}
 			],
-			sequence: String(sequence) 
+			sequence: String(input.sequence) 
+		}
+	} else if (input.type == "cosmos-sdk/MsgBeginRedelegate") {
+		stdSignMsg.json = 
+		{
+		  	account_number: String(input.account_number),
+			chain_id: this.chainId,
+			fee: { 
+				amount: [ 
+					{ 
+						amount: String(input.fee), 
+						denom: input.feeDenom 
+					} 
+				], 
+				gas: String(input.gas) 
+			},
+			memo: input.memo,
+			msgs: [
+				{ 
+					type: input.type,
+					value: {
+						amount: {
+							amount: String(input.amount),
+							denom: input.amountDenom
+						},
+						delegator_address: input.delegator_address,
+						validator_dst_address: input.validator_dst_address,
+						validator_src_address: input.validator_src_address
+					}
+				}
+			],
+			sequence: String(input.sequence)
 		}
 	} else {
-		throw new Error("No such msgType: " + msgType)
+		throw new Error("No such input.type: " + input.type)
 	}
 
 	stdSignMsg.bytes = convertStringToBytes(JSON.stringify(stdSignMsg.json));
@@ -319,6 +352,17 @@ Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
 	    "mode": modeType
 	}
 	return signedTx;
+}
+
+Cosmos.prototype.broadcast = function(signedTx) {
+	return fetch(this.url + "/txs", {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(signedTx)
+	})
+	.then(response => response.json())
 }
 
 module.exports = {

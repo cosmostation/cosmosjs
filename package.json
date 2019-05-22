@@ -1,6 +1,6 @@
 {
   "name": "@cosmostation/cosmosjs",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A javascript open source library for Cosmos Network.",
   "main": "./src/index.js",
   "engines": {
@@ -24,6 +24,7 @@
     "bip32": "^1.0.2",
     "bip39": "^2.5.0",
     "bitcoinjs-lib": "^4.0.2",
+    "node-fetch": "^2.6.0",
     "secp256k1": "^3.6.2"
   }
 }
