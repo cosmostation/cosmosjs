@@ -92,7 +92,7 @@ cosmos.getAccounts(address).then(data => {
 })
 ```
 
-Sign transaction by using stdSignMsg and broadcast by using [/txs](https://lcd-do-not-abuse.cosmostation.io) REST API
+Sign transaction by using stdSignMsg and broadcast by using [/txs](https://lcd-do-not-abuse.cosmostation.io/txs) REST API
 * API Call Limit: 10 per second
 ```js
 const signedTx = cosmos.sign(stdSignMsg, ecpairPriv);
