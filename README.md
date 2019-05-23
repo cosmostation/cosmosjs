@@ -73,23 +73,162 @@ Transfer ATOM to designated address.
 * Make sure to input proper type, account number, and sequence of the cosmos account to generate StdSignMsg. You can get those account information on blockchain 
 
 ```js
-const stdSignMsg = cosmos.createStdSignMsg("cosmos-sdk/MsgSend", accountNumber, sequence, fromAddress, toAddress, "uatom", amount, "uatom", fee, gas, "");
+cosmos.getAccounts(address).then(data => {
+	let stdSignMsg = cosmos.NewStdMsg({
+		type: "cosmos-sdk/MsgSend",
+		from_address: address,
+		to_address: "cosmos18vhdczjut44gpsy804crfhnd5nq003nz0nf20v",
+		amountDenom: "uatom",
+		amount: 100000,
+		feeDenom: "uatom",
+		fee: 5000,
+		gas: 200000,
+		memo: "",
+		account_number: data.value.account_number,
+		sequence: data.value.sequence
+	});
+
+	...
+})
 ```
 
-Sign transaction by using stdSignMsg and broadcast by using [/txs](https://cosmos.network/rpc/) REST API
+Sign transaction by using stdSignMsg and broadcast by using [/txs](https://lcd-do-not-abuse.cosmostation.io) REST API
+* API Call Limit: 10 per second
 ```js
 const signedTx = cosmos.sign(stdSignMsg, ecpairPriv);
+cosmos.broadcast(signedTx).then(response => console.log(response));
 ```
 
 ## Supporting Message Types (Updating...)
 
 - MsgSend
+```js
+let stdSignMsg = cosmos.NewStdMsg({
+	type: "cosmos-sdk/MsgSend",
+	from_address: address,
+	to_address: "cosmos18vhdczjut44gpsy804crfhnd5nq003nz0nf20v",
+	amountDenom: "uatom",
+	amount: 1000000,
+	feeDenom: "uatom",
+	fee: 5000,
+	gas: 200000,
+	memo: "",
+	account_number: data.value.account_number,
+	sequence: data.value.sequence
+});
+```
 - MsgDelegate
+```js
+stdSignMsg = cosmos.NewStdMsg({
+	type: "cosmos-sdk/MsgDelegate",
+	delegator_address: address,
+	validator_address: "cosmosvaloper1clpqr4nrk4khgkxj78fcwwh6dl3uw4epsluffn",
+	amountDenom: "uatom",
+	amount: 1000000,
+	feeDenom: "uatom",
+	fee: 5000,
+	gas: 200000,
+	memo: "",
+	account_number: data.value.account_number,
+	sequence: data.value.sequence
+});
+```
 - MsgUndelegate
+```js
+stdSignMsg = cosmos.NewStdMsg({
+	type: "cosmos-sdk/MsgUndelegate",
+	delegator_address: address,
+	validator_address: "cosmosvaloper1clpqr4nrk4khgkxj78fcwwh6dl3uw4epsluffn",
+	amountDenom: "uatom",
+	amount: 1000000,
+	feeDenom: "uatom",
+	fee: 5000,
+	gas: 200000,
+	memo: "",
+	account_number: data.value.account_number,
+	sequence: data.value.sequence
+});
+```
 - MsgWithdrawDelegationReward
+```js
+stdSignMsg = cosmos.NewStdMsg({
+	type: "cosmos-sdk/MsgWithdrawDelegationReward",
+	delegator_address: address,
+	validator_address: "cosmosvaloper1clpqr4nrk4khgkxj78fcwwh6dl3uw4epsluffn",
+	feeDenom: "uatom",
+	fee: 5000,
+	gas: 200000,
+	memo: "",
+	account_number: data.value.account_number,
+	sequence: data.value.sequence
+});
+```
 - MsgSubmitProposal
+```js
+stdSignMsg = cosmos.NewStdMsg({
+	type: "cosmos-sdk/MsgSubmitProposal",
+	title: "Activate the Community Pool",
+	description: "Enable governance to spend funds from the community pool. Full proposal: https://ipfs.io/ipfs/QmNsVCsyRmEiep8rTQLxVNdMHm2uiZkmaSHCR6S72Y1sL1",
+	initialDepositDenom: "uatom",
+	initialDepositAmount: 1000000,
+	proposal_type: "Text",
+	proposer: address,
+	feeDenom: "uatom",
+	fee: 5000,
+	gas: 200000,
+	memo: "",
+	account_number: data.value.account_number,
+	sequence: data.value.sequence
+});
+```
 - MsgDeposit
+```js
+stdSignMsg = cosmos.NewStdMsg({
+	type: "cosmos-sdk/MsgDeposit",
+	depositor: address,
+	proposal_id: 1,
+	amountDenom: "uatom",
+	amount: 1000000,
+	feeDenom: "uatom",
+	fee: 5000,
+	gas: 200000,
+	memo: "",
+	account_number: data.value.account_number,
+	sequence: data.value.sequence
+});
+```
 - MsgVote
+```js
+stdSignMsg = cosmos.NewStdMsg({
+	type: "cosmos-sdk/MsgVote",
+	voter: address,
+	proposal_id: 1,
+	option: "Yes",	// Yes, No, NowithVeto, Abstain
+	feeDenom: "uatom",
+	fee: 5000,
+	gas: 200000,
+	memo: "",
+	account_number: data.value.account_number,
+	sequence: data.value.sequence
+});
+```
+- MsgBeginRedelegate
+```js
+stdSignMsg = cosmos.NewStdMsg({
+	type: "cosmos-sdk/MsgBeginRedelegate",
+	delegator_address: address,
+	validator_src_address: "cosmosvaloper1clpqr4nrk4khgkxj78fcwwh6dl3uw4epsluffn",
+	validator_dst_address: "cosmosvaloper1ec3p6a75mqwkv33zt543n6cnxqwun37rr5xlqv",
+	amountDenom: "uatom",
+	amount: 1000000,
+	feeDenom: "uatom",
+	fee: 5000,
+	gas: 200000,
+	memo: "",
+	account_number: data.value.account_number,
+	sequence: data.value.sequence
+});
+```
 
 ## Documentation
 
