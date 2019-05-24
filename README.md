@@ -57,7 +57,7 @@ Generate Cosmos address from mnemonic
 const cosmosjs = require("@cosmostation/cosmosjs");
 
 const chainId = "chain-id";
-const cosmos = cosmosjs.network(chainId)
+const cosmos = cosmosjs.network(lcdUrl, chainId)
 
 const mnemonic = "..."
 const address = cosmos.getAddress(mnemonic);
@@ -93,11 +93,13 @@ cosmos.getAccounts(address).then(data => {
 ```
 
 Sign transaction by using stdSignMsg and broadcast by using [/txs](https://lcd-do-not-abuse.cosmostation.io/txs) REST API
-* API Call Limit: 10 per second
 ```js
 const signedTx = cosmos.sign(stdSignMsg, ecpairPriv);
 cosmos.broadcast(signedTx).then(response => console.log(response));
 ```
+
+Cosmostation offers LCD url(https://lcd-do-not-abuse.cosmostation.io).
+* API Rate Limiting: 10 requests per second
 
 ## Supporting Message Types (Updating...)
 

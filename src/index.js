@@ -14,11 +14,10 @@ const secp256k1 = require('secp256k1');
 const crypto = require('crypto');
 const bitcoinjs = require('bitcoinjs-lib');
 
-const PATH = "m/44'/118'/0'/0/0";
-
-let Cosmos = function (url, chainId) {
+let Cosmos = function(url, chainId, path = "m/44'/118'/0'/0/0") {
 	this.url = url;
 	this.chainId = chainId;
+	this.path = path;
 
 	if (!this.url) {
 		throw new Error("url object was not set or invalid")
@@ -49,6 +48,10 @@ function getPubKeyBase64(ecpairPriv) {
 	return Buffer.from(pubKeyByte, 'binary').toString('base64');
 }
 
+Cosmos.prototype.setPath = function(path) {
+	this.path = path;
+}
+
 Cosmos.prototype.getAccounts = function(address) {
 	return fetch(this.url + "/auth/accounts/" + address)
 	.then(response => response.json())
@@ -60,7 +63,7 @@ Cosmos.prototype.getAddress = function(mnemonic) {
 	}
 	const seed = bip39.mnemonicToSeed(mnemonic);
 	const node = bip32.fromSeed(seed);
-	const child = node.derivePath(PATH);
+	const child = node.derivePath(this.path);
 	const words = bech32.toWords(child.identifier);
 	return bech32.encode('cosmos', words);
 }
@@ -71,7 +74,7 @@ Cosmos.prototype.getECPairPriv = function(mnemonic) {
 	}
 	const seed = bip39.mnemonicToSeed(mnemonic);
 	const node = bip32.fromSeed(seed);
-	const child = node.derivePath(PATH);
+	const child = node.derivePath(this.path);
 	const ecpair = bitcoinjs.ECPair.fromPrivateKey(child.privateKey, {compressed : false})
 	return ecpair.privateKey;
 }
