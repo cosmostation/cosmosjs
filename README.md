@@ -231,6 +231,20 @@ stdSignMsg = cosmos.NewStdMsg({
 	sequence: data.value.sequence
 });
 ```
+- MsgModifyWithdrawAddress
+```js
+stdSignMsg = cosmos.NewStdMsg({
+	type: "cosmos-sdk/MsgModifyWithdrawAddress",
+	delegator_address: address,
+	withdraw_address: "cosmos133mtfk63fuac5e2npfgcktwufnty2536wedfal",
+	feeDenom: "uatom",
+	fee: 5000,
+	gas: 200000,
+	memo: "",
+	account_number: data.value.account_number,
+	sequence: data.value.sequence
+});
+```
 
 ## Documentation
 
