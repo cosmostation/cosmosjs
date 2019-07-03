@@ -50,6 +50,10 @@ function getPubKeyBase64(ecpairPriv) {
 
 Cosmos.prototype.setPath = function(path) {
 	this.path = path;
+
+	if (!this.path) {
+		throw new Error("path object was not set or invalid")
+	}
 }
 
 Cosmos.prototype.getAccounts = function(address) {
