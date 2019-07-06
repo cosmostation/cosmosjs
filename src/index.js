@@ -16,9 +16,10 @@ const bitcoinjs = require('bitcoinjs-lib');
 
 const PATH = "m/44'/118'/0'/0/0";
 
-let Cosmos = function (url, chainId) {
+let Cosmos = function (url, chainId, address_prefix = "cosmos") {
 	this.url = url;
 	this.chainId = chainId;
+  this.address_prefix = address_prefix
 
 	if (!this.url) {
 		throw new Error("url object was not set or invalid")
@@ -62,7 +63,7 @@ Cosmos.prototype.getAddress = function(mnemonic) {
 	const node = bip32.fromSeed(seed);
 	const child = node.derivePath(PATH);
 	const words = bech32.toWords(child.identifier);
-	return bech32.encode('cosmos', words);
+	return bech32.encode(this.address_prefix, words);
 }
 
 Cosmos.prototype.getECPairPriv = function(mnemonic) {
