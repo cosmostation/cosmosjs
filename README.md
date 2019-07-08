@@ -57,9 +57,10 @@ Generate Cosmos address from mnemonic
 const cosmosjs = require("@cosmostation/cosmosjs");
 
 const chainId = "chain-id";
-const cosmos = cosmosjs.network(chainId)
+const cosmos = cosmosjs.network(lcdUrl, chainId)
 
 const mnemonic = "..."
+cosmos.setPath("m/44'/118'/0'/0/0");
 const address = cosmos.getAddress(mnemonic);
 const ecpairPriv = cosmos.getECPairPriv(mnemonic);
 ```
@@ -93,11 +94,13 @@ cosmos.getAccounts(address).then(data => {
 ```
 
 Sign transaction by using stdSignMsg and broadcast by using [/txs](https://lcd-do-not-abuse.cosmostation.io/txs) REST API
-* API Call Limit: 10 per second
 ```js
 const signedTx = cosmos.sign(stdSignMsg, ecpairPriv);
 cosmos.broadcast(signedTx).then(response => console.log(response));
 ```
+
+Cosmostation offers LCD url(https://lcd-do-not-abuse.cosmostation.io).
+* API Rate Limiting: 10 requests per second
 
 ## Supporting Message Types (Updating...)
 
@@ -221,6 +224,20 @@ stdSignMsg = cosmos.NewStdMsg({
 	validator_dst_address: "cosmosvaloper1ec3p6a75mqwkv33zt543n6cnxqwun37rr5xlqv",
 	amountDenom: "uatom",
 	amount: 1000000,
+	feeDenom: "uatom",
+	fee: 5000,
+	gas: 200000,
+	memo: "",
+	account_number: data.value.account_number,
+	sequence: data.value.sequence
+});
+```
+- MsgModifyWithdrawAddress
+```js
+stdSignMsg = cosmos.NewStdMsg({
+	type: "cosmos-sdk/MsgModifyWithdrawAddress",
+	delegator_address: address,
+	withdraw_address: "cosmos133mtfk63fuac5e2npfgcktwufnty2536wedfal",
 	feeDenom: "uatom",
 	fee: 5000,
 	gas: 200000,
