@@ -14,10 +14,11 @@ const secp256k1 = require('secp256k1');
 const crypto = require('crypto');
 const bitcoinjs = require('bitcoinjs-lib');
 
-let Cosmos = function(url, chainId, path = "m/44'/118'/0'/0/0") {
+let Cosmos = function(url, chainId) {
 	this.url = url;
 	this.chainId = chainId;
-	this.path = path;
+	this.path = "m/44'/118'/0'/0/0";
+	this.bech32MainPrefix = "cosmos";
 
 	if (!this.url) {
 		throw new Error("url object was not set or invalid")
@@ -48,6 +49,26 @@ function getPubKeyBase64(ecpairPriv) {
 	return Buffer.from(pubKeyByte, 'binary').toString('base64');
 }
 
+function sortObject(obj) {
+	if (obj === null) return null;
+	if (typeof obj !== "object") return obj;
+	if (Array.isArray(obj)) return obj.map(sortObject);
+	const sortedKeys = Object.keys(obj).sort();
+	const result = {};
+	sortedKeys.forEach(key => {
+		result[key] = sortObject(obj[key])
+	});
+	return result;
+}
+
+Cosmos.prototype.setBech32MainPrefix = function(bech32MainPrefix) {
+	this.bech32MainPrefix = bech32MainPrefix;
+
+	if (!this.bech32MainPrefix) {
+		throw new Error("bech32MainPrefix object was not set or invalid")
+	}
+}
+
 Cosmos.prototype.setPath = function(path) {
 	this.path = path;
 
@@ -69,7 +90,7 @@ Cosmos.prototype.getAddress = function(mnemonic) {
 	const node = bip32.fromSeed(seed);
 	const child = node.derivePath(this.path);
 	const words = bech32.toWords(child.identifier);
-	return bech32.encode('cosmos', words);
+	return bech32.encode(this.bech32MainPrefix, words);
 }
 
 Cosmos.prototype.getECPairPriv = function(mnemonic) {
@@ -89,7 +110,7 @@ Cosmos.prototype.NewStdMsg = function(input) {
 	if (input.type == "cosmos-sdk/MsgSend") {
 		stdSignMsg.json =
 		{
-		  	account_number: String(input.account_number),
+			account_number: String(input.account_number),
 			chain_id: this.chainId,
 			fee: {
 				amount: [
@@ -358,14 +379,14 @@ Cosmos.prototype.NewStdMsg = function(input) {
 		throw new Error("No such input.type: " + input.type)
 	}
 
-	stdSignMsg.bytes = convertStringToBytes(JSON.stringify(stdSignMsg.json));
+	stdSignMsg.bytes = convertStringToBytes(JSON.stringify(sortObject(stdSignMsg.json)));
 
 	return stdSignMsg;
 }
 
 Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
 	// The supported return types includes "block"(return after tx commit), "sync"(return afer CheckTx) and "async"(return right away).
-	const hash = crypto.createHash('sha256').update(JSON.stringify(stdSignMsg.json)).digest('hex');
+	const hash = crypto.createHash('sha256').update(JSON.stringify(sortObject(stdSignMsg.json))).digest('hex');
 	const buf = Buffer.from(hash, 'hex');
 	let signObj = secp256k1.sign(buf, ecpairPriv);
 	var signatureBase64 = Buffer.from(signObj.signature, 'binary').toString('base64');
