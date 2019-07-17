@@ -4,6 +4,7 @@ const cosmosjs = require("../src");
 const mnemonic = "swear buyer security impulse public stereo peasant correct cross tornado bid discover anchor float venture deal patch property cool wreck eight dwarf december surface";
 const chainId = "cosmoshub-2";
 const cosmos = cosmosjs.network("https://lcd-do-not-abuse.cosmostation.io", chainId);
+cosmos.setBech32MainPrefix("cosmos");
 cosmos.setPath("m/44'/118'/0'/0/0");
 const address = cosmos.getAddress(mnemonic);
 const ecpairPriv = cosmos.getECPairPriv(mnemonic);
