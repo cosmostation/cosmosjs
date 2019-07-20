@@ -57,6 +57,7 @@ Generate Cosmos address from mnemonic
 const cosmosjs = require("@cosmostation/cosmosjs");
 
 const chainId = "chain-id";
+const lcdUrl = "https://cosmoshub.validator.network:443";
 const cosmos = cosmosjs.network(lcdUrl, chainId)
 
 const mnemonic = "..."
