@@ -352,8 +352,9 @@ This library is simple and easy to use. We don't have any formal documentation y
 
 ## Contribution
 
-- Contributions are welcome
-- Any suggestions or improvements are welcome
+- Contributions, suggestions, improvements, and feature requests are always welcome
+
+When opening a PR with a minor fix, make sure to add #trivial to the title/description of said PR.
 
 ## Cosmostation's Services and Community
 
