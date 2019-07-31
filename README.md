@@ -51,8 +51,7 @@ const cosmosjs = require("@cosmostation/cosmosjs");
 ```
 
 ## Usage
-- Cosmos
-Cosmos: Generate Cosmos address from mnemonic 
+- Cosmos: Generate Cosmos address from mnemonic 
 ```js
 const cosmosjs = require("@cosmostation/cosmosjs");
 
