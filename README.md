@@ -7,18 +7,16 @@
 
 *:star: Developed / Developing by [Cosmostation](https://www.cosmostation.io/)*
 
-A JavasSript Open Source Library for [Cosmos Network](https://cosmos.network/)
+A JavasSript Open Source Library for [Cosmos Network](https://cosmos.network/) and [IRISnet](https://www.irisnet.org/)
 
-This library supports cosmos address generation and verification. It enables you to create an offline signature functions of different types of transaction messages. It will eventually support all the other blockchains that are based on Tendermint in the future, such as IRISnet
+This library supports cosmos address generation and verification. It enables you to create an offline signature functions of different types of transaction messages. It will eventually support all the other blockchains that are based on Tendermint in the future, such as Kava and others.
 
 [![MIT](https://img.shields.io/apm/l/vim-mode.svg)](https://github.com/cosmostation/cosmosjs/blob/master/LICENSE)
 [![NPM](https://img.shields.io/npm/v/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs)
 
-<b>WARNING:</b> CosmosJS is under <b>ACTIVE DEVELOPMENT</b> and should be treated as alpha version. We will remove this warning when we have a release that is stable, secure, and ready to be used in production
-
 ## Installation
 
-In order to fully use this library, you need to run a local or remote  Cosmos full node and set up the rest server, which acts as an intermediary between the front-end and the full-node
+In order to fully use this library, you need to run a local or remote full node and set up its rest server, which acts as an intermediary between the front-end and the full-node
 
 ### NPM
 
