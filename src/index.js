@@ -37,7 +37,7 @@ function convertStringToBytes(str) {
 	    throw new Error("str expects a string")
 	}
 	var myBuffer = [];
-	var buffer = new Buffer(str, 'utf8');
+	var buffer = Buffer.from(str, 'utf8');
 	for (var i = 0; i < buffer.length; i++) {
 	    myBuffer.push(buffer[i]);
 	}
@@ -78,7 +78,13 @@ Cosmos.prototype.setPath = function(path) {
 }
 
 Cosmos.prototype.getAccounts = function(address) {
-	return fetch(this.url + "/auth/accounts/" + address)
+	let accountsApi = "";
+	if (this.chainId.indexOf("cosmoshub") != -1) {
+		accountsApi = "/auth/accounts/";
+	} else if (this.chainId.indexOf("irishub") != -1) {
+		accountsApi = "/bank/accounts/";
+	}
+	return fetch(this.url + accountsApi + address)
 	.then(response => response.json())
 }
 
@@ -375,6 +381,253 @@ Cosmos.prototype.NewStdMsg = function(input) {
 			],
 			sequence: String(input.sequence)
 		}
+	} else if (input.type == "irishub/bank/Send") {
+	    stdSignMsg.json = 
+		{
+		  	account_number: String(input.account_number),
+			chain_id: this.chainId,
+			fee: { 
+				amount: [ 
+					{ 
+						amount: String(input.fee), 
+						denom: input.feeDenom 
+					} 
+				], 
+				gas: String(input.gas) 
+			},
+			memo: input.memo,
+			msgs: [
+				{
+					type: input.type,
+					value: {
+						inputs: [
+							{
+								address: input.inputsAddress,
+								coins: [
+									{
+										denom: input.inputsCoinsDenom,
+										amount: String(input.inputsCoinsAmount)
+									}
+								]
+							}
+						],
+						outputs: [
+							{
+								address: input.outputsAddress,
+								coins: [
+									{
+										denom:input.outputsCoinsDenom,
+										amount: String(input.outputsCoinsAmount)
+									}
+								]
+							}
+						]
+					}
+				}
+			],
+			sequence: String(input.sequence)
+		}
+
+		stdSignMsg.jsonForSigningIrisTx = 
+		{
+		  	account_number: String(input.account_number),
+			chain_id: this.chainId,
+			fee: { 
+				amount: [ 
+					{ 
+						amount: String(input.fee), 
+						denom: input.feeDenom 
+					} 
+				], 
+				gas: String(input.gas) 
+			},
+			memo: input.memo,
+			msgs: [
+				{
+					inputs: [
+						{
+							address: input.inputsAddress,
+							coins: [
+								{
+									denom: input.inputsCoinsDenom,
+									amount: String(input.inputsCoinsAmount)
+								}
+							]
+						}
+					],
+					outputs: [
+						{
+							address: input.outputsAddress,
+							coins: [
+								{
+									denom:input.outputsCoinsDenom,
+									amount: String(input.outputsCoinsAmount)
+								}
+							]
+						}
+					]
+				}
+			],
+			sequence: String(input.sequence)
+		}
+	} else if (input.type == "irishub/stake/MsgDelegate") {
+		stdSignMsg.json = 
+		{
+		  	account_number: String(input.account_number),
+			chain_id: this.chainId,
+			fee: {
+				amount: [
+					{
+						amount: String(input.fee),
+						denom: input.feeDenom
+					}
+				],
+				gas: String(input.gas)
+			},
+			memo: input.memo,
+			msgs: [
+				{
+					type: input.type,
+					value: {
+						delegation: {
+							amount: String(input.amount),
+							denom: input.amountDenom
+						},
+						delegator_addr: input.delegator_addr,
+						validator_addr: input.validator_addr
+					}
+				}
+			],
+			sequence: String(input.sequence)
+		}
+	} else if (input.type == "irishub/stake/BeginUnbonding") {
+		stdSignMsg.json = 
+		{
+		  	account_number: String(input.account_number),
+			chain_id: this.chainId,
+			fee: { 
+				amount: [ 
+					{ 
+						amount: String(input.fee), 
+						denom: input.feeDenom 
+					} 
+				], 
+				gas: String(input.gas) 
+			},
+			memo: input.memo,
+			msgs: [
+				{ 
+					type: input.type, 
+					value: {
+						shares_amount: String(input.amount) + ".0000000000",
+						delegator_addr: input.delegator_addr,
+						validator_addr: input.validator_addr
+					}
+				}
+			],
+			sequence: String(input.sequence) 
+		}
+
+		stdSignMsg.jsonForSigningIrisTx = 
+		{
+		  	account_number: String(input.account_number),
+			chain_id: this.chainId,
+			fee: { 
+				amount: [ 
+					{ 
+						amount: String(input.fee), 
+						denom: input.feeDenom 
+					} 
+				], 
+				gas: String(input.gas) 
+			},
+			memo: input.memo,
+			msgs: [
+				{
+					shares_amount: String(input.amount) + ".0000000000",
+					delegator_addr: input.delegator_addr,
+					validator_addr: input.validator_addr
+				}
+			],
+			sequence: String(input.sequence) 
+		}
+	} else if (input.type == "irishub/distr/MsgWithdrawDelegationReward") {
+		stdSignMsg.json = 
+		{
+		  	account_number: String(input.account_number),
+			chain_id: this.chainId,
+			fee: { 
+				amount: [ 
+					{ 
+						amount: String(input.fee), 
+						denom: input.feeDenom 
+					} 
+				], 
+				gas: String(input.gas) 
+			},
+			memo: input.memo,
+			msgs: [
+				{ 
+					type: input.type, 
+					value: {
+						delegator_addr: input.delegator_addr,
+						validator_addr: input.validator_addr
+					}
+				}
+			],
+			sequence: String(input.sequence) 
+		}
+	} else if (input.type == "irishub/distr/MsgWithdrawDelegationRewardsAll") {
+		stdSignMsg.json = 
+		{
+		  	account_number: String(input.account_number),
+			chain_id: this.chainId,
+			fee: { 
+				amount: [ 
+					{ 
+						amount: String(input.fee), 
+						denom: input.feeDenom 
+					} 
+				], 
+				gas: String(input.gas) 
+			},
+			memo: input.memo,
+			msgs: [
+				{ 
+					type: input.type, 
+					value: {
+						delegator_addr: input.delegator_addr
+					}
+				}
+			],
+			sequence: String(input.sequence) 
+		}
+	} else if (input.type == "irishub/distr/MsgModifyWithdrawAddress") {
+		stdSignMsg.json = 
+		{
+		  	account_number: String(input.account_number),
+			chain_id: this.chainId,
+			fee: { 
+				amount: [ 
+					{ 
+						amount: String(input.fee), 
+						denom: input.feeDenom 
+					} 
+				], 
+				gas: String(input.gas) 
+			},
+			memo: input.memo,
+			msgs: [
+				{ 
+					type: input.type, 
+					value: {
+						delegator_addr: input.delegator_addr,
+						withdraw_addr: input.withdraw_addr
+					}
+				}
+			],
+			sequence: String(input.sequence) 
+		}
 	} else {
 		throw new Error("No such input.type: " + input.type)
 	}
@@ -386,32 +639,70 @@ Cosmos.prototype.NewStdMsg = function(input) {
 
 Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
 	// The supported return types includes "block"(return after tx commit), "sync"(return afer CheckTx) and "async"(return right away).
-	const hash = crypto.createHash('sha256').update(JSON.stringify(sortObject(stdSignMsg.json))).digest('hex');
+	let signMessage = new Object;
+	if (stdSignMsg.json.msgs[0].type == "irishub/bank/Send" || 
+		stdSignMsg.json.msgs[0].type == "irishub/stake/BeginUnbonding") {
+		signMessage = stdSignMsg.jsonForSigningIrisTx;
+	} else {
+		signMessage = stdSignMsg.json;
+	}
+	const hash = crypto.createHash('sha256').update(JSON.stringify(sortObject(signMessage))).digest('hex');
 	const buf = Buffer.from(hash, 'hex');
 	let signObj = secp256k1.sign(buf, ecpairPriv);
 	var signatureBase64 = Buffer.from(signObj.signature, 'binary').toString('base64');
-	const signedTx = {
-	    "tx": {
-	        "msg": stdSignMsg.json.msgs,
-	        "fee": stdSignMsg.json.fee,
-	        "signatures": [
-	            {
-	                "signature": signatureBase64,
-	                "pub_key": {
-	                    "type": "tendermint/PubKeySecp256k1",
-	                    "value": getPubKeyBase64(ecpairPriv)
-	                }
-	            }
-	        ],
-	        "memo": stdSignMsg.json.memo
-	    },
-	    "mode": modeType
+	let signedTx = new Object;
+	if (this.chainId.indexOf("cosmoshub") != -1) {
+		signedTx = {
+		    "tx": {
+		        "msg": stdSignMsg.json.msgs,
+		        "fee": stdSignMsg.json.fee,
+		        "signatures": [
+		            {
+		                "signature": signatureBase64,
+		                "pub_key": {
+		                    "type": "tendermint/PubKeySecp256k1",
+		                    "value": getPubKeyBase64(ecpairPriv)
+		                }
+		            }
+		        ],
+		        "memo": stdSignMsg.json.memo
+		    },
+		    "mode": modeType
+		}
+	} else if (this.chainId.indexOf("irishub") != -1) {
+		signedTx = {
+		    "tx": {
+		        "msg": stdSignMsg.json.msgs,
+		        "fee": stdSignMsg.json.fee,
+		        "signatures": [
+		            {
+		                "signature": signatureBase64,
+		                "account_number": stdSignMsg.json.account_number,
+                		"sequence": stdSignMsg.json.sequence,
+		                "pub_key": {
+		                    "type": "tendermint/PubKeySecp256k1",
+		                    "value": getPubKeyBase64(ecpairPriv)
+		                }
+		            }
+		        ],
+		        "memo": stdSignMsg.json.memo
+		    },
+		    "mode": modeType
+		}
 	}
+
 	return signedTx;
 }
 
 Cosmos.prototype.broadcast = function(signedTx) {
-	return fetch(this.url + "/txs", {
+	let broadcastApi = "";
+	if (this.chainId.indexOf("cosmoshub") != -1) {
+		broadcastApi = "/txs";
+	} else if (this.chainId.indexOf("irishub") != -1) {
+		broadcastApi = "/tx/broadcast";
+	}
+
+	return fetch(this.url + broadcastApi, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'

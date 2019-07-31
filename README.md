@@ -51,18 +51,26 @@ const cosmosjs = require("@cosmostation/cosmosjs");
 ```
 
 ## Usage
-
+- Cosmos
 Generate Cosmos address from mnemonic 
 ```js
 const cosmosjs = require("@cosmostation/cosmosjs");
 
-const chainId = "chain-id";
-const cosmos = cosmosjs.network(lcdUrl, chainId)
+const chainId = "cosmoshub-2";
+const cosmos = cosmosjs.network(lcdUrl, chainId);
 
 const mnemonic = "..."
 cosmos.setPath("m/44'/118'/0'/0/0");
 const address = cosmos.getAddress(mnemonic);
 const ecpairPriv = cosmos.getECPairPriv(mnemonic);
+```
+- Iris
+```js
+const cosmosjs = require("@cosmostation/cosmosjs");
+
+const chainId = "irishub";
+const iris = cosmosjs.network(lcdUrl, chainId);
+iris.setBech32MainPrefix("iaa");
 ```
 
 Generate ECPairPriv value that is needed for signing signatures
@@ -104,7 +112,7 @@ Cosmostation offers LCD url(https://lcd-do-not-abuse.cosmostation.io).
 
 ## Supporting Message Types (Updating...)
 
-- MsgSend
+- cosmos-sdk/MsgSend
 ```js
 let stdSignMsg = cosmos.NewStdMsg({
 	type: "cosmos-sdk/MsgSend",
@@ -120,7 +128,7 @@ let stdSignMsg = cosmos.NewStdMsg({
 	sequence: data.value.sequence
 });
 ```
-- MsgDelegate
+- cosmos-sdk/MsgDelegate
 ```js
 stdSignMsg = cosmos.NewStdMsg({
 	type: "cosmos-sdk/MsgDelegate",
@@ -136,7 +144,7 @@ stdSignMsg = cosmos.NewStdMsg({
 	sequence: data.value.sequence
 });
 ```
-- MsgUndelegate
+- cosmos-sdk/MsgUndelegate
 ```js
 stdSignMsg = cosmos.NewStdMsg({
 	type: "cosmos-sdk/MsgUndelegate",
@@ -152,7 +160,7 @@ stdSignMsg = cosmos.NewStdMsg({
 	sequence: data.value.sequence
 });
 ```
-- MsgWithdrawDelegationReward
+- cosmos-sdk/MsgWithdrawDelegationReward
 ```js
 stdSignMsg = cosmos.NewStdMsg({
 	type: "cosmos-sdk/MsgWithdrawDelegationReward",
@@ -166,7 +174,7 @@ stdSignMsg = cosmos.NewStdMsg({
 	sequence: data.value.sequence
 });
 ```
-- MsgSubmitProposal
+- cosmos-sdk/MsgSubmitProposal
 ```js
 stdSignMsg = cosmos.NewStdMsg({
 	type: "cosmos-sdk/MsgSubmitProposal",
@@ -184,7 +192,7 @@ stdSignMsg = cosmos.NewStdMsg({
 	sequence: data.value.sequence
 });
 ```
-- MsgDeposit
+- cosmos-sdk/MsgDeposit
 ```js
 stdSignMsg = cosmos.NewStdMsg({
 	type: "cosmos-sdk/MsgDeposit",
@@ -200,7 +208,7 @@ stdSignMsg = cosmos.NewStdMsg({
 	sequence: data.value.sequence
 });
 ```
-- MsgVote
+- cosmos-sdk/MsgVote
 ```js
 stdSignMsg = cosmos.NewStdMsg({
 	type: "cosmos-sdk/MsgVote",
@@ -215,7 +223,7 @@ stdSignMsg = cosmos.NewStdMsg({
 	sequence: data.value.sequence
 });
 ```
-- MsgBeginRedelegate
+- cosmos-sdk/MsgBeginRedelegate
 ```js
 stdSignMsg = cosmos.NewStdMsg({
 	type: "cosmos-sdk/MsgBeginRedelegate",
@@ -232,7 +240,7 @@ stdSignMsg = cosmos.NewStdMsg({
 	sequence: data.value.sequence
 });
 ```
-- MsgModifyWithdrawAddress
+- cosmos-sdk/MsgModifyWithdrawAddress
 ```js
 stdSignMsg = cosmos.NewStdMsg({
 	type: "cosmos-sdk/MsgModifyWithdrawAddress",
@@ -241,6 +249,97 @@ stdSignMsg = cosmos.NewStdMsg({
 	feeDenom: "uatom",
 	fee: 5000,
 	gas: 200000,
+	memo: "",
+	account_number: data.value.account_number,
+	sequence: data.value.sequence
+});
+```
+- irishub/bank/Send
+```js
+stdSignMsg = iris.NewStdMsg({
+	type: "irishub/bank/Send",
+	inputsAddress:address,
+	inputsCoinsDenom:"iris-atto",
+	inputsCoinsAmount: 1000000000000000000,		// 18 decimal places
+	outputsAddress:"iaa12g4vfyq65yf5cds4v5pr3jmdd4v6s40fkaaxtf",
+	outputsCoinsDenom:"iris-atto",
+	outputsCoinsAmount: 1000000000000000000,
+	feeDenom: "iris-atto",
+	fee: 400000000000000000,
+	gas: 50000,
+	memo: "",
+	account_number: data.value.account_number,
+	sequence: data.value.sequence
+});
+```
+- irishub/stake/MsgDelegate
+```js
+stdSignMsg = iris.NewStdMsg({
+	type: "irishub/stake/MsgDelegate",
+	delegator_addr: address,
+	validator_addr: "iva18pva3yzzzaxj7l5a9uk66a0q7lflscyw966jud",
+	amountDenom: "iris-atto",
+	amount: 1000000000000000000,
+	feeDenom: "iris-atto",
+	fee: 400000000000000000,
+	gas: 50000,
+	memo: "",
+	account_number: data.value.account_number,
+	sequence: data.value.sequence
+});
+```
+- irishub/stake/BeginUnbonding
+```js
+stdSignMsg = iris.NewStdMsg({
+	type: "irishub/stake/BeginUnbonding",
+	delegator_addr: address,
+	validator_addr: "iva18pva3yzzzaxj7l5a9uk66a0q7lflscyw966jud",
+	amountDenom: "iris-atto",
+	amount: 1000000000000000000,
+	feeDenom: "iris-atto",
+	fee: 400000000000000000,
+	gas: 50000,
+	memo: "",
+	account_number: data.value.account_number,
+	sequence: data.value.sequence
+});
+```
+- irishub/distr/MsgWithdrawDelegationReward
+```js
+stdSignMsg = iris.NewStdMsg({
+	type: "irishub/distr/MsgWithdrawDelegationReward",
+	delegator_addr: address,
+	validator_addr: "iva18pva3yzzzaxj7l5a9uk66a0q7lflscyw966jud",
+	feeDenom: "iris-atto",
+	fee: 600000000000000000,
+	gas: 100000,
+	memo: "",
+	account_number: data.value.account_number,
+	sequence: data.value.sequence
+});
+```
+- irishub/distr/MsgWithdrawDelegationRewardsAll
+```js
+stdSignMsg = iris.NewStdMsg({
+	type: "irishub/distr/MsgWithdrawDelegationRewardsAll",
+	delegator_addr: address,
+	feeDenom: "iris-atto",
+	fee: 600000000000000000,
+	gas: 100000,
+	memo: "",
+	account_number: data.value.account_number,
+	sequence: data.value.sequence
+});
+```
+- irishub/distr/MsgModifyWithdrawAddress
+```js
+stdSignMsg = iris.NewStdMsg({
+	type: "irishub/distr/MsgModifyWithdrawAddress",
+	delegator_addr: address,
+	withdraw_addr: "iaa12g4vfyq65yf5cds4v5pr3jmdd4v6s40fkaaxtf",
+	feeDenom: "iris-atto",
+	fee: 400000000000000000,
+	gas: 50000,
 	memo: "",
 	account_number: data.value.account_number,
 	sequence: data.value.sequence

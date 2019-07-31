@@ -1,6 +1,6 @@
 {
   "name": "@cosmostation/cosmosjs",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "A javascript open source library for Cosmos Network.",
   "main": "./src/index.js",
   "engines": {
@@ -12,7 +12,8 @@
     "tendermint",
     "javascript",
     "atom",
-    "cosmostation"
+    "cosmostation",
+    "iris"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
