@@ -342,6 +342,22 @@ stdSignMsg = iris.NewStdMsg({
 	sequence: data.value.sequence
 });
 ```
+- irishub/stake/BeginRedelegate
+```js
+stdSignMsg = iris.NewStdMsg({
+	type: "irishub/stake/BeginRedelegate",
+	delegator_addr: address,
+	validator_src_addr: "iva18pva3yzzzaxj7l5a9uk66a0q7lflscyw966jud",
+	validator_dst_addr: "iva1msqqkd3v0gmullzwm56c4frevyczzxfeczvjru",
+	shares_amount: 1000000000000000000,
+	feeDenom: "iris-atto",
+	fee: 600000000000000000,
+	gas: 65000,
+	memo: "",
+	account_number: data.value.account_number,
+	sequence: data.value.sequence
+});
+```
 
 ## Documentation
 
