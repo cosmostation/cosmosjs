@@ -628,6 +628,59 @@ Cosmos.prototype.NewStdMsg = function(input) {
 			],
 			sequence: String(input.sequence) 
 		}
+	} else if (input.type == "irishub/stake/BeginRedelegate") {
+		stdSignMsg.json = 
+		{
+		  	account_number: String(input.account_number),
+			chain_id: this.chainId,
+			fee: { 
+				amount: [ 
+					{ 
+						amount: String(input.fee), 
+						denom: input.feeDenom 
+					} 
+				], 
+				gas: String(input.gas) 
+			},
+			memo: input.memo,
+			msgs: [
+				{ 
+					type: input.type, 
+					value: {
+						delegator_addr: input.delegator_addr,
+						validator_src_addr: input.validator_src_addr,
+						validator_dst_addr: input.validator_dst_addr,
+						shares_amount: String(input.shares_amount) + ".0000000000"		// IRIS Exception) For broadcasting, shares_amount is correct.
+					}
+				}
+			],
+			sequence: String(input.sequence) 
+		}
+
+		stdSignMsg.jsonForSigningIrisTx = 
+		{
+		  	account_number: String(input.account_number),
+			chain_id: this.chainId,
+			fee: { 
+				amount: [ 
+					{ 
+						amount: String(input.fee), 
+						denom: input.feeDenom 
+					} 
+				], 
+				gas: String(input.gas) 
+			},
+			memo: input.memo,
+			msgs: [
+				{
+					delegator_addr: input.delegator_addr,
+					validator_src_addr: input.validator_src_addr,
+					validator_dst_addr: input.validator_dst_addr,
+					shares: String(input.shares_amount) + ".0000000000"		// IRIS Exception) For signing, shares is correct.
+				}
+			],
+			sequence: String(input.sequence) 
+		}
 	} else {
 		throw new Error("No such input.type: " + input.type)
 	}
@@ -641,7 +694,8 @@ Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
 	// The supported return types includes "block"(return after tx commit), "sync"(return afer CheckTx) and "async"(return right away).
 	let signMessage = new Object;
 	if (stdSignMsg.json.msgs[0].type == "irishub/bank/Send" || 
-		stdSignMsg.json.msgs[0].type == "irishub/stake/BeginUnbonding") {
+		stdSignMsg.json.msgs[0].type == "irishub/stake/BeginUnbonding" ||
+		stdSignMsg.json.msgs[0].type == "irishub/stake/BeginRedelegate") {
 		signMessage = stdSignMsg.jsonForSigningIrisTx;
 	} else {
 		signMessage = stdSignMsg.json;
