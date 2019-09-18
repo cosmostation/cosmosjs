@@ -79,7 +79,7 @@ Cosmos.prototype.setPath = function(path) {
 
 Cosmos.prototype.getAccounts = function(address) {
 	let accountsApi = "";
-	if (this.chainId.indexOf("cosmoshub") != -1) {
+	if (this.chainId.indexOf("cosmoshub") != -1 || this.chainId.indexOf("kava") != -1) {
 		accountsApi = "/auth/accounts/";
 	} else if (this.chainId.indexOf("irishub") != -1) {
 		accountsApi = "/bank/accounts/";
@@ -146,7 +146,7 @@ Cosmos.prototype.NewStdMsg = function(input) {
 			sequence: String(input.sequence)
 		}
 	} else if (input.type == "cosmos-sdk/MsgDelegate") {
-		stdSignMsg.json = 
+		stdSignMsg.json =
 		{
 		  	account_number: String(input.account_number),
 			chain_id: this.chainId,
@@ -176,23 +176,23 @@ Cosmos.prototype.NewStdMsg = function(input) {
 			sequence: String(input.sequence)
 		}
 	} else if (input.type == "cosmos-sdk/MsgUndelegate") {
-		stdSignMsg.json = 
+		stdSignMsg.json =
 		{
 		  	account_number: String(input.account_number),
 			chain_id: this.chainId,
-			fee: { 
-				amount: [ 
-					{ 
-						amount: String(input.fee), 
-						denom: input.feeDenom 
-					} 
-				], 
-				gas: String(input.gas) 
+			fee: {
+				amount: [
+					{
+						amount: String(input.fee),
+						denom: input.feeDenom
+					}
+				],
+				gas: String(input.gas)
 			},
 			memo: input.memo,
 			msgs: [
-				{ 
-					type: input.type, 
+				{
+					type: input.type,
 					value: {
 						amount: {
 							amount: String(input.amount),
@@ -203,51 +203,51 @@ Cosmos.prototype.NewStdMsg = function(input) {
 					}
 				}
 			],
-			sequence: String(input.sequence) 
+			sequence: String(input.sequence)
 		}
 	} else if (input.type == "cosmos-sdk/MsgWithdrawDelegationReward") {
-		stdSignMsg.json = 
+		stdSignMsg.json =
 		{
 		  	account_number: String(input.account_number),
 			chain_id: this.chainId,
-			fee: { 
-				amount: [ 
-					{ 
-						amount: String(input.fee), 
-						denom: input.feeDenom 
-					} 
-				], 
-				gas: String(input.gas) 
+			fee: {
+				amount: [
+					{
+						amount: String(input.fee),
+						denom: input.feeDenom
+					}
+				],
+				gas: String(input.gas)
 			},
 			memo: input.memo,
 			msgs: [
-				{ 
-					type: input.type, 
+				{
+					type: input.type,
 					value: {
 						delegator_address: input.delegator_address,
 						validator_address: input.validator_address
 					}
 				}
 			],
-			sequence: String(input.sequence) 
+			sequence: String(input.sequence)
 		}
 	} else if (input.type == "cosmos-sdk/MsgSubmitProposal") {
-		stdSignMsg.json = 
+		stdSignMsg.json =
 		{
 		  	account_number: String(input.account_number),
 			chain_id: this.chainId,
-			fee: { 
-				amount: [ 
-					{ 
-						amount: String(input.fee), 
-						denom: input.feeDenom 
-					} 
-				], 
-				gas: String(input.gas) 
+			fee: {
+				amount: [
+					{
+						amount: String(input.fee),
+						denom: input.feeDenom
+					}
+				],
+				gas: String(input.gas)
 			},
 			memo: input.memo,
 			msgs: [
-				{ 
+				{
 					type: input.type,
 					value: {
 						description: input.description,
@@ -263,25 +263,25 @@ Cosmos.prototype.NewStdMsg = function(input) {
 					}
 				}
 			],
-			sequence: String(input.sequence) 
+			sequence: String(input.sequence)
 		}
 	} else if (input.type == "cosmos-sdk/MsgDeposit") {
-		stdSignMsg.json = 
+		stdSignMsg.json =
 		{
 		  	account_number: String(input.account_number),
 			chain_id: this.chainId,
-			fee: { 
-				amount: [ 
-					{ 
-						amount: String(input.fee), 
-						denom: input.feeDenom 
-					} 
-				], 
-				gas: String(input.gas) 
+			fee: {
+				amount: [
+					{
+						amount: String(input.fee),
+						denom: input.feeDenom
+					}
+				],
+				gas: String(input.gas)
 			},
 			memo: input.memo,
 			msgs: [
-				{ 
+				{
 					type: input.type,
 					value: {
 						amount: [
@@ -295,25 +295,25 @@ Cosmos.prototype.NewStdMsg = function(input) {
 					}
 				}
 			],
-			sequence: String(input.sequence) 
+			sequence: String(input.sequence)
 		}
 	} else if (input.type == "cosmos-sdk/MsgVote") {
-		stdSignMsg.json = 
+		stdSignMsg.json =
 		{
 		  	account_number: String(input.account_number),
 			chain_id: this.chainId,
-			fee: { 
-				amount: [ 
-					{ 
-						amount: String(input.fee), 
-						denom: input.feeDenom 
-					} 
-				], 
-				gas: String(input.gas) 
+			fee: {
+				amount: [
+					{
+						amount: String(input.fee),
+						denom: input.feeDenom
+					}
+				],
+				gas: String(input.gas)
 			},
 			memo: input.memo,
 			msgs: [
-				{ 
+				{
 					type: input.type,
 					value: {
 						option: input.option,
@@ -322,25 +322,25 @@ Cosmos.prototype.NewStdMsg = function(input) {
 					}
 				}
 			],
-			sequence: String(input.sequence) 
+			sequence: String(input.sequence)
 		}
 	} else if (input.type == "cosmos-sdk/MsgBeginRedelegate") {
-		stdSignMsg.json = 
+		stdSignMsg.json =
 		{
 		  	account_number: String(input.account_number),
 			chain_id: this.chainId,
-			fee: { 
-				amount: [ 
-					{ 
-						amount: String(input.fee), 
-						denom: input.feeDenom 
-					} 
-				], 
-				gas: String(input.gas) 
+			fee: {
+				amount: [
+					{
+						amount: String(input.fee),
+						denom: input.feeDenom
+					}
+				],
+				gas: String(input.gas)
 			},
 			memo: input.memo,
 			msgs: [
-				{ 
+				{
 					type: input.type,
 					value: {
 						amount: {
@@ -356,22 +356,22 @@ Cosmos.prototype.NewStdMsg = function(input) {
 			sequence: String(input.sequence)
 		}
 	} else if (input.type == "cosmos-sdk/MsgModifyWithdrawAddress") {
-	    stdSignMsg.json = 
+	    stdSignMsg.json =
 		{
 		  	account_number: String(input.account_number),
 			chain_id: this.chainId,
-			fee: { 
-				amount: [ 
-					{ 
-						amount: String(input.fee), 
-						denom: input.feeDenom 
-					} 
-				], 
-				gas: String(input.gas) 
+			fee: {
+				amount: [
+					{
+						amount: String(input.fee),
+						denom: input.feeDenom
+					}
+				],
+				gas: String(input.gas)
 			},
 			memo: input.memo,
 			msgs: [
-				{ 
+				{
 					type: input.type,
 					value: {
 						delegator_address: input.delegator_address,
@@ -382,18 +382,18 @@ Cosmos.prototype.NewStdMsg = function(input) {
 			sequence: String(input.sequence)
 		}
 	} else if (input.type == "irishub/bank/Send") {
-	    stdSignMsg.json = 
+	    stdSignMsg.json =
 		{
 		  	account_number: String(input.account_number),
 			chain_id: this.chainId,
-			fee: { 
-				amount: [ 
-					{ 
-						amount: String(input.fee), 
-						denom: input.feeDenom 
-					} 
-				], 
-				gas: String(input.gas) 
+			fee: {
+				amount: [
+					{
+						amount: String(input.fee),
+						denom: input.feeDenom
+					}
+				],
+				gas: String(input.gas)
 			},
 			memo: input.memo,
 			msgs: [
@@ -428,18 +428,18 @@ Cosmos.prototype.NewStdMsg = function(input) {
 			sequence: String(input.sequence)
 		}
 
-		stdSignMsg.jsonForSigningIrisTx = 
+		stdSignMsg.jsonForSigningIrisTx =
 		{
 		  	account_number: String(input.account_number),
 			chain_id: this.chainId,
-			fee: { 
-				amount: [ 
-					{ 
-						amount: String(input.fee), 
-						denom: input.feeDenom 
-					} 
-				], 
-				gas: String(input.gas) 
+			fee: {
+				amount: [
+					{
+						amount: String(input.fee),
+						denom: input.feeDenom
+					}
+				],
+				gas: String(input.gas)
 			},
 			memo: input.memo,
 			msgs: [
@@ -471,7 +471,7 @@ Cosmos.prototype.NewStdMsg = function(input) {
 			sequence: String(input.sequence)
 		}
 	} else if (input.type == "irishub/stake/MsgDelegate") {
-		stdSignMsg.json = 
+		stdSignMsg.json =
 		{
 		  	account_number: String(input.account_number),
 			chain_id: this.chainId,
@@ -501,23 +501,23 @@ Cosmos.prototype.NewStdMsg = function(input) {
 			sequence: String(input.sequence)
 		}
 	} else if (input.type == "irishub/stake/BeginUnbonding") {
-		stdSignMsg.json = 
+		stdSignMsg.json =
 		{
 		  	account_number: String(input.account_number),
 			chain_id: this.chainId,
-			fee: { 
-				amount: [ 
-					{ 
-						amount: String(input.fee), 
-						denom: input.feeDenom 
-					} 
-				], 
-				gas: String(input.gas) 
+			fee: {
+				amount: [
+					{
+						amount: String(input.fee),
+						denom: input.feeDenom
+					}
+				],
+				gas: String(input.gas)
 			},
 			memo: input.memo,
 			msgs: [
-				{ 
-					type: input.type, 
+				{
+					type: input.type,
 					value: {
 						shares_amount: String(input.amount) + ".0000000000",
 						delegator_addr: input.delegator_addr,
@@ -525,21 +525,21 @@ Cosmos.prototype.NewStdMsg = function(input) {
 					}
 				}
 			],
-			sequence: String(input.sequence) 
+			sequence: String(input.sequence)
 		}
 
-		stdSignMsg.jsonForSigningIrisTx = 
+		stdSignMsg.jsonForSigningIrisTx =
 		{
 		  	account_number: String(input.account_number),
 			chain_id: this.chainId,
-			fee: { 
-				amount: [ 
-					{ 
-						amount: String(input.fee), 
-						denom: input.feeDenom 
-					} 
-				], 
-				gas: String(input.gas) 
+			fee: {
+				amount: [
+					{
+						amount: String(input.fee),
+						denom: input.feeDenom
+					}
+				],
+				gas: String(input.gas)
 			},
 			memo: input.memo,
 			msgs: [
@@ -549,103 +549,103 @@ Cosmos.prototype.NewStdMsg = function(input) {
 					validator_addr: input.validator_addr
 				}
 			],
-			sequence: String(input.sequence) 
+			sequence: String(input.sequence)
 		}
 	} else if (input.type == "irishub/distr/MsgWithdrawDelegationReward") {
-		stdSignMsg.json = 
+		stdSignMsg.json =
 		{
 		  	account_number: String(input.account_number),
 			chain_id: this.chainId,
-			fee: { 
-				amount: [ 
-					{ 
-						amount: String(input.fee), 
-						denom: input.feeDenom 
-					} 
-				], 
-				gas: String(input.gas) 
+			fee: {
+				amount: [
+					{
+						amount: String(input.fee),
+						denom: input.feeDenom
+					}
+				],
+				gas: String(input.gas)
 			},
 			memo: input.memo,
 			msgs: [
-				{ 
-					type: input.type, 
+				{
+					type: input.type,
 					value: {
 						delegator_addr: input.delegator_addr,
 						validator_addr: input.validator_addr
 					}
 				}
 			],
-			sequence: String(input.sequence) 
+			sequence: String(input.sequence)
 		}
 	} else if (input.type == "irishub/distr/MsgWithdrawDelegationRewardsAll") {
-		stdSignMsg.json = 
+		stdSignMsg.json =
 		{
 		  	account_number: String(input.account_number),
 			chain_id: this.chainId,
-			fee: { 
-				amount: [ 
-					{ 
-						amount: String(input.fee), 
-						denom: input.feeDenom 
-					} 
-				], 
-				gas: String(input.gas) 
+			fee: {
+				amount: [
+					{
+						amount: String(input.fee),
+						denom: input.feeDenom
+					}
+				],
+				gas: String(input.gas)
 			},
 			memo: input.memo,
 			msgs: [
-				{ 
-					type: input.type, 
+				{
+					type: input.type,
 					value: {
 						delegator_addr: input.delegator_addr
 					}
 				}
 			],
-			sequence: String(input.sequence) 
+			sequence: String(input.sequence)
 		}
 	} else if (input.type == "irishub/distr/MsgModifyWithdrawAddress") {
-		stdSignMsg.json = 
+		stdSignMsg.json =
 		{
 		  	account_number: String(input.account_number),
 			chain_id: this.chainId,
-			fee: { 
-				amount: [ 
-					{ 
-						amount: String(input.fee), 
-						denom: input.feeDenom 
-					} 
-				], 
-				gas: String(input.gas) 
+			fee: {
+				amount: [
+					{
+						amount: String(input.fee),
+						denom: input.feeDenom
+					}
+				],
+				gas: String(input.gas)
 			},
 			memo: input.memo,
 			msgs: [
-				{ 
-					type: input.type, 
+				{
+					type: input.type,
 					value: {
 						delegator_addr: input.delegator_addr,
 						withdraw_addr: input.withdraw_addr
 					}
 				}
 			],
-			sequence: String(input.sequence) 
+			sequence: String(input.sequence)
 		}
 	} else if (input.type == "irishub/stake/BeginRedelegate") {
-		stdSignMsg.json = 
+		stdSignMsg.json =
 		{
 		  	account_number: String(input.account_number),
 			chain_id: this.chainId,
-			fee: { 
-				amount: [ 
-					{ 
-						amount: String(input.fee), 
-						denom: input.feeDenom 
-					} 
-				], 
-				gas: String(input.gas) 
+			fee: {
+				amount: [
+					{
+						amount: String(input.fee),
+						denom: input.feeDenom
+					}
+				],
+				gas: String(input.gas)
 			},
 			memo: input.memo,
 			msgs: [
-				{ 
-					type: input.type, 
+				{
+					type: input.type,
 					value: {
 						delegator_addr: input.delegator_addr,
 						validator_src_addr: input.validator_src_addr,
@@ -654,21 +654,21 @@ Cosmos.prototype.NewStdMsg = function(input) {
 					}
 				}
 			],
-			sequence: String(input.sequence) 
+			sequence: String(input.sequence)
 		}
 
-		stdSignMsg.jsonForSigningIrisTx = 
+		stdSignMsg.jsonForSigningIrisTx =
 		{
 		  	account_number: String(input.account_number),
 			chain_id: this.chainId,
-			fee: { 
-				amount: [ 
-					{ 
-						amount: String(input.fee), 
-						denom: input.feeDenom 
-					} 
-				], 
-				gas: String(input.gas) 
+			fee: {
+				amount: [
+					{
+						amount: String(input.fee),
+						denom: input.feeDenom
+					}
+				],
+				gas: String(input.gas)
 			},
 			memo: input.memo,
 			msgs: [
@@ -679,7 +679,7 @@ Cosmos.prototype.NewStdMsg = function(input) {
 					shares: String(input.shares_amount) + ".0000000000"		// IRIS Exception) For signing, shares is correct.
 				}
 			],
-			sequence: String(input.sequence) 
+			sequence: String(input.sequence)
 		}
 	} else {
 		throw new Error("No such input.type: " + input.type)
@@ -693,7 +693,7 @@ Cosmos.prototype.NewStdMsg = function(input) {
 Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
 	// The supported return types includes "block"(return after tx commit), "sync"(return afer CheckTx) and "async"(return right away).
 	let signMessage = new Object;
-	if (stdSignMsg.json.msgs[0].type == "irishub/bank/Send" || 
+	if (stdSignMsg.json.msgs[0].type == "irishub/bank/Send" ||
 		stdSignMsg.json.msgs[0].type == "irishub/stake/BeginUnbonding" ||
 		stdSignMsg.json.msgs[0].type == "irishub/stake/BeginRedelegate") {
 		signMessage = stdSignMsg.jsonForSigningIrisTx;
@@ -705,7 +705,7 @@ Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
 	let signObj = secp256k1.sign(buf, ecpairPriv);
 	var signatureBase64 = Buffer.from(signObj.signature, 'binary').toString('base64');
 	let signedTx = new Object;
-	if (this.chainId.indexOf("cosmoshub") != -1) {
+	if (this.chainId.indexOf("cosmoshub") != -1 || this.chainId.indexOf("kava") != -1) {
 		signedTx = {
 		    "tx": {
 		        "msg": stdSignMsg.json.msgs,
@@ -750,7 +750,7 @@ Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
 
 Cosmos.prototype.broadcast = function(signedTx) {
 	let broadcastApi = "";
-	if (this.chainId.indexOf("cosmoshub") != -1) {
+	if (this.chainId.indexOf("cosmoshub") != -1 || this.chainId.indexOf("kava") != -1) {
 		broadcastApi = "/txs";
 	} else if (this.chainId.indexOf("irishub") != -1) {
 		broadcastApi = "/tx/broadcast";
