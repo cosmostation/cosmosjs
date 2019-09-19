@@ -7,9 +7,9 @@
 
 *:star: Developed / Developing by [Cosmostation](https://www.cosmostation.io/)*
 
-A JavasSript Open Source Library for [Cosmos Network](https://cosmos.network/) and [IRISnet](https://www.irisnet.org/)
+A JavasSript Open Source Library for [Cosmos Network](https://cosmos.network/), [IRISnet](https://www.irisnet.org/) and [Kava](https://www.kava.io/)
 
-This library supports cosmos address generation and verification. It enables you to create an offline signature functions of different types of transaction messages. It will eventually support all the other blockchains that are based on Tendermint in the future, such as Kava and others.
+This library supports cosmos address generation and verification. It enables you to create an offline signature functions of different types of transaction messages. It will eventually support all the other blockchains that are based on Tendermint in the future, such as IOV and others.
 
 [![MIT](https://img.shields.io/apm/l/vim-mode.svg)](https://github.com/cosmostation/cosmosjs/blob/master/LICENSE)
 [![NPM](https://img.shields.io/npm/v/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs)
@@ -68,6 +68,14 @@ const cosmosjs = require("@cosmostation/cosmosjs");
 const chainId = "irishub";
 const iris = cosmosjs.network(lcdUrl, chainId);
 iris.setBech32MainPrefix("iaa");
+```
+- Kava
+```js
+const cosmosjs = require("@cosmostation/cosmosjs");
+
+const chainId = "kava-testnet-2000";
+const kava = cosmosjs.network(lcdUrl, chainId);
+kava.setBech32MainPrefix("kava");
 ```
 
 Generate ECPairPriv value that is needed for signing signatures
@@ -358,6 +366,7 @@ stdSignMsg = iris.NewStdMsg({
 	sequence: data.value.sequence
 });
 ```
+- Kava has the same message type as Cosmos.
 
 ## Documentation
 
