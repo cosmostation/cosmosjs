@@ -366,7 +366,7 @@ stdSignMsg = iris.NewStdMsg({
 	sequence: data.value.sequence
 });
 ```
-- Kava has the same message type as Cosmos.
+- Kava has the same message types as Cosmos.
 
 ## Documentation
 
