@@ -2,7 +2,7 @@ const cosmosjs = require("../src");
 
 // [WARNING] This mnemonic is just for the demo purpose. DO NOT USE THIS MNEMONIC for your own wallet.
 const mnemonic = "swear buyer security impulse public stereo peasant correct cross tornado bid discover anchor float venture deal patch property cool wreck eight dwarf december surface";
-const chainId = "kava-testnet-2000";
+const chainId = "kava-testnet-3000";
 const kava = cosmosjs.network("https://lcd-kava.cosmostation.io", chainId);
 kava.setBech32MainPrefix("kava");
 kava.setPath("m/44'/118'/0'/0/0");
