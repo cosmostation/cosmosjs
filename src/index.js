@@ -79,7 +79,9 @@ Cosmos.prototype.setPath = function(path) {
 
 Cosmos.prototype.getAccounts = function(address) {
 	let accountsApi = "";
-	if (this.chainId.indexOf("cosmoshub") != -1 || this.chainId.indexOf("kava") != -1) {
+	if (this.chainId.indexOf("cosmoshub") != -1 || 
+		this.chainId.indexOf("kava") != -1 ||
+		this.chainId.indexOf("gaia") != -1) {
 		accountsApi = "/auth/accounts/";
 	} else if (this.chainId.indexOf("irishub") != -1) {
 		accountsApi = "/bank/accounts/";
@@ -705,7 +707,9 @@ Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
 	let signObj = secp256k1.sign(buf, ecpairPriv);
 	var signatureBase64 = Buffer.from(signObj.signature, 'binary').toString('base64');
 	let signedTx = new Object;
-	if (this.chainId.indexOf("cosmoshub") != -1 || this.chainId.indexOf("kava") != -1) {
+	if (this.chainId.indexOf("cosmoshub") != -1 || 
+		this.chainId.indexOf("kava") != -1 ||
+		this.chainId.indexOf("gaia") != -1) {
 		signedTx = {
 		    "tx": {
 		        "msg": stdSignMsg.json.msgs,
@@ -750,7 +754,9 @@ Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
 
 Cosmos.prototype.broadcast = function(signedTx) {
 	let broadcastApi = "";
-	if (this.chainId.indexOf("cosmoshub") != -1 || this.chainId.indexOf("kava") != -1) {
+	if (this.chainId.indexOf("cosmoshub") != -1 || 
+		this.chainId.indexOf("kava") != -1 ||
+		this.chainId.indexOf("gaia") != -1) {
 		broadcastApi = "/txs";
 	} else if (this.chainId.indexOf("irishub") != -1) {
 		broadcastApi = "/tx/broadcast";
