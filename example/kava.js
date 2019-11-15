@@ -2,7 +2,7 @@ const cosmosjs = require("../src");
 
 // [WARNING] This mnemonic is just for the demo purpose. DO NOT USE THIS MNEMONIC for your own wallet.
 const mnemonic = "swear buyer security impulse public stereo peasant correct cross tornado bid discover anchor float venture deal patch property cool wreck eight dwarf december surface";
-const chainId = "kava-testnet-3000";
+const chainId = "kava-2";
 const kava = cosmosjs.network("https://lcd-kava.cosmostation.io", chainId);
 kava.setBech32MainPrefix("kava");
 kava.setPath("m/44'/118'/0'/0/0");
@@ -21,8 +21,8 @@ kava.getAccounts(address).then(data => {
 		fee: 5000,
 		gas: 200000,
 		memo: "",
-		account_number: data.value.account_number,
-		sequence: data.value.sequence
+		account_number: data.result.value.account_number,
+		sequence: data.result.value.sequence
 	});
 
 	const signedTx = kava.sign(stdSignMsg, ecpairPriv);
