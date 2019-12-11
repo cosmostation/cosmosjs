@@ -2,7 +2,7 @@ const cosmosjs = require("../src");
 
 // [WARNING] This mnemonic is just for the demo purpose. DO NOT USE THIS MNEMONIC for your own wallet.
 const mnemonic = "swear buyer security impulse public stereo peasant correct cross tornado bid discover anchor float venture deal patch property cool wreck eight dwarf december surface";
-const chainId = "cosmoshub-2";
+const chainId = "cosmoshub-3";
 const cosmos = cosmosjs.network("https://lcd-do-not-abuse.cosmostation.io", chainId);
 cosmos.setBech32MainPrefix("cosmos");
 cosmos.setPath("m/44'/118'/0'/0/0");
@@ -21,8 +21,8 @@ cosmos.getAccounts(address).then(data => {
 		fee: 5000,
 		gas: 200000,
 		memo: "",
-		account_number: data.value.account_number,
-		sequence: data.value.sequence
+		account_number: data.result.value.account_number,
+		sequence: data.result.value.sequence
 	});
 
 	const signedTx = cosmos.sign(stdSignMsg, ecpairPriv);
