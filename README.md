@@ -53,7 +53,7 @@ const cosmosjs = require("@cosmostation/cosmosjs");
 ```js
 const cosmosjs = require("@cosmostation/cosmosjs");
 
-const chainId = "cosmoshub-2";
+const chainId = "cosmoshub-3";
 const cosmos = cosmosjs.network(lcdUrl, chainId);
 
 const mnemonic = "..."
@@ -98,8 +98,8 @@ cosmos.getAccounts(address).then(data => {
 		fee: 5000,
 		gas: 200000,
 		memo: "",
-		account_number: data.value.account_number,
-		sequence: data.value.sequence
+		account_number: data.result.value.account_number,
+		sequence: data.result.value.sequence
 	});
 
 	...
@@ -129,8 +129,8 @@ let stdSignMsg = cosmos.NewStdMsg({
 	fee: 5000,
 	gas: 200000,
 	memo: "",
-	account_number: data.value.account_number,
-	sequence: data.value.sequence
+	account_number: data.result.value.account_number,
+	sequence: data.result.value.sequence
 });
 ```
 - cosmos-sdk/MsgDelegate
@@ -145,8 +145,8 @@ stdSignMsg = cosmos.NewStdMsg({
 	fee: 5000,
 	gas: 200000,
 	memo: "",
-	account_number: data.value.account_number,
-	sequence: data.value.sequence
+	account_number: data.result.value.account_number,
+	sequence: data.result.value.sequence
 });
 ```
 - cosmos-sdk/MsgUndelegate
@@ -161,8 +161,8 @@ stdSignMsg = cosmos.NewStdMsg({
 	fee: 5000,
 	gas: 200000,
 	memo: "",
-	account_number: data.value.account_number,
-	sequence: data.value.sequence
+	account_number: data.result.value.account_number,
+	sequence: data.result.value.sequence
 });
 ```
 - cosmos-sdk/MsgWithdrawDelegationReward
@@ -175,8 +175,8 @@ stdSignMsg = cosmos.NewStdMsg({
 	fee: 5000,
 	gas: 200000,
 	memo: "",
-	account_number: data.value.account_number,
-	sequence: data.value.sequence
+	account_number: data.result.value.account_number,
+	sequence: data.result.value.sequence
 });
 ```
 - cosmos-sdk/MsgSubmitProposal
@@ -193,8 +193,8 @@ stdSignMsg = cosmos.NewStdMsg({
 	fee: 5000,
 	gas: 200000,
 	memo: "",
-	account_number: data.value.account_number,
-	sequence: data.value.sequence
+	account_number: data.result.value.account_number,
+	sequence: data.result.value.sequence
 });
 ```
 - cosmos-sdk/MsgDeposit
@@ -209,8 +209,8 @@ stdSignMsg = cosmos.NewStdMsg({
 	fee: 5000,
 	gas: 200000,
 	memo: "",
-	account_number: data.value.account_number,
-	sequence: data.value.sequence
+	account_number: data.result.value.account_number,
+	sequence: data.result.value.sequence
 });
 ```
 - cosmos-sdk/MsgVote
@@ -224,8 +224,8 @@ stdSignMsg = cosmos.NewStdMsg({
 	fee: 5000,
 	gas: 200000,
 	memo: "",
-	account_number: data.value.account_number,
-	sequence: data.value.sequence
+	account_number: data.result.value.account_number,
+	sequence: data.result.value.sequence
 });
 ```
 - cosmos-sdk/MsgBeginRedelegate
@@ -241,8 +241,8 @@ stdSignMsg = cosmos.NewStdMsg({
 	fee: 5000,
 	gas: 200000,
 	memo: "",
-	account_number: data.value.account_number,
-	sequence: data.value.sequence
+	account_number: data.result.value.account_number,
+	sequence: data.result.value.sequence
 });
 ```
 - cosmos-sdk/MsgModifyWithdrawAddress
@@ -255,8 +255,8 @@ stdSignMsg = cosmos.NewStdMsg({
 	fee: 5000,
 	gas: 200000,
 	memo: "",
-	account_number: data.value.account_number,
-	sequence: data.value.sequence
+	account_number: data.result.value.account_number,
+	sequence: data.result.value.sequence
 });
 ```
 - irishub/bank/Send
