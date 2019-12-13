@@ -106,13 +106,13 @@ cosmos.getAccounts(address).then(data => {
 })
 ```
 
-Sign transaction by using stdSignMsg and broadcast by using [/txs](https://lcd-do-not-abuse.cosmostation.io/txs) REST API
+Sign transaction by using stdSignMsg and broadcast by using [/txs](https://lcd-cosmos-free.cosmostation.io/) REST API
 ```js
 const signedTx = cosmos.sign(stdSignMsg, ecpairPriv);
 cosmos.broadcast(signedTx).then(response => console.log(response));
 ```
 
-Cosmostation offers LCD url(https://lcd-do-not-abuse.cosmostation.io).
+Cosmostation offers LCD url(https://lcd-cosmos-free.cosmostation.io/).
 * API Rate Limiting: 10 requests per second
 
 ## Supporting Message Types (Updating...)
