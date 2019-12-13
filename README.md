@@ -112,7 +112,7 @@ const signedTx = cosmos.sign(stdSignMsg, ecpairPriv);
 cosmos.broadcast(signedTx).then(response => console.log(response));
 ```
 
-Cosmostation offers LCD url(https://lcd-cosmos-free.cosmostation.io/).
+Cosmostation offers LCD url(https://lcd-cosmos-free.cosmostation.io).
 * API Rate Limiting: 10 requests per second
 
 ## Supporting Message Types (Updating...)
