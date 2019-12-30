@@ -16,7 +16,7 @@ cosmos.getAccounts(address).then(data => {
 		from_address: address,
 		to_address: "cosmos18vhdczjut44gpsy804crfhnd5nq003nz0nf20v",
 		amountDenom: "uatom",
-		amount: 100000,		// 6 decimal places
+		amount: 100000,		// 6 decimal places (1000000 uatom = 1 ATOM)
 		feeDenom: "uatom",
 		fee: 5000,
 		gas: 200000,
