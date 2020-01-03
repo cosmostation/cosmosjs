@@ -750,12 +750,10 @@ Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
 
 Cosmos.prototype.broadcast = function(signedTx) {
 	let broadcastApi = "";
-	if (this.chainId.indexOf("cosmoshub") != -1 || 
-		this.chainId.indexOf("kava") != -1 ||
-		this.chainId.indexOf("gaia") != -1) {
-		broadcastApi = "/txs";
-	} else if (this.chainId.indexOf("irishub") != -1) {
+	if (this.chainId.indexOf("irishub") != -1) {
 		broadcastApi = "/tx/broadcast";
+	} else {
+		broadcastApi = "/txs";
 	}
 
 	return fetch(this.url + broadcastApi, {
