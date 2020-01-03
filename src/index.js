@@ -79,12 +79,10 @@ Cosmos.prototype.setPath = function(path) {
 
 Cosmos.prototype.getAccounts = function(address) {
 	let accountsApi = "";
-	if (this.chainId.indexOf("cosmoshub") != -1 || 
-		this.chainId.indexOf("kava") != -1 ||
-		this.chainId.indexOf("gaia") != -1) {
-		accountsApi = "/auth/accounts/";
-	} else if (this.chainId.indexOf("irishub") != -1) {
+	if (this.chainId.indexOf("irishub") != -1) {
 		accountsApi = "/bank/accounts/";
+	} else {
+		accountsApi = "/auth/accounts/";
 	}
 	return fetch(this.url + accountsApi + address)
 	.then(response => response.json())
@@ -707,9 +705,7 @@ Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
 	let signObj = secp256k1.sign(buf, ecpairPriv);
 	var signatureBase64 = Buffer.from(signObj.signature, 'binary').toString('base64');
 	let signedTx = new Object;
-	if (this.chainId.indexOf("cosmoshub") != -1 || 
-		this.chainId.indexOf("kava") != -1 ||
-		this.chainId.indexOf("gaia") != -1) {
+	if (this.chainId.indexOf("irishub") != -1) {
 		signedTx = {
 		    "tx": {
 		        "msg": stdSignMsg.json.msgs,
@@ -717,6 +713,8 @@ Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
 		        "signatures": [
 		            {
 		                "signature": signatureBase64,
+		                "account_number": stdSignMsg.json.account_number,
+                		"sequence": stdSignMsg.json.sequence,
 		                "pub_key": {
 		                    "type": "tendermint/PubKeySecp256k1",
 		                    "value": getPubKeyBase64(ecpairPriv)
@@ -727,7 +725,7 @@ Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
 		    },
 		    "mode": modeType
 		}
-	} else if (this.chainId.indexOf("irishub") != -1) {
+	} else {
 		signedTx = {
 		    "tx": {
 		        "msg": stdSignMsg.json.msgs,
@@ -735,8 +733,6 @@ Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
 		        "signatures": [
 		            {
 		                "signature": signatureBase64,
-		                "account_number": stdSignMsg.json.account_number,
-                		"sequence": stdSignMsg.json.sequence,
 		                "pub_key": {
 		                    "type": "tendermint/PubKeySecp256k1",
 		                    "value": getPubKeyBase64(ecpairPriv)
