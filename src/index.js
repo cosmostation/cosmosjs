@@ -6,7 +6,7 @@
 
 'use strict'
 
-const fetch = require("node-fetch");
+const fetch = require('node-fetch').default
 const bip39 = require('bip39');
 const bip32 = require('bip32');
 const bech32 = require('bech32');
@@ -79,12 +79,10 @@ Cosmos.prototype.setPath = function(path) {
 
 Cosmos.prototype.getAccounts = function(address) {
 	let accountsApi = "";
-	if (this.chainId.indexOf("cosmoshub") != -1 || 
-		this.chainId.indexOf("kava") != -1 ||
-		this.chainId.indexOf("gaia") != -1) {
-		accountsApi = "/auth/accounts/";
-	} else if (this.chainId.indexOf("irishub") != -1) {
+	if (this.chainId.indexOf("irishub") != -1) {
 		accountsApi = "/bank/accounts/";
+	} else {
+		accountsApi = "/auth/accounts/";
 	}
 	return fetch(this.url + accountsApi + address)
 	.then(response => response.json())
@@ -707,27 +705,7 @@ Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
 	let signObj = secp256k1.sign(buf, ecpairPriv);
 	var signatureBase64 = Buffer.from(signObj.signature, 'binary').toString('base64');
 	let signedTx = new Object;
-	if (this.chainId.indexOf("cosmoshub") != -1 || 
-		this.chainId.indexOf("kava") != -1 ||
-		this.chainId.indexOf("gaia") != -1) {
-		signedTx = {
-		    "tx": {
-		        "msg": stdSignMsg.json.msgs,
-		        "fee": stdSignMsg.json.fee,
-		        "signatures": [
-		            {
-		                "signature": signatureBase64,
-		                "pub_key": {
-		                    "type": "tendermint/PubKeySecp256k1",
-		                    "value": getPubKeyBase64(ecpairPriv)
-		                }
-		            }
-		        ],
-		        "memo": stdSignMsg.json.memo
-		    },
-		    "mode": modeType
-		}
-	} else if (this.chainId.indexOf("irishub") != -1) {
+	if (this.chainId.indexOf("irishub") != -1) {
 		signedTx = {
 		    "tx": {
 		        "msg": stdSignMsg.json.msgs,
@@ -747,6 +725,24 @@ Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
 		    },
 		    "mode": modeType
 		}
+	} else {
+		signedTx = {
+		    "tx": {
+		        "msg": stdSignMsg.json.msgs,
+		        "fee": stdSignMsg.json.fee,
+		        "signatures": [
+		            {
+		                "signature": signatureBase64,
+		                "pub_key": {
+		                    "type": "tendermint/PubKeySecp256k1",
+		                    "value": getPubKeyBase64(ecpairPriv)
+		                }
+		            }
+		        ],
+		        "memo": stdSignMsg.json.memo
+		    },
+		    "mode": modeType
+		}
 	}
 
 	return signedTx;
@@ -754,12 +750,10 @@ Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
 
 Cosmos.prototype.broadcast = function(signedTx) {
 	let broadcastApi = "";
-	if (this.chainId.indexOf("cosmoshub") != -1 || 
-		this.chainId.indexOf("kava") != -1 ||
-		this.chainId.indexOf("gaia") != -1) {
-		broadcastApi = "/txs";
-	} else if (this.chainId.indexOf("irishub") != -1) {
+	if (this.chainId.indexOf("irishub") != -1) {
 		broadcastApi = "/tx/broadcast";
+	} else {
+		broadcastApi = "/txs";
 	}
 
 	return fetch(this.url + broadcastApi, {
