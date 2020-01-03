@@ -1,5 +1,4 @@
 const assert = require('assert');
-const fetch = require("node-fetch");
 const cosmosjs = require("../src");
 
 const mnemonic = "swear buyer security impulse public stereo peasant correct cross tornado bid discover anchor float venture deal patch property cool wreck eight dwarf december surface";

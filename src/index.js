@@ -1,12 +1,11 @@
 /*
     Developed / Developing by Cosmostation
-
     [WARNING] CosmosJS is under ACTIVE DEVELOPMENT and should be treated as alpha version. We will remove this warning when we have a release that is stable, secure, and propoerly tested.
 */
 
 'use strict'
 
-const fetch = require('node-fetch').default
+const fetch = require('node-fetch').default;
 const bip39 = require('bip39');
 const bip32 = require('bip32');
 const bech32 = require('bech32');
