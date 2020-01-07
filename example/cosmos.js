@@ -11,7 +11,7 @@ const ecpairPriv = cosmos.getECPairPriv(mnemonic);
 
 // Generate MsgSend transaction and broadcast 
 cosmos.getAccounts(address).then(data => {
-	let stdSignMsg = cosmos.NewStdMsg({
+	let stdSignMsg = cosmos.newStdMsg({
 		type: "cosmos-sdk/MsgSend",
 		from_address: address,
 		to_address: "cosmos18vhdczjut44gpsy804crfhnd5nq003nz0nf20v",

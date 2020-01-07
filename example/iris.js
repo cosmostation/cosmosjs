@@ -11,7 +11,7 @@ const ecpairPriv = iris.getECPairPriv(mnemonic);
 
 // Generate irishub/bank/Send transaction and broadcast 
 iris.getAccounts(address).then(data => {
-	let stdSignMsg = iris.NewStdMsg({
+	let stdSignMsg = iris.newStdMsg({
 		type: "irishub/bank/Send",
 		inputsAddress:address,
 		inputsCoinsDenom:"iris-atto",

@@ -11,7 +11,7 @@ const ecpairPriv = kava.getECPairPriv(mnemonic);
 
 // Generate MsgSend transaction and broadcast 
 kava.getAccounts(address).then(data => {
-	let stdSignMsg = kava.NewStdMsg({
+	let stdSignMsg = kava.newStdMsg({
 		type: "cosmos-sdk/MsgSend",
 		from_address: address,
 		to_address: "kava1qrlge6kqjz2763yp6ghws9ekv8u62dva9hs86p",

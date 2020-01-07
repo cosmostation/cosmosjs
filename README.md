@@ -88,7 +88,7 @@ Transfer ATOM to designated address.
 
 ```js
 cosmos.getAccounts(address).then(data => {
-	let stdSignMsg = cosmos.NewStdMsg({
+	let stdSignMsg = cosmos.newStdMsg({
 		type: "cosmos-sdk/MsgSend",
 		from_address: address,
 		to_address: "cosmos18vhdczjut44gpsy804crfhnd5nq003nz0nf20v",
@@ -119,7 +119,7 @@ Cosmostation offers LCD url([https://lcd-cosmos-free.cosmostation.io](https://lc
 
 - cosmos-sdk/MsgSend
 ```js
-let stdSignMsg = cosmos.NewStdMsg({
+let stdSignMsg = cosmos.newStdMsg({
 	type: "cosmos-sdk/MsgSend",
 	from_address: address,
 	to_address: "cosmos18vhdczjut44gpsy804crfhnd5nq003nz0nf20v",
@@ -135,7 +135,7 @@ let stdSignMsg = cosmos.NewStdMsg({
 ```
 - cosmos-sdk/MsgDelegate
 ```js
-stdSignMsg = cosmos.NewStdMsg({
+stdSignMsg = cosmos.newStdMsg({
 	type: "cosmos-sdk/MsgDelegate",
 	delegator_address: address,
 	validator_address: "cosmosvaloper1clpqr4nrk4khgkxj78fcwwh6dl3uw4epsluffn",
@@ -151,7 +151,7 @@ stdSignMsg = cosmos.NewStdMsg({
 ```
 - cosmos-sdk/MsgUndelegate
 ```js
-stdSignMsg = cosmos.NewStdMsg({
+stdSignMsg = cosmos.newStdMsg({
 	type: "cosmos-sdk/MsgUndelegate",
 	delegator_address: address,
 	validator_address: "cosmosvaloper1clpqr4nrk4khgkxj78fcwwh6dl3uw4epsluffn",
@@ -167,7 +167,7 @@ stdSignMsg = cosmos.NewStdMsg({
 ```
 - cosmos-sdk/MsgWithdrawDelegationReward
 ```js
-stdSignMsg = cosmos.NewStdMsg({
+stdSignMsg = cosmos.newStdMsg({
 	type: "cosmos-sdk/MsgWithdrawDelegationReward",
 	delegator_address: address,
 	validator_address: "cosmosvaloper1clpqr4nrk4khgkxj78fcwwh6dl3uw4epsluffn",
@@ -181,7 +181,7 @@ stdSignMsg = cosmos.NewStdMsg({
 ```
 - cosmos-sdk/MsgSubmitProposal
 ```js
-stdSignMsg = cosmos.NewStdMsg({
+stdSignMsg = cosmos.newStdMsg({
 	type: "cosmos-sdk/MsgSubmitProposal",
 	title: "Activate the Community Pool",
 	description: "Enable governance to spend funds from the community pool. Full proposal: https://ipfs.io/ipfs/QmNsVCsyRmEiep8rTQLxVNdMHm2uiZkmaSHCR6S72Y1sL1",
@@ -199,7 +199,7 @@ stdSignMsg = cosmos.NewStdMsg({
 ```
 - cosmos-sdk/MsgDeposit
 ```js
-stdSignMsg = cosmos.NewStdMsg({
+stdSignMsg = cosmos.newStdMsg({
 	type: "cosmos-sdk/MsgDeposit",
 	depositor: address,
 	proposal_id: 1,
@@ -215,7 +215,7 @@ stdSignMsg = cosmos.NewStdMsg({
 ```
 - cosmos-sdk/MsgVote
 ```js
-stdSignMsg = cosmos.NewStdMsg({
+stdSignMsg = cosmos.newStdMsg({
 	type: "cosmos-sdk/MsgVote",
 	voter: address,
 	proposal_id: 1,
@@ -230,7 +230,7 @@ stdSignMsg = cosmos.NewStdMsg({
 ```
 - cosmos-sdk/MsgBeginRedelegate
 ```js
-stdSignMsg = cosmos.NewStdMsg({
+stdSignMsg = cosmos.newStdMsg({
 	type: "cosmos-sdk/MsgBeginRedelegate",
 	delegator_address: address,
 	validator_src_address: "cosmosvaloper1clpqr4nrk4khgkxj78fcwwh6dl3uw4epsluffn",
@@ -247,7 +247,7 @@ stdSignMsg = cosmos.NewStdMsg({
 ```
 - cosmos-sdk/MsgModifyWithdrawAddress
 ```js
-stdSignMsg = cosmos.NewStdMsg({
+stdSignMsg = cosmos.newStdMsg({
 	type: "cosmos-sdk/MsgModifyWithdrawAddress",
 	delegator_address: address,
 	withdraw_address: "cosmos133mtfk63fuac5e2npfgcktwufnty2536wedfal",
@@ -261,7 +261,7 @@ stdSignMsg = cosmos.NewStdMsg({
 ```
 - irishub/bank/Send
 ```js
-stdSignMsg = iris.NewStdMsg({
+stdSignMsg = iris.newStdMsg({
 	type: "irishub/bank/Send",
 	inputsAddress:address,
 	inputsCoinsDenom:"iris-atto",
@@ -279,7 +279,7 @@ stdSignMsg = iris.NewStdMsg({
 ```
 - irishub/stake/MsgDelegate
 ```js
-stdSignMsg = iris.NewStdMsg({
+stdSignMsg = iris.newStdMsg({
 	type: "irishub/stake/MsgDelegate",
 	delegator_addr: address,
 	validator_addr: "iva18pva3yzzzaxj7l5a9uk66a0q7lflscyw966jud",
@@ -295,7 +295,7 @@ stdSignMsg = iris.NewStdMsg({
 ```
 - irishub/stake/BeginUnbonding
 ```js
-stdSignMsg = iris.NewStdMsg({
+stdSignMsg = iris.newStdMsg({
 	type: "irishub/stake/BeginUnbonding",
 	delegator_addr: address,
 	validator_addr: "iva18pva3yzzzaxj7l5a9uk66a0q7lflscyw966jud",
@@ -311,7 +311,7 @@ stdSignMsg = iris.NewStdMsg({
 ```
 - irishub/distr/MsgWithdrawDelegationReward
 ```js
-stdSignMsg = iris.NewStdMsg({
+stdSignMsg = iris.newStdMsg({
 	type: "irishub/distr/MsgWithdrawDelegationReward",
 	delegator_addr: address,
 	validator_addr: "iva18pva3yzzzaxj7l5a9uk66a0q7lflscyw966jud",
@@ -325,7 +325,7 @@ stdSignMsg = iris.NewStdMsg({
 ```
 - irishub/distr/MsgWithdrawDelegationRewardsAll
 ```js
-stdSignMsg = iris.NewStdMsg({
+stdSignMsg = iris.newStdMsg({
 	type: "irishub/distr/MsgWithdrawDelegationRewardsAll",
 	delegator_addr: address,
 	feeDenom: "iris-atto",
@@ -338,7 +338,7 @@ stdSignMsg = iris.NewStdMsg({
 ```
 - irishub/distr/MsgModifyWithdrawAddress
 ```js
-stdSignMsg = iris.NewStdMsg({
+stdSignMsg = iris.newStdMsg({
 	type: "irishub/distr/MsgModifyWithdrawAddress",
 	delegator_addr: address,
 	withdraw_addr: "iaa12g4vfyq65yf5cds4v5pr3jmdd4v6s40fkaaxtf",
@@ -352,7 +352,7 @@ stdSignMsg = iris.NewStdMsg({
 ```
 - irishub/stake/BeginRedelegate
 ```js
-stdSignMsg = iris.NewStdMsg({
+stdSignMsg = iris.newStdMsg({
 	type: "irishub/stake/BeginRedelegate",
 	delegator_addr: address,
 	validator_src_addr: "iva18pva3yzzzaxj7l5a9uk66a0q7lflscyw966jud",
