@@ -100,7 +100,25 @@ function getStdMsg(input, chainId) {
 				{
 					type: input.type,
 					value: {
-						// 
+						description: {
+							moniker: input.description_moniker,
+							identity: input.description_identity,
+							website: input.description_website,
+							details: input.description_details
+						},
+						commission: {
+							rate: input.commission_rate,
+							max_rate: input.commission_max_rate,
+							max_change_rate: input.commission_max_change_rate
+						},
+						min_self_delegation: String(input.min_self_delegation),
+						delegator_address: input.delegator_address,
+						validator_address: input.validator_address,
+						pubkey: input.pubkey,
+						value: {
+							denom: input.value_denom,
+							amount: String(input.value_amount)
+						}
 					}
 				}
 			],
@@ -125,7 +143,15 @@ function getStdMsg(input, chainId) {
 				{
 					type: input.type,
 					value: {
-						
+						Description: {
+							moniker: input.description_moniker,
+							identity: input.description_identity,
+							website: input.description_website,
+							details: input.description_details
+						},
+						address: input.address,
+						commission_rate: input.commission_rate,
+						min_self_delegation: input.min_self_delegation
 					}
 				}
 			],
@@ -267,7 +293,7 @@ function getStdMsg(input, chainId) {
 				{
 					type: input.type,
 					value: {
-						
+						validator_address: input.validator_address
 					}
 				}
 			],
@@ -411,7 +437,7 @@ function getStdMsg(input, chainId) {
 				{
 					type: input.type,
 					value: {
-						
+						// developing...
 					}
 				}
 			],
@@ -436,7 +462,7 @@ function getStdMsg(input, chainId) {
 				{
 					type: input.type,
 					value: {
-						
+						// developing...
 					}
 				}
 			],
@@ -550,7 +576,7 @@ function getStdMsg(input, chainId) {
 				{
 					type: input.type,
 					value: {
-						
+						// developing...
 					}
 				}
 			],
@@ -575,7 +601,7 @@ function getStdMsg(input, chainId) {
 				{
 					type: input.type,
 					value: {
-						
+						// developing...
 					}
 				}
 			],
@@ -651,7 +677,7 @@ function getStdMsg(input, chainId) {
 				{
 					type: input.type,
 					value: {
-						
+						// developing...
 					}
 				}
 			],
@@ -702,58 +728,58 @@ function getStdMsg(input, chainId) {
 				{
 					type: input.type,
 					value: {
-						
+						// developing...
 					}
 				}
 			],
 			sequence: String(input.sequence)
 		}
 	} else if (input.type == "irishub/gov/MsgSubmitCommunityTaxUsageProposal") {
-
+		// developing...
 	} else if (input.type == "irishub/gov/MsgSubmitSoftwareUpgradeProposal") {
-
+		// developing...
 	} else if (input.type == "irishub/gov/MsgSubmitTokenAdditionProposal") {
-
+		// developing...
 	} else if (input.type == "irishub/gov/MsgDeposit") {
-
+		// developing...
 	} else if (input.type == "irishub/gov/MsgVote") {
-
+		// developing...
 	} else if (input.type == "irishub/guardian/MsgAddProfiler") {
-
+		// developing...
 	} else if (input.type == "irishub/guardian/MsgAddTrustee") {
-
+		// developing...
 	} else if (input.type == "irishub/guardian/MsgDeleteProfiler") {
-
+		// developing...
 	} else if (input.type == "irishub/guardian/MsgDeleteTrustee") {
-
+		// developing...
 	} else if (input.type == "irishub/service/MsgSvcDef") {
-
+		// developing...
 	} else if (input.type == "irishub/service/MsgSvcBinding") {
-
+		// developing...
 	} else if (input.type == "irishub/service/MsgSvcBindingUpdate") {
-
+		// developing...
 	} else if (input.type == "irishub/service/MsgSvcDisable") {
-
+		// developing...
 	} else if (input.type == "irishub/service/MsgSvcEnable") {
-
+		// developing...
 	} else if (input.type == "irishub/service/MsgSvcRefundDeposit") {
-
+		// developing...
 	} else if (input.type == "irishub/service/MsgSvcRequest") {
-
+		// developing...
 	} else if (input.type == "irishub/service/MsgSvcResponse") {
-
+		// developing...
 	} else if (input.type == "irishub/service/MsgSvcRefundFees") {
-
+		// developing...
 	} else if (input.type == "irishub/service/MsgSvcWithdrawFees") {
-
+		// developing...
 	} else if (input.type == "irishub/service/MsgSvcWithdrawTax") {
-
+		// developing...
 	} else if (input.type == "irishub/slashing/MsgUnjail") {
-
+		// developing...
 	} else if (input.type == "irishub/stake/MsgCreateValidator") {
-
+		// developing...
 	} else if (input.type == "irishub/stake/MsgEditValidator") {
-
+		// developing...
 	} else if (input.type == "irishub/stake/MsgDelegate") {
 		stdSignMsg.json =
 		{
@@ -907,26 +933,26 @@ function getStdMsg(input, chainId) {
 				{
 					type: input.type,
 					value: {
-						
+						// developing...
 					}
 				}
 			],
 			sequence: String(input.sequence)
 		}
 	} else if (input.type == "irishub/asset/MsgCreateGateway") {
-
+		// developing...
 	} else if (input.type == "irishub/asset/MsgEditGateway") {
-
+		// developing...
 	} else if (input.type == "irishub/asset/MsgEditToken") {
-
+		// developing...
 	} else if (input.type == "irishub/asset/MsgTransferGatewayOwner") {
-
+		// developing...
 	} else if (input.type == "irishub/asset/MsgMintToken") {
-
+		// developing...
 	} else if (input.type == "irishub/asset/MsgTransferTokenOwner") {
-
+		// developing...
 	} else if (input.type == "irishub/rand/MsgRequestRand") {
-
+		// developing...
 	} else {
 		throw new Error("No such input.type: " + input.type)
 	}
