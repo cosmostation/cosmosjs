@@ -24,17 +24,26 @@ describe("sign", function () {
 		ecpairPriv = cosmos.getECPairPriv(mnemonic);
 
 		let stdSignMsg = cosmos.newStdMsg({
-			type: "cosmos-sdk/MsgSend",
-			from_address: address,
-			to_address: "cosmos18vhdczjut44gpsy804crfhnd5nq003nz0nf20v",
-			amountDenom: "uatom",
-			amount: 100000,		// 6 decimal places (1000000 uatom = 1 ATOM)
-			feeDenom: "uatom",
-			fee: 5000,
-			gas: 200000,
+			msgs: [
+				{
+					type: "cosmos-sdk/MsgSend",
+					value: {
+						amount: [
+							{
+								amount: String(100000), 	// 6 decimal places (1000000 uatom = 1 ATOM)
+								denom: "uatom"
+							}
+						],
+						from_address: address,
+						to_address: "cosmos18vhdczjut44gpsy804crfhnd5nq003nz0nf20v"
+					}
+				}
+			],
+			chain_id: chainId,
+			fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
 			memo: "",
-			account_number: 5711,
-			sequence: 4
+			account_number: String(5711),
+			sequence: String(4)
 		});
 
 		signedTx = cosmos.sign(stdSignMsg, ecpairPriv);

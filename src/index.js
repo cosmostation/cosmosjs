@@ -114,7 +114,7 @@ Cosmos.prototype.newStdMsg = function(input) {
 	stdSignMsg.json = input;
 
 	// Exception
-	if (input.msg[0].type == "irishub/bank/Send") {
+	if (input.msgs[0].type == "irishub/bank/Send") {
 		stdSignMsg.jsonForSigningIrisTx =
 		{
 			msgs: [
@@ -149,7 +149,7 @@ Cosmos.prototype.newStdMsg = function(input) {
 			account_number: input.msgs[0].account_number,
 			sequence: input.msgs[0].sequence
 		}
-	} else if (input.msg[0].type == "irishub/stake/BeginUnbonding") {
+	} else if (input.msgs[0].type == "irishub/stake/BeginUnbonding") {
 		stdSignMsg.jsonForSigningIrisTx =
 		{
 			msgs: [
@@ -165,7 +165,7 @@ Cosmos.prototype.newStdMsg = function(input) {
 			account_number: input.msgs[0].account_number,
 			sequence: input.msgs[0].sequence
 		}
-	} else if (input.msg[0].type == "irishub/stake/BeginRedelegate") {
+	} else if (input.msgs[0].type == "irishub/stake/BeginRedelegate") {
 		stdSignMsg.jsonForSigningIrisTx =
 		{
 			msgs: [
