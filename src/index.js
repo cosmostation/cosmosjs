@@ -13,9 +13,6 @@ const secp256k1 = require('secp256k1');
 const crypto = require('crypto');
 const bitcoinjs = require('bitcoinjs-lib');
 
-const msgBuilder = require('./msg.js');
-const cosmosjsUtil = require('./utils.js');
-
 let Cosmos = function(url, chainId) {
 	this.url = url;
 	this.chainId = chainId;
@@ -34,9 +31,33 @@ function network(url, chainId) {
 	return new Cosmos(url, chainId);
 }
 
+function convertStringToBytes(str) {
+	if (typeof str !== "string") {
+	    throw new Error("str expects a string")
+	}
+	var myBuffer = [];
+	var buffer = Buffer.from(str, 'utf8');
+	for (var i = 0; i < buffer.length; i++) {
+	    myBuffer.push(buffer[i]);
+	}
+	return myBuffer;
+}
+
 function getPubKeyBase64(ecpairPriv) {
 	const pubKeyByte = secp256k1.publicKeyCreate(ecpairPriv);
 	return Buffer.from(pubKeyByte, 'binary').toString('base64');
+}
+
+function sortObject(obj) {
+	if (obj === null) return null;
+	if (typeof obj !== "object") return obj;
+	if (Array.isArray(obj)) return obj.map(sortObject);
+	const sortedKeys = Object.keys(obj).sort();
+	const result = {};
+	sortedKeys.forEach(key => {
+		result[key] = sortObject(obj[key])
+	});
+	return result;
 }
 
 Cosmos.prototype.setBech32MainPrefix = function(bech32MainPrefix) {
@@ -89,7 +110,82 @@ Cosmos.prototype.getECPairPriv = function(mnemonic) {
 }
 
 Cosmos.prototype.newStdMsg = function(input) {
-	return msgBuilder.getStdMsg(input, this.chainId);
+	const stdSignMsg = new Object;
+	stdSignMsg.json = input;
+
+	// Exception
+	if (input.msg[0].type == "irishub/bank/Send") {
+		stdSignMsg.jsonForSigningIrisTx =
+		{
+			msgs: [
+				{
+					inputs: [
+						{
+							address: input.msgs[0].value.inputs[0].address,
+							coins: [
+								{
+									denom: input.msgs[0].value.inputs[0].coins[0].denom,
+									amount: input.msgs[0].value.inputs[0].coins[0].amount
+								}
+							]
+						}
+					],
+					outputs: [
+						{
+							address: input.msgs[0].value.outputs[0].address,
+							coins: [
+								{
+									denom: input.msgs[0].value.outputs[0].coins[0].denom,
+									amount: input.msgs[0].value.outputs[0].coins[0].amount
+								}
+							]
+						}
+					]
+				}
+			],
+			chain_id: input.msgs[0].chain_id,
+			fee: { amount: [ { amount: input.msgs[0].fee.amount[0].amount, denom: input.msgs[0].fee.amount[0].denom } ], gas: input.msgs[0].fee.gas },
+			memo: input.msgs[0].memo,
+			account_number: input.msgs[0].account_number,
+			sequence: input.msgs[0].sequence
+		}
+	} else if (input.msg[0].type == "irishub/stake/BeginUnbonding") {
+		stdSignMsg.jsonForSigningIrisTx =
+		{
+			msgs: [
+				{
+					shares_amount: String(input.msgs[0].value.shares_amount),
+					delegator_addr: input.msgs[0].value.delegator_addr,
+					validator_addr: input.msgs[0].value.validator_addr
+				}
+			],
+			chain_id: input.msgs[0].chain_id,
+			fee: { amount: [ { amount: input.msgs[0].fee.amount[0].amount, denom: input.msgs[0].fee.amount[0].denom } ], gas: input.msgs[0].fee.gas },
+			memo: input.msgs[0].memo,
+			account_number: input.msgs[0].account_number,
+			sequence: input.msgs[0].sequence
+		}
+	} else if (input.msg[0].type == "irishub/stake/BeginRedelegate") {
+		stdSignMsg.jsonForSigningIrisTx =
+		{
+			msgs: [
+				{
+					delegator_addr: input.msgs[0].value.delegator_addr,
+					validator_src_addr: input.msgs[0].value.validator_src_addr,
+					validator_dst_addr: input.msgs[0].value.validator_dst_addr,
+					shares: String(input.msgs[0].value.shares_amount) + ".0000000000"		// IRIS Exception) For signing, shares is correct.
+				}
+			],
+			chain_id: input.msgs[0].chain_id,
+			fee: { amount: [ { amount: input.msgs[0].fee.amount[0].amount, denom: input.msgs[0].fee.amount[0].denom } ], gas: input.msgs[0].fee.gas },
+			memo: input.msgs[0].memo,
+			account_number: input.msgs[0].account_number,
+			sequence: input.msgs[0].sequence
+		}
+	}
+
+	stdSignMsg.bytes = convertStringToBytes(JSON.stringify(sortObject(stdSignMsg.json)));
+	return stdSignMsg;
 }
 
 Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
@@ -102,7 +198,7 @@ Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
 	} else {
 		signMessage = stdSignMsg.json;
 	}
-	const hash = crypto.createHash('sha256').update(JSON.stringify(cosmosjsUtil.sortObject(signMessage))).digest('hex');
+	const hash = crypto.createHash('sha256').update(JSON.stringify(sortObject(signMessage))).digest('hex');
 	const buf = Buffer.from(hash, 'hex');
 	let signObj = secp256k1.sign(buf, ecpairPriv);
 	var signatureBase64 = Buffer.from(signObj.signature, 'binary').toString('base64');

@@ -85,21 +85,30 @@ const ecpairPriv = cosmos.getECPairPriv(mnemonic);
 
 Transfer ATOM to designated address. 
 * Make sure to input proper type, account number, and sequence of the cosmos account to generate StdSignMsg. You can get those account information on blockchain 
-
+* Above 0.5.0 version, CosmosJS follows the exact same json format as Cosmos SDK defines.
 ```js
 cosmos.getAccounts(address).then(data => {
 	let stdSignMsg = cosmos.newStdMsg({
-		type: "cosmos-sdk/MsgSend",
-		from_address: address,
-		to_address: "cosmos18vhdczjut44gpsy804crfhnd5nq003nz0nf20v",
-		amountDenom: "uatom",
-		amount: 100000,
-		feeDenom: "uatom",
-		fee: 5000,
-		gas: 200000,
+		msgs: [
+			{
+				type: "cosmos-sdk/MsgSend",
+				value: {
+					amount: [
+						{
+							amount: String(100000),
+							denom: "uatom"
+						}
+					],
+					from_address: address,
+					to_address: "cosmos18vhdczjut44gpsy804crfhnd5nq003nz0nf20v"
+				}
+			}
+		],
+		chain_id: chainId,
+		fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
 		memo: "",
-		account_number: data.result.value.account_number,
-		sequence: data.result.value.sequence
+		account_number: String(data.result.value.account_number),
+		sequence: String(data.result.value.sequence)
 	});
 
 	...

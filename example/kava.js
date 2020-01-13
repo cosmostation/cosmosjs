@@ -12,17 +12,26 @@ const ecpairPriv = kava.getECPairPriv(mnemonic);
 // Generate MsgSend transaction and broadcast 
 kava.getAccounts(address).then(data => {
 	let stdSignMsg = kava.newStdMsg({
-		type: "cosmos-sdk/MsgSend",
-		from_address: address,
-		to_address: "kava1qrlge6kqjz2763yp6ghws9ekv8u62dva9hs86p",
-		amountDenom: "ukava",
-		amount: 100000,		// 6 decimal places
-		feeDenom: "ukava",
-		fee: 5000,
-		gas: 200000,
+		msgs: [
+			{
+				type: "cosmos-sdk/MsgSend",
+				value: {
+					amount: [
+						{
+							amount: String(100000), 	// 6 decimal places (1000000 ukava = 1 KAVA)
+							denom: "ukava"
+						}
+					],
+					from_address: address,
+					to_address: "kava1qrlge6kqjz2763yp6ghws9ekv8u62dva9hs86p"
+				}
+			}
+		],
+		chain_id: chainId,
+		fee: { amount: [ { amount: String(5000), denom: "ukava" } ], gas: String(200000) },
 		memo: "",
-		account_number: data.result.value.account_number,
-		sequence: data.result.value.sequence
+		account_number: String(data.result.value.account_number),
+		sequence: String(data.result.value.sequence)
 	});
 
 	const signedTx = kava.sign(stdSignMsg, ecpairPriv);
