@@ -11,20 +11,41 @@ const ecpairPriv = iris.getECPairPriv(mnemonic);
 
 // Generate irishub/bank/Send transaction and broadcast 
 iris.getAccounts(address).then(data => {
-	let stdSignMsg = iris.NewStdMsg({
-		type: "irishub/bank/Send",
-		inputsAddress:address,
-		inputsCoinsDenom:"iris-atto",
-		inputsCoinsAmount: 1000000000000000000,		// 18 decimal places
-		outputsAddress:"iaa12g4vfyq65yf5cds4v5pr3jmdd4v6s40fkaaxtf",
-		outputsCoinsDenom:"iris-atto",
-		outputsCoinsAmount: 1000000000000000000,
-		feeDenom: "iris-atto",
-		fee: 400000000000000000,
-		gas: 50000,
+	let stdSignMsg = iris.newStdMsg({
+		msgs: [
+			{
+				type: "irishub/bank/Send",
+				value: {
+					inputs: [
+						{
+							address: address,
+							coins: [
+								{
+									denom: "iris-atto",
+									amount: String(1000000000000000000)		// 18 decimal places
+								}
+							]
+						}
+					],
+					outputs: [
+						{
+							address: "iaa12g4vfyq65yf5cds4v5pr3jmdd4v6s40fkaaxtf",
+							coins: [
+								{
+									denom: "iris-atto",
+									amount: String(1000000000000000000)
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		chain_id: chainId,
+		fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
 		memo: "",
-		account_number: data.value.account_number,
-		sequence: data.value.sequence
+		account_number: String(data.result.value.account_number),
+		sequence: String(data.result.value.sequence)
 	});
 
 	const signedTx = iris.sign(stdSignMsg, ecpairPriv);

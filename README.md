@@ -85,21 +85,30 @@ const ecpairPriv = cosmos.getECPairPriv(mnemonic);
 
 Transfer ATOM to designated address. 
 * Make sure to input proper type, account number, and sequence of the cosmos account to generate StdSignMsg. You can get those account information on blockchain 
-
+* Above 0.5.0 version, CosmosJS follows the exact same json format as Cosmos SDK defines.
 ```js
 cosmos.getAccounts(address).then(data => {
-	let stdSignMsg = cosmos.NewStdMsg({
-		type: "cosmos-sdk/MsgSend",
-		from_address: address,
-		to_address: "cosmos18vhdczjut44gpsy804crfhnd5nq003nz0nf20v",
-		amountDenom: "uatom",
-		amount: 100000,
-		feeDenom: "uatom",
-		fee: 5000,
-		gas: 200000,
+	let stdSignMsg = cosmos.newStdMsg({
+		msgs: [
+			{
+				type: "cosmos-sdk/MsgSend",
+				value: {
+					amount: [
+						{
+							amount: String(100000),
+							denom: "uatom"
+						}
+					],
+					from_address: address,
+					to_address: "cosmos18vhdczjut44gpsy804crfhnd5nq003nz0nf20v"
+				}
+			}
+		],
+		chain_id: chainId,
+		fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
 		memo: "",
-		account_number: data.result.value.account_number,
-		sequence: data.result.value.sequence
+		account_number: String(data.result.value.account_number),
+		sequence: String(data.result.value.sequence)
 	});
 
 	...
@@ -116,257 +125,7 @@ Cosmostation offers LCD url([https://lcd-cosmos-free.cosmostation.io](https://lc
 * API Rate Limiting: 10 requests per second
 
 ## Supporting Message Types (Updating...)
-
-- cosmos-sdk/MsgSend
-```js
-let stdSignMsg = cosmos.NewStdMsg({
-	type: "cosmos-sdk/MsgSend",
-	from_address: address,
-	to_address: "cosmos18vhdczjut44gpsy804crfhnd5nq003nz0nf20v",
-	amountDenom: "uatom",
-	amount: 1000000,
-	feeDenom: "uatom",
-	fee: 5000,
-	gas: 200000,
-	memo: "",
-	account_number: data.result.value.account_number,
-	sequence: data.result.value.sequence
-});
-```
-- cosmos-sdk/MsgDelegate
-```js
-stdSignMsg = cosmos.NewStdMsg({
-	type: "cosmos-sdk/MsgDelegate",
-	delegator_address: address,
-	validator_address: "cosmosvaloper1clpqr4nrk4khgkxj78fcwwh6dl3uw4epsluffn",
-	amountDenom: "uatom",
-	amount: 1000000,
-	feeDenom: "uatom",
-	fee: 5000,
-	gas: 200000,
-	memo: "",
-	account_number: data.result.value.account_number,
-	sequence: data.result.value.sequence
-});
-```
-- cosmos-sdk/MsgUndelegate
-```js
-stdSignMsg = cosmos.NewStdMsg({
-	type: "cosmos-sdk/MsgUndelegate",
-	delegator_address: address,
-	validator_address: "cosmosvaloper1clpqr4nrk4khgkxj78fcwwh6dl3uw4epsluffn",
-	amountDenom: "uatom",
-	amount: 1000000,
-	feeDenom: "uatom",
-	fee: 5000,
-	gas: 200000,
-	memo: "",
-	account_number: data.result.value.account_number,
-	sequence: data.result.value.sequence
-});
-```
-- cosmos-sdk/MsgWithdrawDelegationReward
-```js
-stdSignMsg = cosmos.NewStdMsg({
-	type: "cosmos-sdk/MsgWithdrawDelegationReward",
-	delegator_address: address,
-	validator_address: "cosmosvaloper1clpqr4nrk4khgkxj78fcwwh6dl3uw4epsluffn",
-	feeDenom: "uatom",
-	fee: 5000,
-	gas: 200000,
-	memo: "",
-	account_number: data.result.value.account_number,
-	sequence: data.result.value.sequence
-});
-```
-- cosmos-sdk/MsgSubmitProposal
-```js
-stdSignMsg = cosmos.NewStdMsg({
-	type: "cosmos-sdk/MsgSubmitProposal",
-	title: "Activate the Community Pool",
-	description: "Enable governance to spend funds from the community pool. Full proposal: https://ipfs.io/ipfs/QmNsVCsyRmEiep8rTQLxVNdMHm2uiZkmaSHCR6S72Y1sL1",
-	initialDepositDenom: "uatom",
-	initialDepositAmount: 1000000,
-	proposal_type: "Text",
-	proposer: address,
-	feeDenom: "uatom",
-	fee: 5000,
-	gas: 200000,
-	memo: "",
-	account_number: data.result.value.account_number,
-	sequence: data.result.value.sequence
-});
-```
-- cosmos-sdk/MsgDeposit
-```js
-stdSignMsg = cosmos.NewStdMsg({
-	type: "cosmos-sdk/MsgDeposit",
-	depositor: address,
-	proposal_id: 1,
-	amountDenom: "uatom",
-	amount: 1000000,
-	feeDenom: "uatom",
-	fee: 5000,
-	gas: 200000,
-	memo: "",
-	account_number: data.result.value.account_number,
-	sequence: data.result.value.sequence
-});
-```
-- cosmos-sdk/MsgVote
-```js
-stdSignMsg = cosmos.NewStdMsg({
-	type: "cosmos-sdk/MsgVote",
-	voter: address,
-	proposal_id: 1,
-	option: "Yes",	// Yes, No, NowithVeto, Abstain
-	feeDenom: "uatom",
-	fee: 5000,
-	gas: 200000,
-	memo: "",
-	account_number: data.result.value.account_number,
-	sequence: data.result.value.sequence
-});
-```
-- cosmos-sdk/MsgBeginRedelegate
-```js
-stdSignMsg = cosmos.NewStdMsg({
-	type: "cosmos-sdk/MsgBeginRedelegate",
-	delegator_address: address,
-	validator_src_address: "cosmosvaloper1clpqr4nrk4khgkxj78fcwwh6dl3uw4epsluffn",
-	validator_dst_address: "cosmosvaloper1ec3p6a75mqwkv33zt543n6cnxqwun37rr5xlqv",
-	amountDenom: "uatom",
-	amount: 1000000,
-	feeDenom: "uatom",
-	fee: 5000,
-	gas: 200000,
-	memo: "",
-	account_number: data.result.value.account_number,
-	sequence: data.result.value.sequence
-});
-```
-- cosmos-sdk/MsgModifyWithdrawAddress
-```js
-stdSignMsg = cosmos.NewStdMsg({
-	type: "cosmos-sdk/MsgModifyWithdrawAddress",
-	delegator_address: address,
-	withdraw_address: "cosmos133mtfk63fuac5e2npfgcktwufnty2536wedfal",
-	feeDenom: "uatom",
-	fee: 5000,
-	gas: 200000,
-	memo: "",
-	account_number: data.result.value.account_number,
-	sequence: data.result.value.sequence
-});
-```
-- irishub/bank/Send
-```js
-stdSignMsg = iris.NewStdMsg({
-	type: "irishub/bank/Send",
-	inputsAddress:address,
-	inputsCoinsDenom:"iris-atto",
-	inputsCoinsAmount: 1000000000000000000,		// 18 decimal places
-	outputsAddress:"iaa12g4vfyq65yf5cds4v5pr3jmdd4v6s40fkaaxtf",
-	outputsCoinsDenom:"iris-atto",
-	outputsCoinsAmount: 1000000000000000000,
-	feeDenom: "iris-atto",
-	fee: 400000000000000000,
-	gas: 50000,
-	memo: "",
-	account_number: data.value.account_number,
-	sequence: data.value.sequence
-});
-```
-- irishub/stake/MsgDelegate
-```js
-stdSignMsg = iris.NewStdMsg({
-	type: "irishub/stake/MsgDelegate",
-	delegator_addr: address,
-	validator_addr: "iva18pva3yzzzaxj7l5a9uk66a0q7lflscyw966jud",
-	amountDenom: "iris-atto",
-	amount: 1000000000000000000,
-	feeDenom: "iris-atto",
-	fee: 400000000000000000,
-	gas: 50000,
-	memo: "",
-	account_number: data.value.account_number,
-	sequence: data.value.sequence
-});
-```
-- irishub/stake/BeginUnbonding
-```js
-stdSignMsg = iris.NewStdMsg({
-	type: "irishub/stake/BeginUnbonding",
-	delegator_addr: address,
-	validator_addr: "iva18pva3yzzzaxj7l5a9uk66a0q7lflscyw966jud",
-	amountDenom: "iris-atto",
-	amount: 1000000000000000000,
-	feeDenom: "iris-atto",
-	fee: 400000000000000000,
-	gas: 50000,
-	memo: "",
-	account_number: data.value.account_number,
-	sequence: data.value.sequence
-});
-```
-- irishub/distr/MsgWithdrawDelegationReward
-```js
-stdSignMsg = iris.NewStdMsg({
-	type: "irishub/distr/MsgWithdrawDelegationReward",
-	delegator_addr: address,
-	validator_addr: "iva18pva3yzzzaxj7l5a9uk66a0q7lflscyw966jud",
-	feeDenom: "iris-atto",
-	fee: 600000000000000000,
-	gas: 100000,
-	memo: "",
-	account_number: data.value.account_number,
-	sequence: data.value.sequence
-});
-```
-- irishub/distr/MsgWithdrawDelegationRewardsAll
-```js
-stdSignMsg = iris.NewStdMsg({
-	type: "irishub/distr/MsgWithdrawDelegationRewardsAll",
-	delegator_addr: address,
-	feeDenom: "iris-atto",
-	fee: 600000000000000000,
-	gas: 100000,
-	memo: "",
-	account_number: data.value.account_number,
-	sequence: data.value.sequence
-});
-```
-- irishub/distr/MsgModifyWithdrawAddress
-```js
-stdSignMsg = iris.NewStdMsg({
-	type: "irishub/distr/MsgModifyWithdrawAddress",
-	delegator_addr: address,
-	withdraw_addr: "iaa12g4vfyq65yf5cds4v5pr3jmdd4v6s40fkaaxtf",
-	feeDenom: "iris-atto",
-	fee: 400000000000000000,
-	gas: 50000,
-	memo: "",
-	account_number: data.value.account_number,
-	sequence: data.value.sequence
-});
-```
-- irishub/stake/BeginRedelegate
-```js
-stdSignMsg = iris.NewStdMsg({
-	type: "irishub/stake/BeginRedelegate",
-	delegator_addr: address,
-	validator_src_addr: "iva18pva3yzzzaxj7l5a9uk66a0q7lflscyw966jud",
-	validator_dst_addr: "iva1msqqkd3v0gmullzwm56c4frevyczzxfeczvjru",
-	shares_amount: 1000000000000000000,
-	feeDenom: "iris-atto",
-	fee: 600000000000000000,
-	gas: 65000,
-	memo: "",
-	account_number: data.value.account_number,
-	sequence: data.value.sequence
-});
-```
-- Kava has the same message types as Cosmos.
+- If you need more message types, you can see [SUPPORTING_MSG_TYPES.md](https://github.com/cosmostation/cosmosjs/blob/develop/docs/SUPPORTING_MSG_TYPES.md)
 
 ## Documentation
 
