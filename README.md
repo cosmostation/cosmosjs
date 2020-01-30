@@ -125,7 +125,7 @@ Cosmostation offers LCD url([https://lcd-cosmos-free.cosmostation.io](https://lc
 * API Rate Limiting: 10 requests per second
 
 ## Supporting Message Types (Updating...)
-- If you need more message types, you can see [SUPPORTING_MSG_TYPES.md](https://github.com/cosmostation/cosmosjs/blob/develop/docs/SUPPORTING_MSG_TYPES.md)
+- If you need more message types, you can see [/docs/msg_types](https://github.com/cosmostation/cosmosjs/tree/master/docs/msg_types)
 
 ## Documentation
 

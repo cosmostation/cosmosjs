@@ -223,6 +223,15 @@ Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
 		    },
 		    "mode": modeType
 		}
+
+		// The key of "shares" is using to sign for IRIS Redelegate.
+		// After signing, you have to replace the "shares" key name to "shares_amount".
+		// It is an exception to "irishub/stake/BeginRedelegate".
+		if (stdSignMsg.json.msgs[0].type == "irishub/stake/BeginRedelegate") {
+			var txBodyStr = JSON.stringify(signedTx);
+			txBodyStr = txBodyStr.replace("\"shares", "\"shares_amount");
+			signedTx = JSON.parse(txBodyStr);
+		}
 	} else {
 		signedTx = {
 		    "tx": {
