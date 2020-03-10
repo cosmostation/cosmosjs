@@ -5,7 +5,7 @@ const mnemonic = "swear buyer security impulse public stereo peasant correct cro
 const chainId = "kava-2";
 const kava = cosmosjs.network("https://lcd-kava.cosmostation.io", chainId);
 kava.setBech32MainPrefix("kava");
-kava.setPath("m/44'/118'/0'/0/0");
+kava.setPath("m/44'/459'/0'/0/0"); 		// new: m/44'/459'/0'/0/0, old: m/44'/118'/0'/0/0
 const address = kava.getAddress(mnemonic);
 const ecpairPriv = kava.getECPairPriv(mnemonic);
 
