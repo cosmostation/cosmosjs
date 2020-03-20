@@ -8,25 +8,27 @@ In this docs, these are supporting message types in Kava.
 
 Kava is a collateralized debt position built on top of Cosmos SDK. It has pretty much the same message types as Cosmos Hub other than [4 different moduels](https://github.com/Kava-Labs/kava-devnet/blob/master/spec/kava.md) that make up the system.
 
-- [MsgSend](#msgsend)
-- [MsgMultiSend](#msgmultisend)
-- [MsgCreateValidator](#msgcreatevalidator)
-- [MsgEditValidator](#msgeditvalidator)
-- [MsgDelegate](#msgdelegate)
-- [MsgUndelegate](#msgundelegate)
-- [MsgBeginRedelegate](#msgbeginredelegate)
-- [MsgWithdrawDelegationReward](#msgwithdrawdelegationreward)
-- [MsgWithdrawValidatorCommission](#msgwithdrawvalidatorcommission)
-- [MsgModifyWithdrawAddress](#msgmodifywithdrawaddress)
-- [MsgSubmitProposal](#msgsubmitproposal)
-- [MsgDeposit](#msgdeposit)
-- [MsgVote](#msgvote)
-- [MsgUnjail](#msgunjail)
-- [MsgCreateCDP](#msgCreateCDP)
-- [MsgDeposit](#msgDeposit)
-- [MsgWithdraw](#msgWithdraw)
-- [MsgDrawDebt](#msgDrawDebt)
-- [MsgRepayDebt](#msgRepayDebt)
+### Supporting Message Types
+
+- [cosmos-sdk/MsgSend](#msgsend)
+- [cosmos-sdk/MsgMultiSend](#msgmultisend)
+- [cosmos-sdk/MsgCreateValidator](#msgcreatevalidator)
+- [cosmos-sdk/MsgEditValidator](#msgeditvalidator)
+- [cosmos-sdk/MsgDelegate](#msgdelegate)
+- [cosmos-sdk/MsgUndelegate](#msgundelegate)
+- [cosmos-sdk/MsgBeginRedelegate](#msgbeginredelegate)
+- [cosmos-sdk/MsgWithdrawDelegationReward](#msgwithdrawdelegationreward)
+- [cosmos-sdk/MsgWithdrawValidatorCommission](#msgwithdrawvalidatorcommission)
+- [cosmos-sdk/MsgModifyWithdrawAddress](#msgmodifywithdrawaddress)
+- [cosmos-sdk/MsgSubmitProposal](#msgsubmitproposal)
+- [cosmos-sdk/MsgDeposit](#msgdeposit)
+- [cosmos-sdk/MsgVote](#msgvote)
+- [cosmos-sdk/MsgUnjail](#msgunjail)
+- [cdp/MsgCreateCDP](#msgCreateCDP)
+- [cdp/MsgDeposit](#msgDeposit)
+- [cdp/MsgWithdraw](#msgWithdraw)
+- [cdp/MsgDrawDebt](#msgDrawDebt)
+- [cdp/MsgRepayDebt](#msgRepayDebt)
 
 ###  MsgSend
 

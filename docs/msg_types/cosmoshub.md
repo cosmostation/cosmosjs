@@ -2,20 +2,22 @@
 
 In this docs, these are supporting message types in Cosmos Hub.
 
-- [MsgSend](#msgsend)
-- [MsgMultiSend](#msgmultisend)
-- [MsgCreateValidator](#msgcreatevalidator)
-- [MsgEditValidator](#msgeditvalidator)
-- [MsgDelegate](#msgdelegate)
-- [MsgUndelegate](#msgundelegate)
-- [MsgBeginRedelegate](#msgbeginredelegate)
-- [MsgWithdrawDelegationReward](#msgwithdrawdelegationreward)
-- [MsgWithdrawValidatorCommission](#msgwithdrawvalidatorcommission)
-- [MsgModifyWithdrawAddress](#msgmodifywithdrawaddress)
-- [MsgSubmitProposal](#msgsubmitproposal)
-- [MsgDeposit](#msgdeposit)
-- [MsgVote](#msgvote)
-- [MsgUnjail](#msgunjail)
+### Supporting Message Types
+
+- [cosmos-sdk/MsgSend](#msgsend)
+- [cosmos-sdk/MsgMultiSend](#msgmultisend)
+- [cosmos-sdk/MsgCreateValidator](#msgcreatevalidator)
+- [cosmos-sdk/MsgEditValidator](#msgeditvalidator)
+- [cosmos-sdk/MsgDelegate](#msgdelegate)
+- [cosmos-sdk/MsgUndelegate](#msgundelegate)
+- [cosmos-sdk/MsgBeginRedelegate](#msgbeginredelegate)
+- [cosmos-sdk/MsgWithdrawDelegationReward](#msgwithdrawdelegationreward)
+- [cosmos-sdk/MsgWithdrawValidatorCommission](#msgwithdrawvalidatorcommission)
+- [cosmos-sdk/MsgModifyWithdrawAddress](#msgmodifywithdrawaddress)
+- [cosmos-sdk/MsgSubmitProposal](#msgsubmitproposal)
+- [cosmos-sdk/MsgDeposit](#msgdeposit)
+- [cosmos-sdk/MsgVote](#msgvote)
+- [cosmos-sdk/MsgUnjail](#msgunjail)
 
 ###  MsgSend
 
