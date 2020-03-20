@@ -1,6 +1,12 @@
-# Cosmos  
+# Kava
 
-In this docs, these are supporting message types in Cosmos Hub.
+In this docs, these are supporting message types in Kava.
+
+**_Note:_** At the time of this writing, CDP transactions are NOT available in `kava-2 (mainnet)`. It is only available in `kava-testnet-4000`.
+
+- [Kava testnet link is available here](https://github.com/Kava-Labs/kava-testnets)
+
+Kava is a collateralized debt position built on top of Cosmos SDK. It has pretty much the same message types as Cosmos Hub other than [4 different moduels](https://github.com/Kava-Labs/kava-devnet/blob/master/spec/kava.md) that make up the system.
 
 - [MsgSend](#msgsend)
 - [MsgMultiSend](#msgmultisend)
@@ -16,6 +22,11 @@ In this docs, these are supporting message types in Cosmos Hub.
 - [MsgDeposit](#msgdeposit)
 - [MsgVote](#msgvote)
 - [MsgUnjail](#msgunjail)
+- [MsgCreateCDP](#msgCreateCDP)
+- [MsgDeposit](#msgDeposit)
+- [MsgWithdraw](#msgWithdraw)
+- [MsgDrawDebt](#msgDrawDebt)
+- [MsgRepayDebt](#msgRepayDebt)
 
 ###  MsgSend
 
@@ -400,3 +411,149 @@ let stdSignMsg = cosmos.newStdMsg({
 	sequence: String(data.result.value.sequence)
 });
 ```
+
+### MsgCreateCDP
+
+```js
+// cdp/MsgCreateCDP
+let stdSignMsg = cosmos.newStdMsg({
+	msgs: [
+        {
+            type: "cdp/MsgCreateCDP",
+            value: {
+                sender: "kava1ztrqwujkdu3dfzqv059vjyw7p879zv87lp5qn6",
+                principal: [
+                    { 
+                        denom: "usdx", 
+                        amount: "50000000" 
+                    }
+                ],
+                collateral: [
+                    { 
+                        denom: "btc", 
+                        amount: "1500000" 
+                    }
+                ]
+            }
+        }
+	],
+	chain_id: chainId,
+	fee: { amount: [ { amount: String(5000), denom: "ukava" } ], gas: String(200000) },
+	memo: "",
+	account_number: String(data.result.value.account_number),
+	sequence: String(data.result.value.sequence)
+});
+```
+
+### MsgDeposit
+```js
+// cdp/MsgDeposit
+let stdSignMsg = cosmos.newStdMsg({
+	msgs: [
+        {
+            type: "cdp/MsgDeposit",
+            value: {
+                owner: "kava1ztrqwujkdu3dfzqv059vjyw7p879zv87lp5qn6",
+                depositor: "kava1ztrqwujkdu3dfzqv059vjyw7p879zv87lp5qn6",
+                collateral: [
+                    { 
+                        denom: "btc", 
+                        amount: "1500" 
+                    }
+                ]
+            }
+        }
+	],
+	chain_id: chainId,
+	fee: { amount: [ { amount: String(5000), denom: "ukava" } ], gas: String(200000) },
+	memo: "",
+	account_number: String(data.result.value.account_number),
+	sequence: String(data.result.value.sequence)
+});
+```
+
+### MsgWithdraw
+
+```js
+// cdp/MsgWithdraw
+let stdSignMsg = cosmos.newStdMsg({
+	msgs: [
+        {
+            type: "cdp/MsgWithdraw",
+            value: {
+                owner: "kava12mhygxvk67n52wzcz0yuunw74xst7jmw2pkql3",
+                depositor: "kava10tpyfe03nufsax5g038n287yzn9ldyqc9dvz5j",
+                collateral: [
+                    { 
+                        denom: "btc", 
+                        amount: "50000" 
+                    }
+                ]
+            }
+        }
+	],
+	chain_id: chainId,
+	fee: { amount: [ { amount: String(5000), denom: "ukava" } ], gas: String(200000) },
+	memo: "",
+	account_number: String(data.result.value.account_number),
+	sequence: String(data.result.value.sequence)
+});
+```
+
+### MsgDrawDebt
+
+```js
+// cdp/MsgDrawDebt
+let stdSignMsg = cosmos.newStdMsg({
+	msgs: [
+        {
+            type: "cdp/MsgDrawDebt",
+            value: {
+                sender: "kava10tpyfe03nufsax5g038n287yzn9ldyqc9dvz5j",
+                cdp_denom: "btc",
+                principal: [
+                    { 
+                        denom: "usdx", 
+                        amount: "5000" 
+                    }
+                ]
+            }
+        }
+	],
+	chain_id: chainId,
+	fee: { amount: [ { amount: String(5000), denom: "ukava" } ], gas: String(200000) },
+	memo: "",
+	account_number: String(data.result.value.account_number),
+	sequence: String(data.result.value.sequence)
+});
+```
+
+### MsgRepayDebt
+
+```js
+// cdp/MsgRepayDebt
+let stdSignMsg = cosmos.newStdMsg({
+	msgs: [
+        {
+            type: "cdp/MsgRepayDebt",
+            value: {
+                sender: "kava10tpyfe03nufsax5g038n287yzn9ldyqc9dvz5j",
+                payment: [
+                    { 
+                        denom: "usdx", 
+                        amount: "10000" 
+                    }
+                ],
+                cdp_denom: "btc"
+            }
+        }
+	],
+	chain_id: chainId,
+	fee: { amount: [ { amount: String(5000), denom: "ukava" } ], gas: String(200000) },
+	memo: "",
+	account_number: String(data.result.value.account_number),
+	sequence: String(data.result.value.sequence)
+});
+```
+
+
