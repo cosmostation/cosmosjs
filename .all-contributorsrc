@@ -36,6 +36,15 @@
         "code",
         "bug"
       ]
+    },
+    {
+      "login": "tonyfeung",
+      "name": "Tony Phuong Nguyen",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/5483234?v=4",
+      "profile": "https://github.com/tonyfeung",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
