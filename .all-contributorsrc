@@ -26,6 +26,16 @@
         "doc",
         "maintenance"
       ]
+    },
+    {
+      "login": "okwme",
+      "name": "billy rennekamp",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/964052?v=4",
+      "profile": "https://clovers.network",
+      "contributions": [
+        "code",
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
