@@ -91,6 +91,9 @@ Cosmos.prototype.getAddress = function(mnemonic) {
 	if (typeof mnemonic !== "string") {
 	    throw new Error("mnemonic expects a string")
 	}
+	if (!bip39.validateMnemonic(mnemonic)) {
+	    throw new Error("mnemonic phrases have invalid checksums")
+	}
 	const seed = bip39.mnemonicToSeed(mnemonic);
 	const node = bip32.fromSeed(seed);
 	const child = node.derivePath(this.path);
