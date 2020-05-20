@@ -65,8 +65,8 @@ let stdSignMsg = iris.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.value.account_number),
+	sequence: String(data.value.sequence)
 });
 ```
 
@@ -97,8 +97,8 @@ let stdSignMsg = iris.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.value.account_number),
+	sequence: String(data.value.sequence)
 });
 ```
 
@@ -124,8 +124,8 @@ let stdSignMsg = iris.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.value.account_number),
+	sequence: String(data.value.sequence)
 });
 ```
 
@@ -145,8 +145,8 @@ let stdSignMsg = iris.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.value.account_number),
+	sequence: String(data.value.sequence)
 });
 ```
 
@@ -167,8 +167,8 @@ let stdSignMsg = iris.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(600000000000000000), denom: "iris-atto" } ], gas: String(100000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.value.account_number),
+	sequence: String(data.value.sequence)
 });
 ```
 
@@ -188,8 +188,8 @@ let stdSignMsg = iris.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(600000000000000000), denom: "iris-atto" } ], gas: String(100000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.value.account_number),
+	sequence: String(data.value.sequence)
 });
 ```
 
@@ -210,8 +210,8 @@ let stdSignMsg = iris.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.value.account_number),
+	sequence: String(data.value.sequence)
 });
 ```
 
@@ -247,8 +247,8 @@ let stdSignMsg = iris.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.value.account_number),
+	sequence: String(data.value.sequence)
 });
 ```
 
@@ -283,8 +283,8 @@ let stdSignMsg = iris.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.value.account_number),
+	sequence: String(data.value.sequence)
 });
 ```
 
@@ -320,8 +320,8 @@ let stdSignMsg = iris.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.value.account_number),
+	sequence: String(data.value.sequence)
 });
 ```
 
@@ -348,8 +348,8 @@ let stdSignMsg = iris.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.value.account_number),
+	sequence: String(data.value.sequence)
 });
 ```
 
@@ -371,8 +371,8 @@ let stdSignMsg = iris.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.value.account_number),
+	sequence: String(data.value.sequence)
 });
 ```
 
@@ -396,8 +396,8 @@ let stdSignMsg = iris.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.value.account_number),
+	sequence: String(data.value.sequence)
 });
 ```
 
@@ -421,8 +421,8 @@ let stdSignMsg = iris.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.value.account_number),
+	sequence: String(data.value.sequence)
 });
 ```
 
@@ -442,8 +442,8 @@ let stdSignMsg = iris.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.value.account_number),
+	sequence: String(data.value.sequence)
 });
 ```
 
@@ -463,8 +463,8 @@ let stdSignMsg = iris.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.value.account_number),
+	sequence: String(data.value.sequence)
 });
 ```
 
@@ -504,8 +504,8 @@ let stdSignMsg = iris.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.value.account_number),
+	sequence: String(data.value.sequence)
 });
 ```
 
@@ -532,8 +532,8 @@ let stdSignMsg = iris.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.value.account_number),
+	sequence: String(data.value.sequence)
 });
 ```
 
@@ -546,17 +546,20 @@ let stdSignMsg = iris.newStdMsg({
 		{
 			type: "irishub/stake/MsgDelegate",
 			value: {
-				shares_amount: String(1000000000000000000) + ".0000000000",
 				delegator_addr: address,
-				validator_addr: "iva18pva3yzzzaxj7l5a9uk66a0q7lflscyw966jud"
+				validator_addr: "iva18pva3yzzzaxj7l5a9uk66a0q7lflscyw966jud",
+				delegation: {
+					denom: "iris-atto",
+					amount: String(1000000000000000000)
+				}
 			}
 		}
 	],
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.value.account_number),
+	sequence: String(data.value.sequence)
 });
 ```
 
@@ -578,8 +581,8 @@ let stdSignMsg = iris.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.value.account_number),
+	sequence: String(data.value.sequence)
 });
 ```
 
@@ -602,8 +605,8 @@ let stdSignMsg = iris.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(600000000000000000), denom: "iris-atto" } ], gas: String(65000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.value.account_number),
+	sequence: String(data.value.sequence)
 });
 ```
 
@@ -634,8 +637,8 @@ let stdSignMsg = iris.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.value.account_number),
+	sequence: String(data.value.sequence)
 });
 ```
 
@@ -656,7 +659,7 @@ let stdSignMsg = iris.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.value.account_number),
+	sequence: String(data.value.sequence)
 });
 ```
