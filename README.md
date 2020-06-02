@@ -17,6 +17,7 @@ This library supports cosmos address generation and verification. It enables you
 
 [![MIT](https://img.shields.io/apm/l/vim-mode.svg)](https://github.com/cosmostation/cosmosjs/blob/master/LICENSE)
 [![NPM](https://img.shields.io/npm/v/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs)
+[![](https://data.jsdelivr.com/v1/package/npm/@cosmostation/cosmosjs/badge)](https://www.jsdelivr.com/package/npm/@cosmostation/cosmosjs)
 
 ## Installation
 
