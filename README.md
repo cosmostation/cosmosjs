@@ -46,9 +46,10 @@ CosmosJS supports browserify.
 const cosmosjs = require("@cosmostation/cosmosjs");
 ```
 
-#### Browser
+#### CDN
 
-- You can see [/example/browser-example.html](https://github.com/cosmostation/cosmosjs/tree/master/example/browser-example.html)
+- You can find cosmosjs jsDelivr and use the global cosmosjs variable.
+- You can see example file at [/example/browser-example.html](https://github.com/cosmostation/cosmosjs/tree/master/example/browser-example.html)
 
 ```js
 <script src="https://cdn.jsdelivr.net/npm/@cosmostation/cosmosjs@0.5.6/dist/cosmosjs-0.5.6.js"></script>
