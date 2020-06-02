@@ -59,7 +59,7 @@ const cosmosjs = require("@cosmostation/cosmosjs");
 ## Usage
 - Cosmos: Generate Cosmos address from mnemonic 
 ```js
-const cosmosjs = require("@cosmostation/cosmosjs");
+const cosmosjs = require("@cosmostation/cosmosjs"); 	// only NodeJS
 
 const chainId = "cosmoshub-3";
 const cosmos = cosmosjs.network(lcdUrl, chainId);
@@ -71,7 +71,7 @@ const ecpairPriv = cosmos.getECPairPriv(mnemonic);
 ```
 - Iris
 ```js
-const cosmosjs = require("@cosmostation/cosmosjs");
+const cosmosjs = require("@cosmostation/cosmosjs"); 	// only NodeJS
 
 const chainId = "irishub";
 const iris = cosmosjs.network(lcdUrl, chainId);
@@ -79,7 +79,7 @@ iris.setBech32MainPrefix("iaa");
 ```
 - Kava
 ```js
-const cosmosjs = require("@cosmostation/cosmosjs");
+const cosmosjs = require("@cosmostation/cosmosjs"); 	// only NodeJS
 
 const chainId = "kava-2";
 const kava = cosmosjs.network(lcdUrl, chainId);
