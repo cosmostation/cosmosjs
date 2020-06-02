@@ -411,7 +411,7 @@ let stdSignMsg = iris.newStdMsg({
 			type: "irishub/guardian/MsgAddTrustee",
 			value: {
 				AddGuardian: {
-					description: "Trustee for Community Pool Distribtion",
+					description: "Trustee for Community Pool Distribution",
 					address: "iaa1ke2my4hxr5mzntv3ec42vsp5dlkjssr7e8tgjx",
 					added_by: "iaa1k4vk9xv2ywq3p209qe2etwmlfav8aknt3agqzc"
 				}
