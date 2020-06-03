@@ -5,7 +5,7 @@
 	<title>CosmosJS Example</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="https://cdn.jsdelivr.net/npm/@cosmostation/cosmosjs@0.5.7/dist/cosmosjs-0.5.7.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@cosmostation/cosmosjs@0.5.8/dist/cosmos.js"></script>
 	<script>
 		function load() {
 			const mnemonic = "swear buyer security impulse public stereo peasant correct cross tornado bid discover anchor float venture deal patch property cool wreck eight dwarf december surface";
@@ -19,6 +19,7 @@
 			console.log("myAddress: ", address);
 			document.getElementById('myAddress').innerHTML = "[myAddress]<br>" + address;
 
+			// You can send ATOM by running the code below.
 			/*
 			cosmos.getAccounts(address).then(data => {
 				let stdSignMsg = cosmos.newStdMsg({

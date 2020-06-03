@@ -17,7 +17,7 @@ This library supports cosmos address generation and verification. It enables you
 
 [![MIT](https://img.shields.io/apm/l/vim-mode.svg)](https://github.com/cosmostation/cosmosjs/blob/master/LICENSE)
 [![NPM](https://img.shields.io/npm/v/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs)
-[![](https://data.jsdelivr.com/v1/package/npm/@cosmostation/cosmosjs/badge)](https://www.jsdelivr.com/package/npm/@cosmostation/cosmosjs)
+[![](https://data.jsdelivr.com/v1/package/npm/@cosmostation/cosmosjs/badge?style=rounded)](https://www.jsdelivr.com/package/npm/@cosmostation/cosmosjs)
 
 ## Installation
 
@@ -53,7 +53,7 @@ const cosmosjs = require("@cosmostation/cosmosjs");
 - You can see example file at [/example/browser-example.html](https://github.com/cosmostation/cosmosjs/tree/master/example/browser-example.html)
 
 ```js
-<script src="https://cdn.jsdelivr.net/npm/@cosmostation/cosmosjs@0.5.7/dist/cosmosjs-0.5.7.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@cosmostation/cosmosjs@0.5.8/dist/cosmos.js"></script>
 ```
 
 ## Usage

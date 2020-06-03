@@ -34447,7 +34447,7 @@ Cosmos.prototype.newStdMsg = function(input) {
 }
 
 Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
-	// The supported return types includes "block"(return after tx commit), "sync"(return afer CheckTx) and "async"(return right away).
+	// The supported return types includes "block"(return after tx commit), "sync"(return after CheckTx) and "async"(return right away).
 	let signMessage = new Object;
 	if (stdSignMsg.json.msgs[0].type == "irishub/bank/Send" ||
 		stdSignMsg.json.msgs[0].type == "irishub/stake/BeginUnbonding" ||
