@@ -4,7 +4,7 @@ const mnemonic = "YOUR MNEMONIC";
 const chainId = "kava-testnet-6000";
 const kava = cosmosjs.network("PUBLIC REST SERVER ENDPOINT", chainId);
 kava.setBech32MainPrefix("kava"); // same prefix as Mainnet
-kava.setPath("m/44'/459'/0'/0/0"); // old derivation path: m/44'/118'/0'/0/0
+kava.setPath("m/44'/459'/0'/0/0"); // legacy derivation path: m/44'/118'/0'/0/0
 const address = kava.getAddress(mnemonic);
 const ecpairPriv = kava.getECPairPriv(mnemonic);
 
