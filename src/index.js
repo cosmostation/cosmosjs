@@ -242,6 +242,8 @@ Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
 		        "fee": stdSignMsg.json.fee,
 		        "signatures": [
 		            {
+		            	"account_number": stdSignMsg.json.account_number,
+		            	"sequence": stdSignMsg.json.sequence,
 		                "signature": signatureBase64,
 		                "pub_key": {
 		                    "type": "tendermint/PubKeySecp256k1",
