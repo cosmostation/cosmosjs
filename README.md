@@ -53,7 +53,7 @@ const cosmosjs = require("@cosmostation/cosmosjs");
 - You can see example file at [/example/browser-example.html](https://github.com/cosmostation/cosmosjs/tree/master/example/browser-example.html)
 
 ```js
-<script src="https://cdn.jsdelivr.net/npm/@cosmostation/cosmosjs@0.6.0/dist/cosmos.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@cosmostation/cosmosjs@0.6.2/dist/cosmos.min.js"></script>
 ```
 
 ## Usage
