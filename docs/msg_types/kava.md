@@ -2,8 +2,6 @@
 
 In this docs, these are supporting message types in Kava.
 
-**_Note:_** At the time of this writing, CDP transactions are NOT available in `kava-2 (mainnet)`. It is only available in `kava-testnet-4000`.
-
 - [Kava testnet link is available here](https://github.com/Kava-Labs/kava-testnets)
 
 Kava is a collateralized debt position built on top of Cosmos SDK. It has pretty much the same message types as Cosmos Hub other than [4 different moduels](https://github.com/Kava-Labs/kava-devnet/blob/master/spec/kava.md) that make up the system.
@@ -41,17 +39,17 @@ let stdSignMsg = kava.newStdMsg({
 			value: {
 				amount: [
 					{
-						amount: String(100000), 	// 6 decimal places (1000000 uatom = 1 ATOM)
-						denom: "uatom"
+						amount: String(100000), 	// 6 decimal places (1000000 ukava = 1 KAVA)
+						denom: "ukava"
 					}
 				],
 				from_address: address,
-				to_address: "cosmos18vhdczjut44gpsy804crfhnd5nq003nz0nf20v"
+				to_address: "kava1qrlge6kqjz2763yp6ghws9ekv8u62dva9hs86p"
 			}
 		}
 	],
 	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
+	fee: { amount: [ { amount: String(5000), denom: "ukava" } ], gas: String(200000) },
 	memo: "",
 	account_number: String(data.result.value.account_number),
 	sequence: String(data.result.value.sequence)
@@ -72,19 +70,19 @@ let stdSignMsg = kava.newStdMsg({
 						address: address,
 						coins: [
 							{
-								amount: String(100000),		// 6 decimal places (1000000 uatom = 1 ATOM)
-								denom: "uatom"
+								amount: String(100000),		// 6 decimal places (1000000 ukava = 1 KAVA)
+								denom: "ukava"
 							}
 						]
 					}
 				],
 				outputs: [
 					{
-						address: "cosmos18vhdczjut44gpsy804crfhnd5nq003nz0nf20v",
+						address: "kava1qrlge6kqjz2763yp6ghws9ekv8u62dva9hs86p",
 						coins: [
 							{
 								amount: String(100000),
-								denom: "uatom"
+								denom: "ukava"
 							}
 						]
 					}
@@ -93,7 +91,7 @@ let stdSignMsg = kava.newStdMsg({
 		}
 	],
 	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
+	fee: { amount: [ { amount: String(5000), denom: "ukava" } ], gas: String(200000) },
 	memo: "",
 	account_number: String(data.result.value.account_number),
 	sequence: String(data.result.value.sequence)
@@ -122,17 +120,17 @@ let stdSignMsg = kava.newStdMsg({
 				},
 				min_self_delegation: String(1),
 				delegator_address: address,
-				validator_address: "cosmosvaloper106kt5cmued596rqusmthfnh39h38k64e73fxce",
-				pubkey: "cosmosvalconspub1zcjduepq8ve2hfuvnyhan9tz7vjgstslw7lygnk85sgp3emehtnxjpu3j7gqw5wvcz",
+				validator_address: "kavavaloper1d5we85gdx9kdyszw0nd9a6jpdu65cxwqph4yex",
+				pubkey: "kavavalconspub1zcjduepq8ve2hfuvnyhan9tz7vjgstslw7lygnk85sgp3emehtnxjpu3j7gqw5wvcz",
 				value: {
-					denom: "uatom",
+					denom: "ukava",
 					amount: String(1)
 				}
 			}
 		}
 	],
 	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
+	fee: { amount: [ { amount: String(5000), denom: "ukava" } ], gas: String(200000) },
 	memo: "",
 	account_number: String(data.result.value.account_number),
 	sequence: String(data.result.value.sequence)
@@ -154,14 +152,14 @@ let stdSignMsg = kava.newStdMsg({
 					website: "[do-not-modify]",
 					details: "[do-not-modify]"
 				},
-				address: "cosmosvaloper106kt5cmued596rqusmthfnh39h38k64e73fxce",
+				address: "kavavaloper1d5we85gdx9kdyszw0nd9a6jpdu65cxwqph4yex",
 				commission_rate: "0.220000000000000000",	// 22.0%
 				min_self_delegation: null
 			}
 		}
 	],
 	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
+	fee: { amount: [ { amount: String(5000), denom: "ukava" } ], gas: String(200000) },
 	memo: "",
 	account_number: String(data.result.value.account_number),
 	sequence: String(data.result.value.sequence)
@@ -179,15 +177,15 @@ let stdSignMsg = kava.newStdMsg({
 			value: {
 				amount: {
 					amount: String(1000000),
-					denom: "uatom"
+					denom: "ukava"
 				},
 				delegator_address: address,
-				validator_address: "cosmosvaloper1clpqr4nrk4khgkxj78fcwwh6dl3uw4epsluffn"
+				validator_address: "kavavaloper1d5we85gdx9kdyszw0nd9a6jpdu65cxwqph4yex"
 			}
 		}
 	],
 	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
+	fee: { amount: [ { amount: String(5000), denom: "ukava" } ], gas: String(200000) },
 	memo: "",
 	account_number: String(data.result.value.account_number),
 	sequence: String(data.result.value.sequence)
@@ -205,15 +203,15 @@ let stdSignMsg = kava.newStdMsg({
 			value: {
 				amount: {
 					amount: String(1000000),
-					denom: "uatom"
+					denom: "ukava"
 				},
 				delegator_address: address,
-				validator_address: "cosmosvaloper1clpqr4nrk4khgkxj78fcwwh6dl3uw4epsluffn"
+				validator_address: "kavavaloper1d5we85gdx9kdyszw0nd9a6jpdu65cxwqph4yex"
 			}
 		}
 	],
 	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
+	fee: { amount: [ { amount: String(5000), denom: "ukava" } ], gas: String(200000) },
 	memo: "",
 	account_number: String(data.result.value.account_number),
 	sequence: String(data.result.value.sequence)
@@ -231,16 +229,16 @@ let stdSignMsg = kava.newStdMsg({
 			value: {
 				amount: {
 					amount: String(1000000),
-					denom: "uatom"
+					denom: "ukava"
 				},
 				delegator_address: address,
-				validator_dst_address: "cosmosvaloper1ec3p6a75mqwkv33zt543n6cnxqwun37rr5xlqv",
-				validator_src_address: "cosmosvaloper1clpqr4nrk4khgkxj78fcwwh6dl3uw4epsluffn"
+				validator_dst_address: "kavavaloper193ugtwwdm3u57f4zcxdg5ueky3g0swngck3fhc",
+				validator_src_address: "kavavaloper1d5we85gdx9kdyszw0nd9a6jpdu65cxwqph4yex"
 			}
 		}
 	],
 	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
+	fee: { amount: [ { amount: String(5000), denom: "ukava" } ], gas: String(200000) },
 	memo: "",
 	account_number: String(data.result.value.account_number),
 	sequence: String(data.result.value.sequence)
@@ -257,12 +255,12 @@ let stdSignMsg = kava.newStdMsg({
 			type: "cosmos-sdk/MsgWithdrawDelegationReward",
 			value: {
 				delegator_address: address,
-				validator_address: "cosmosvaloper1clpqr4nrk4khgkxj78fcwwh6dl3uw4epsluffn"
+				validator_address: "kavavaloper1d5we85gdx9kdyszw0nd9a6jpdu65cxwqph4yex"
 			}
 		}
 	],
 	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
+	fee: { amount: [ { amount: String(5000), denom: "ukava" } ], gas: String(200000) },
 	memo: "",
 	account_number: String(data.result.value.account_number),
 	sequence: String(data.result.value.sequence)
@@ -278,12 +276,12 @@ let stdSignMsg = kava.newStdMsg({
 		{
 			type: "cosmos-sdk/MsgWithdrawValidatorCommission",
 			value: {
-				validator_address: "cosmosvaloper1clpqr4nrk4khgkxj78fcwwh6dl3uw4epsluffn"
+				validator_address: "kavavaloper1d5we85gdx9kdyszw0nd9a6jpdu65cxwqph4yex"
 			}
 		}
 	],
 	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
+	fee: { amount: [ { amount: String(5000), denom: "ukava" } ], gas: String(200000) },
 	memo: "",
 	account_number: String(data.result.value.account_number),
 	sequence: String(data.result.value.sequence)
@@ -300,12 +298,12 @@ let stdSignMsg = kava.newStdMsg({
 			type: "cosmos-sdk/MsgModifyWithdrawAddress",
 			value: {
 				delegator_address: address,
-				withdraw_address: "cosmos133mtfk63fuac5e2npfgcktwufnty2536wedfal"
+				withdraw_address: "kava193ugtwwdm3u57f4zcxdg5ueky3g0swng4qtp00"
 			}
 		}
 	],
 	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
+	fee: { amount: [ { amount: String(5000), denom: "ukava" } ], gas: String(200000) },
 	memo: "",
 	account_number: String(data.result.value.account_number),
 	sequence: String(data.result.value.sequence)
@@ -326,7 +324,7 @@ let stdSignMsg = kava.newStdMsg({
 				initial_deposit: [
                     {
                     	amount: String(1000000),
-                        denom: "uatom"
+                        denom: "ukava"
                     }
                 ],
                 proposal_type: "Text",
@@ -335,7 +333,7 @@ let stdSignMsg = kava.newStdMsg({
 		}
 	],
 	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
+	fee: { amount: [ { amount: String(5000), denom: "ukava" } ], gas: String(200000) },
 	memo: "",
 	account_number: String(data.result.value.account_number),
 	sequence: String(data.result.value.sequence)
@@ -354,7 +352,7 @@ let stdSignMsg = kava.newStdMsg({
 				amount: [
                     {
                     	amount: String(1000000),
-                        denom: "uatom"
+                        denom: "ukava"
                     }
                 ],
                 depositor: address,
@@ -363,7 +361,7 @@ let stdSignMsg = kava.newStdMsg({
 		}
 	],
 	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
+	fee: { amount: [ { amount: String(5000), denom: "ukava" } ], gas: String(200000) },
 	memo: "",
 	account_number: String(data.result.value.account_number),
 	sequence: String(data.result.value.sequence)
@@ -386,7 +384,7 @@ let stdSignMsg = kava.newStdMsg({
 		}
 	],
 	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
+	fee: { amount: [ { amount: String(5000), denom: "ukava" } ], gas: String(200000) },
 	memo: "",
 	account_number: String(data.result.value.account_number),
 	sequence: String(data.result.value.sequence)
@@ -402,12 +400,12 @@ let stdSignMsg = kava.newStdMsg({
 		{
 			type: "cosmos-sdk/MsgUnjail",
 			value: {
-				address: "cosmosvaloper1clpqr4nrk4khgkxj78fcwwh6dl3uw4epsluffn"
+				address: "kavavaloper193ugtwwdm3u57f4zcxdg5ueky3g0swngck3fhc"
 			}
 		}
 	],
 	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
+	fee: { amount: [ { amount: String(5000), denom: "ukava" } ], gas: String(200000) },
 	memo: "",
 	account_number: String(data.result.value.account_number),
 	sequence: String(data.result.value.sequence)
@@ -423,7 +421,7 @@ let stdSignMsg = kava.newStdMsg({
         {
             type: "cdp/MsgCreateCDP",
             value: {
-                sender: "kava1ztrqwujkdu3dfzqv059vjyw7p879zv87lp5qn6",
+                sender: "kava193ugtwwdm3u57f4zcxdg5ueky3g0swng4qtp00",
                 principal: [
                     { 
                         denom: "usdx", 
@@ -455,8 +453,8 @@ let stdSignMsg = kava.newStdMsg({
         {
             type: "cdp/MsgDeposit",
             value: {
-                owner: "kava1ztrqwujkdu3dfzqv059vjyw7p879zv87lp5qn6",
-                depositor: "kava1ztrqwujkdu3dfzqv059vjyw7p879zv87lp5qn6",
+                owner: "kava193ugtwwdm3u57f4zcxdg5ueky3g0swng4qtp00",
+                depositor: "kava193ugtwwdm3u57f4zcxdg5ueky3g0swng4qtp00",
                 collateral: [
                     { 
                         denom: "btc", 
@@ -483,7 +481,7 @@ let stdSignMsg = kava.newStdMsg({
         {
             type: "cdp/MsgWithdraw",
             value: {
-                owner: "kava12mhygxvk67n52wzcz0yuunw74xst7jmw2pkql3",
+                owner: "kava1d5we85gdx9kdyszw0nd9a6jpdu65cxwqvp0vp3",
                 depositor: "kava10tpyfe03nufsax5g038n287yzn9ldyqc9dvz5j",
                 collateral: [
                     { 
@@ -511,7 +509,7 @@ let stdSignMsg = kava.newStdMsg({
         {
             type: "cdp/MsgDrawDebt",
             value: {
-                sender: "kava10tpyfe03nufsax5g038n287yzn9ldyqc9dvz5j",
+                sender: "kava1d5we85gdx9kdyszw0nd9a6jpdu65cxwqvp0vp3",
                 cdp_denom: "btc",
                 principal: [
                     { 
@@ -539,7 +537,7 @@ let stdSignMsg = kava.newStdMsg({
         {
             type: "cdp/MsgRepayDebt",
             value: {
-                sender: "kava10tpyfe03nufsax5g038n287yzn9ldyqc9dvz5j",
+                sender: "kava1d5we85gdx9kdyszw0nd9a6jpdu65cxwqvp0vp3",
                 payment: [
                     { 
                         denom: "usdx", 

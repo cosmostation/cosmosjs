@@ -81,7 +81,7 @@ iris.setBech32MainPrefix("iaa");
 ```js
 const cosmosjs = require("@cosmostation/cosmosjs"); 	// only NodeJS
 
-const chainId = "kava-2";
+const chainId = "kava-3";
 const kava = cosmosjs.network(lcdUrl, chainId);
 kava.setBech32MainPrefix("kava");
 ```

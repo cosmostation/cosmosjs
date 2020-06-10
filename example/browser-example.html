@@ -5,9 +5,9 @@
 	<title>CosmosJS Example</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="https://cdn.jsdelivr.net/npm/@cosmostation/cosmosjs@0.6.0/dist/cosmos.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@cosmostation/cosmosjs@0.6.1/dist/cosmos.min.js"></script>
 	<script>
-		function load() {
+		function send() {
 			const mnemonic = "swear buyer security impulse public stereo peasant correct cross tornado bid discover anchor float venture deal patch property cool wreck eight dwarf december surface";
 			const chainId = "cosmoshub-3";
 			const cosmos = cosmosjs.network("https://lcd-cosmos-free.cosmostation.io", chainId);
@@ -53,7 +53,7 @@
 	</script>
 </head>
 
-<body onload="load();">
+<body onload="send();">
 	<p id="myAddress"></p>
 </body>
 
