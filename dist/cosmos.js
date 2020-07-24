@@ -34252,7 +34252,7 @@ module.exports = {
 
 }).call(this,require("buffer").Buffer)
 },{"bs58check":65,"buffer":186}],139:[function(require,module,exports){
-(function (Buffer){
+(function (global,Buffer){
 /*
     Developed / Developing by Cosmostation
     [WARNING] CosmosJS is under ACTIVE DEVELOPMENT and should be treated as alpha version. We will remove this warning when we have a release that is stable, secure, and propoerly tested.
@@ -34260,7 +34260,7 @@ module.exports = {
 
 'use strict'
 
-const fetch = require('node-fetch').default;
+global.fetch || (global.fetch = require('node-fetch').default);
 const bip39 = require('bip39');
 const bip32 = require('bip32');
 const bech32 = require('bech32');
@@ -34537,7 +34537,7 @@ module.exports = {
 	network: network
 }
 
-}).call(this,require("buffer").Buffer)
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer)
 },{"bech32":2,"bip32":4,"bip39":5,"bitcoinjs-lib":23,"buffer":186,"crypto":194,"node-fetch":106,"secp256k1":116}],140:[function(require,module,exports){
 var asn1 = exports;
 
