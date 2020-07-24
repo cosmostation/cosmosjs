@@ -5,7 +5,7 @@
 
 'use strict'
 
-const fetch = require('node-fetch').default;
+global.fetch || (global.fetch = require('node-fetch').default);
 const bip39 = require('bip39');
 const bip32 = require('bip32');
 const bech32 = require('bech32');
