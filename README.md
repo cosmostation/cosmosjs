@@ -1,5 +1,5 @@
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <p align="center">
@@ -11,9 +11,9 @@
 
 *:star: Developed / Developing by [Cosmostation](https://www.cosmostation.io/)*
 
-A JavasSript Open Source Library for [Cosmos Network](https://cosmos.network/), [IRISnet](https://www.irisnet.org/), [Kava](https://www.kava.io/) and [Band Protocol](https://bandprotocol.com/)
+A JavasSript Open Source Library for [Cosmos Network](https://cosmos.network/), [IRISnet](https://www.irisnet.org/), [Kava](https://www.kava.io/), [Band Protocol](https://bandprotocol.com/), and [IOV](https://iov.one/)
 
-This library supports cosmos address generation and verification. It enables you to create an offline signature functions of different types of transaction messages. It will eventually support all the other blockchains that are based on Tendermint in the future, such as IOV and others.
+This library supports cosmos address generation and verification. It enables you to create an offline signature functions of different types of transaction messages. It will eventually support all the other blockchains that are based on Tendermint in the future.
 
 [![MIT](https://img.shields.io/apm/l/vim-mode.svg)](https://github.com/cosmostation/cosmosjs/blob/master/LICENSE)
 [![NPM](https://badge.fury.io/js/%40cosmostation%2Fcosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs)
@@ -47,19 +47,24 @@ CosmosJS supports browserify.
 const cosmosjs = require("@cosmostation/cosmosjs");
 ```
 
+#### ES6 module
+```js
+import cosmosjs from "@cosmostation/cosmosjs";
+```
+
 #### CDN
 
 - You can find cosmosjs jsDelivr and use the global cosmosjs variable.
 - You can see example file at [/example/browser-example.html](https://github.com/cosmostation/cosmosjs/tree/master/example/browser-example.html)
 
 ```js
-<script src="https://cdn.jsdelivr.net/npm/@cosmostation/cosmosjs@0.6.7/dist/cosmos.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@cosmostation/cosmosjs@0.6.8/dist/cosmos.min.js"></script>
 ```
 
 ## Usage
 - Cosmos: Generate Cosmos address from mnemonic 
 ```js
-const cosmosjs = require("@cosmostation/cosmosjs"); 	// only NodeJS
+const cosmosjs = require("@cosmostation/cosmosjs");
 
 const chainId = "cosmoshub-3";
 const cosmos = cosmosjs.network(lcdUrl, chainId);
@@ -71,7 +76,7 @@ const ecpairPriv = cosmos.getECPairPriv(mnemonic);
 ```
 - Iris
 ```js
-const cosmosjs = require("@cosmostation/cosmosjs"); 	// only NodeJS
+const cosmosjs = require("@cosmostation/cosmosjs");
 
 const chainId = "irishub";
 const iris = cosmosjs.network(lcdUrl, chainId);
@@ -79,7 +84,7 @@ iris.setBech32MainPrefix("iaa");
 ```
 - Kava
 ```js
-const cosmosjs = require("@cosmostation/cosmosjs"); 	// only NodeJS
+const cosmosjs = require("@cosmostation/cosmosjs");
 
 const chainId = "kava-3";
 const kava = cosmosjs.network(lcdUrl, chainId);
@@ -87,11 +92,19 @@ kava.setBech32MainPrefix("kava");
 ```
 - Band
 ```js
-const cosmosjs = require("@cosmostation/cosmosjs"); 	// only NodeJS
+const cosmosjs = require("@cosmostation/cosmosjs");
 
 const chainId = "band-wenchang-mainnet";
 const band = cosmosjs.network(lcdUrl, chainId);
 band.setBech32MainPrefix("band");
+```
+- IOV
+```js
+const cosmosjs = require("@cosmostation/cosmosjs");
+
+const chainId = "iov-mainnet-2";
+const iov = cosmosjs.network(lcdUrl, chainId);
+iov.setBech32MainPrefix("star");
 ```
 
 Generate ECPairPriv value that is needed for signing signatures
