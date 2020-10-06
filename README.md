@@ -106,7 +106,7 @@ const chainId = "iov-mainnet-2";
 const iov = cosmosjs.network(lcdUrl, chainId);
 iov.setBech32MainPrefix("star");
 ```
-- IOV
+- Secret Network
 ```js
 const cosmosjs = require("@cosmostation/cosmosjs");
 
