@@ -11,7 +11,7 @@
 
 *:star: Developed / Developing by [Cosmostation](https://www.cosmostation.io/)*
 
-A JavasSript Open Source Library for [Cosmos Network](https://cosmos.network/), [IRISnet](https://www.irisnet.org/), [Kava](https://www.kava.io/), [Band Protocol](https://bandprotocol.com/), and [IOV](https://iov.one/)
+A JavasSript Open Source Library for [Cosmos Network](https://cosmos.network/), [IRISnet](https://www.irisnet.org/), [Kava](https://www.kava.io/), [Band Protocol](https://bandprotocol.com/), [Starname](https://iov.one/), and [Secret Network](https://scrt.network/)
 
 This library supports cosmos address generation and verification. It enables you to create an offline signature functions of different types of transaction messages. It will eventually support all the other blockchains that are based on Tendermint in the future.
 
@@ -98,13 +98,21 @@ const chainId = "band-wenchang-mainnet";
 const band = cosmosjs.network(lcdUrl, chainId);
 band.setBech32MainPrefix("band");
 ```
-- IOV
+- Starname
 ```js
 const cosmosjs = require("@cosmostation/cosmosjs");
 
 const chainId = "iov-mainnet-2";
 const iov = cosmosjs.network(lcdUrl, chainId);
 iov.setBech32MainPrefix("star");
+```
+- IOV
+```js
+const cosmosjs = require("@cosmostation/cosmosjs");
+
+const chainId = "secret-1";
+const scrt = cosmosjs.network(lcdUrl, chainId);
+scrt.setBech32MainPrefix("secret");
 ```
 
 Generate ECPairPriv value that is needed for signing signatures
