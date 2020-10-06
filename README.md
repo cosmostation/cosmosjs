@@ -151,7 +151,9 @@ cosmos.broadcast(signedTx).then(response => console.log(response));
 ```
 
 Cosmostation offers LCD url([https://lcd-cosmos-free.cosmostation.io](https://lcd-cosmos-free.cosmostation.io/node_info)).
-* API Rate Limiting: 10 requests per second
+- This rest server URL may be disabled at any time. In order to maintain stable blockchain service, it is recommended to prepare your rest server.
+- Setting up the rest server: (https://hub.cosmos.network/master/resources/service-providers.html#setting-up-the-rest-server)
+- API Rate Limiting: 2 requests per second
 
 ## Supporting Message Types (Updating...)
 - If you need more message types, you can see [/docs/msg_types](https://github.com/cosmostation/cosmosjs/tree/master/docs/msg_types)

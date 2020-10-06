@@ -3,7 +3,8 @@ const cosmosjs = require("../src");
 // [WARNING] This mnemonic is just for the demo purpose. DO NOT USE THIS MNEMONIC for your own wallet.
 const mnemonic = "swear buyer security impulse public stereo peasant correct cross tornado bid discover anchor float venture deal patch property cool wreck eight dwarf december surface";
 const chainId = "irishub";
-const iris = cosmosjs.network("https://lcd-iris.cosmostation.io", chainId);
+// Please install and use rest server separately. (https://hub.cosmos.network/master/resources/service-providers.html#setting-up-the-rest-server)
+const iris = cosmosjs.network("YOUR REST SERVER URL", chainId);
 iris.setBech32MainPrefix("iaa");
 iris.setPath("m/44'/118'/0'/0/0");
 const address = iris.getAddress(mnemonic);
