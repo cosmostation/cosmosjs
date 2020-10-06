@@ -3,7 +3,8 @@ const cosmosjs = require("../src");
 // [WARNING] This mnemonic is just for the demo purpose. DO NOT USE THIS MNEMONIC for your own wallet.
 const mnemonic = "swear buyer security impulse public stereo peasant correct cross tornado bid discover anchor float venture deal patch property cool wreck eight dwarf december surface";
 const chainId = "band-wenchang-mainnet";
-const band = cosmosjs.network("https://lcd-band.cosmostation.io", chainId);
+// Please install and use rest server separately. (https://hub.cosmos.network/master/resources/service-providers.html#setting-up-the-rest-server)
+const band = cosmosjs.network("YOUR REST SERVER URL", chainId);
 band.setBech32MainPrefix("band");
 band.setPath("m/44'/494'/0'/0/0"); 		// new: m/44'/494'/0'/0/0, legacy: m/44'/118'/0'/0/0
 const address = band.getAddress(mnemonic);

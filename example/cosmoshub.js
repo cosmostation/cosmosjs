@@ -3,6 +3,8 @@ const cosmosjs = require("../src");
 // [WARNING] This mnemonic is just for the demo purpose. DO NOT USE THIS MNEMONIC for your own wallet.
 const mnemonic = "swear buyer security impulse public stereo peasant correct cross tornado bid discover anchor float venture deal patch property cool wreck eight dwarf december surface";
 const chainId = "cosmoshub-3";
+// This rest server URL may be disabled at any time. In order to maintain stable blockchain service, it is recommended to prepare your rest server.
+// (https://hub.cosmos.network/master/resources/service-providers.html#setting-up-the-rest-server)
 const cosmos = cosmosjs.network("https://lcd-cosmos-free.cosmostation.io", chainId);
 cosmos.setBech32MainPrefix("cosmos");
 cosmos.setPath("m/44'/118'/0'/0/0");
