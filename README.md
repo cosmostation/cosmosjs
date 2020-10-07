@@ -110,7 +110,7 @@ iov.setBech32MainPrefix("star");
 ```js
 const cosmosjs = require("@cosmostation/cosmosjs");
 
-const chainId = "secret-1";
+const chainId = "secret-2";
 const scrt = cosmosjs.network(lcdUrl, chainId);
 scrt.setBech32MainPrefix("secret");
 ```
