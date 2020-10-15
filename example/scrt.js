@@ -2,7 +2,7 @@ const cosmosjs = require("../src");
 
 // [WARNING] This mnemonic is just for the demo purpose. DO NOT USE THIS MNEMONIC for your own wallet.
 const mnemonic = "swear buyer security impulse public stereo peasant correct cross tornado bid discover anchor float venture deal patch property cool wreck eight dwarf december surface";
-const chainId = "secret-1";
+const chainId = "secret-2";
 // Please install and use rest server separately. (https://hub.cosmos.network/master/resources/service-providers.html#setting-up-the-rest-server)
 const scrt = cosmosjs.network("https://api-node.chainofsecrets.org", chainId);
 scrt.setBech32MainPrefix("secret");
