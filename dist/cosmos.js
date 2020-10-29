@@ -34401,11 +34401,11 @@ Cosmos.prototype.newStdMsg = function(input) {
 					]
 				}
 			],
-			chain_id: input.msgs[0].chain_id,
-			fee: { amount: [ { amount: input.msgs[0].fee.amount[0].amount, denom: input.msgs[0].fee.amount[0].denom } ], gas: input.msgs[0].fee.gas },
-			memo: input.msgs[0].memo,
-			account_number: input.msgs[0].account_number,
-			sequence: input.msgs[0].sequence
+			chain_id: input.chain_id,
+			fee: { amount: [ { amount: input.fee.amount[0].amount, denom: input.fee.amount[0].denom } ], gas: input.fee.gas },
+			memo: input.memo,
+			account_number: input.account_number,
+			sequence: input.sequence
 		}
 	} else if (input.msgs[0].type == "irishub/stake/BeginUnbonding") {
 		stdSignMsg.jsonForSigningIrisTx =
@@ -34417,11 +34417,11 @@ Cosmos.prototype.newStdMsg = function(input) {
 					validator_addr: input.msgs[0].value.validator_addr
 				}
 			],
-			chain_id: input.msgs[0].chain_id,
-			fee: { amount: [ { amount: input.msgs[0].fee.amount[0].amount, denom: input.msgs[0].fee.amount[0].denom } ], gas: input.msgs[0].fee.gas },
-			memo: input.msgs[0].memo,
-			account_number: input.msgs[0].account_number,
-			sequence: input.msgs[0].sequence
+			chain_id: input.chain_id,
+			fee: { amount: [ { amount: input.fee.amount[0].amount, denom: input.fee.amount[0].denom } ], gas: input.fee.gas },
+			memo: input.memo,
+			account_number: input.account_number,
+			sequence: input.sequence
 		}
 	} else if (input.msgs[0].type == "irishub/stake/BeginRedelegate") {
 		stdSignMsg.jsonForSigningIrisTx =
@@ -34434,11 +34434,11 @@ Cosmos.prototype.newStdMsg = function(input) {
 					shares: String(input.msgs[0].value.shares_amount) + ".0000000000"		// IRIS Exception) For signing, shares is correct.
 				}
 			],
-			chain_id: input.msgs[0].chain_id,
-			fee: { amount: [ { amount: input.msgs[0].fee.amount[0].amount, denom: input.msgs[0].fee.amount[0].denom } ], gas: input.msgs[0].fee.gas },
-			memo: input.msgs[0].memo,
-			account_number: input.msgs[0].account_number,
-			sequence: input.msgs[0].sequence
+			chain_id: input.chain_id,
+			fee: { amount: [ { amount: input.fee.amount[0].amount, denom: input.fee.amount[0].denom } ], gas: input.fee.gas },
+			memo: input.memo,
+			account_number: input.account_number,
+			sequence: input.sequence
 		}
 	}
 
