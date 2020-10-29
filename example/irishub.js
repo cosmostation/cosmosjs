@@ -45,8 +45,8 @@ iris.getAccounts(address).then(data => {
 		chain_id: chainId,
 		fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
 		memo: "",
-		account_number: String(data.result.value.account_number),
-		sequence: String(data.result.value.sequence)
+		account_number: String(data.value.account_number),
+		sequence: String(data.value.sequence)
 	});
 
 	const signedTx = iris.sign(stdSignMsg, ecpairPriv);
