@@ -1,7 +1,7 @@
 {
   "name": "@cosmostation/cosmosjs",
-  "version": "0.6.12",
-  "description": "A JavasSript Open Source Library for Cosmos Network, IRISnet, Kava, Band Protocol, Starname and Secret Network. (HTML developers can use /dist/cosmos.js)",
+  "version": "0.7.0",
+  "description": "A JavasSript Open Source Library for Cosmos Network, IRISnet, Kava, Band Protocol, Starname, Secret Network, and Akash. (HTML developers can use /dist/cosmos.js)",
   "main": "./src/index.js",
   "repository": {
     "type": "git",
@@ -23,7 +23,9 @@
     "iov",
     "starname",
     "secret",
-    "scrt"
+    "scrt",
+    "akash",
+    "akt"
   ],
   "scripts": {
     "test": "mocha"
