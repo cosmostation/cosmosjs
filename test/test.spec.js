@@ -52,10 +52,14 @@ describe("Cosmoshub", function() {
 describe("Iris hub", function() {
 	const chainId = "irisnet";
 	const iris = cosmosjs.network("https://api.irisnet.org", chainId);
+	const irisPath = "m/44'/118'/0'/0/0";
+	const irisPrefix = "iaa";
 	describe("getAddress", function () {
 		it("gets an iris address from mnemonic", function () {
+			iris.setBech32MainPrefix(irisPrefix);
+  			iris.setPath(irisPath);
 			let address = iris.getAddress(mnemonic);
-			assert.strictEqual(address, "cosmos1fnk3lxlks7tdg6x55ynv6vggtnd73ycqsq89sl");
+			assert.strictEqual(address, "iaa1fnk3lxlks7tdg6x55ynv6vggtnd73ycq9z85jw");
 		});
 	});
 
@@ -107,7 +111,7 @@ describe("Iris hub", function() {
 					"value":{
 						"inputs": [
 							{
-								"address":"cosmos1fnk3lxlks7tdg6x55ynv6vggtnd73ycqsq89sl",
+								"address":"iaa1fnk3lxlks7tdg6x55ynv6vggtnd73ycq9z85jw",
 								"coins": [
 									{
 										"denom":"iris-atto",
@@ -132,7 +136,7 @@ describe("Iris hub", function() {
 			];
 	
 			let signedTx = iris.sign(stdSignMsg, ecpairPriv);
-			assert.strictEqual(signedTx.tx.signatures[0].signature, "uRwaBG1B7/rb6/cSoEIfWeP513kzcmodzJ5tQFsw5ocXWoSqBshkphRlgj5v4Ax+hcbd2dFkYqS2eSepou4E+w==");
+			assert.strictEqual(signedTx.tx.signatures[0].signature, "mKNrtORr69xifV/1eGAwymxBeoHW38eMvGptuZMUAjtzS3G4gD2PHx1/mL1cwkN6RpzIxexdkra9FUZ2I0yKKw==");
 			assert.deepStrictEqual(stdSignMsg.json.msgs, expectedMsgs);
 		});
 	});
@@ -212,7 +216,7 @@ describe("Iris hub", function() {
 					"value":{
 						"inputs": [
 							{
-								"address":"cosmos1fnk3lxlks7tdg6x55ynv6vggtnd73ycqsq89sl",
+								"address":"iaa1fnk3lxlks7tdg6x55ynv6vggtnd73ycq9z85jw",
 								"coins": [
 									{
 										"denom":"iris-atto",
@@ -264,7 +268,7 @@ describe("Iris hub", function() {
 			];
 	
 			let signedTx = iris.sign(stdSignMsg, ecpairPriv);
-			assert.strictEqual(signedTx.tx.signatures[0].signature, "A88FhRHP0Sw2mwfUY6OnDdgt44KCuf6eSoKEWeIdszYs5Tp/b0xQkpzP3NLRL7lHBVBhitfo11V/SPXVWbiQmg==");
+			assert.strictEqual(signedTx.tx.signatures[0].signature, "GcPbtSQ9JTX3rGLELsiqFzRalLq7CcvkAHgbhJJTtstN1zsTiZrjW2+SSexFLJhH6fYClnMFwqn5edMMm7+5fg==");
 			assert.deepStrictEqual(stdSignMsg.json.msgs, expectedMsgs);
 		});
 	});
