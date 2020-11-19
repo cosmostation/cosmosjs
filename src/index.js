@@ -134,15 +134,7 @@ Cosmos.prototype.newStdMsg = function(input) {
 						}
 					],
 					outputs: [
-						{
-							address: input.msgs[0].value.outputs[0].address,
-							coins: [
-								{
-									denom: input.msgs[0].value.outputs[0].coins[0].denom,
-									amount: input.msgs[0].value.outputs[0].coins[0].amount
-								}
-							]
-						}
+						...input.msgs[0].value.outputs
 					]
 				}
 			],
