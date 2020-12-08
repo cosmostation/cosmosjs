@@ -11,7 +11,7 @@
 
 *:star: Developed / Developing by [Cosmostation](https://www.cosmostation.io/)*
 
-A JavasSript Open Source Library for [Cosmos Network](https://cosmos.network/), [IRISnet](https://www.irisnet.org/), [Kava](https://www.kava.io/), [Band Protocol](https://bandprotocol.com/), [Starname](https://iov.one/), [Secret Network](https://scrt.network/), and [Akash Network](https://akash.network/).
+A JavasSript Open Source Library for [Cosmos Network](https://cosmos.network/), [IRISnet](https://www.irisnet.org/), [Kava](https://www.kava.io/), [Band Protocol](https://bandprotocol.com/), [Starname](https://iov.one/), [Secret Network](https://scrt.network/), [Akash Network](https://akash.network/), and [Certik](https://certik.foundation/).
 
 This library supports cosmos address generation and verification. It enables you to create an offline signature functions of different types of transaction messages. It will eventually support all the other blockchains that are based on Tendermint in the future.
 
@@ -58,7 +58,7 @@ import cosmosjs from "@cosmostation/cosmosjs";
 - You can see example file at [/example/browser-example.html](https://github.com/cosmostation/cosmosjs/tree/master/example/browser-example.html)
 
 ```js
-<script src="https://cdn.jsdelivr.net/npm/@cosmostation/cosmosjs@0.7.0/dist/cosmos.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@cosmostation/cosmosjs@0.8.0/dist/cosmos.min.js"></script>
 ```
 
 ## Usage
@@ -121,6 +121,14 @@ const cosmosjs = require("@cosmostation/cosmosjs");
 const chainId = "akashnet-1";
 const akash = cosmosjs.network(lcdUrl, chainId);
 akash.setBech32MainPrefix("akash");
+```
+- Certik
+```js
+const cosmosjs = require("@cosmostation/cosmosjs");
+
+const chainId = "shentu-1";
+const certik = cosmosjs.network(lcdUrl, chainId);
+certik.setBech32MainPrefix("certik");
 ```
 
 Generate ECPairPriv value that is needed for signing signatures
