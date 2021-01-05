@@ -11,7 +11,7 @@
 
 *:star: Developed / Developing by [Cosmostation](https://www.cosmostation.io/)*
 
-A JavasSript Open Source Library for [Cosmos Network](https://cosmos.network/), [IRISnet](https://www.irisnet.org/), [Kava](https://www.kava.io/), [Band Protocol](https://bandprotocol.com/), [Starname](https://iov.one/), [Secret Network](https://scrt.network/), [Akash Network](https://akash.network/), and [Certik](https://certik.foundation/).
+A JavasSript Open Source Library for [Cosmos Network](https://cosmos.network/), [IRISnet](https://www.irisnet.org/), [Kava](https://www.kava.io/), [Band Protocol](https://bandprotocol.com/), [Starname](https://iov.one/), [Secret Network](https://scrt.network/), [Akash Network](https://akash.network/), and [CertiK](https://certik.foundation/).
 
 This library supports cosmos address generation and verification. It enables you to create an offline signature functions of different types of transaction messages. It will eventually support all the other blockchains that are based on Tendermint in the future.
 
