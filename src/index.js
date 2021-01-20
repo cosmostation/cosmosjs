@@ -80,6 +80,8 @@ Cosmos.prototype.getAccounts = function(address) {
 	let accountsApi = "";
 	if (this.chainId.indexOf("irishub") != -1) {
 		accountsApi = "/bank/accounts/";
+	} else if (this.chainId.indexOf("stargate-final") != -1) {
+		accountsApi = "/cosmos/auth/v1beta1/accounts/";
 	} else {
 		accountsApi = "/auth/accounts/";
 	}
