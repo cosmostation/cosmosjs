@@ -12,7 +12,7 @@
 			const chainId = "cosmoshub-3";
 			// This rest server URL may be disabled at any time. In order to maintain stable blockchain service, it is recommended to prepare your rest server.
 			// (https://hub.cosmos.network/master/resources/service-providers.html#setting-up-the-rest-server)
-			const cosmos = cosmosjs.network("https://lcd-cosmos-free.cosmostation.io", chainId);
+			const cosmos = cosmosjs.network("YOUR REST SERVER URL", chainId);
 			cosmos.setBech32MainPrefix("cosmos");
 			cosmos.setPath("m/44'/118'/0'/0/0");
 			const address = cosmos.getAddress(mnemonic);
