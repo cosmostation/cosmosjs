@@ -15,7 +15,7 @@ A JavasSript Open Source Library for [Cosmos Network](https://cosmos.network/), 
 
 This library supports cosmos address generation and verification. It enables you to create an offline signature functions of different types of transaction messages. It will eventually support all the other blockchains that are based on Tendermint in the future.
 
-> :warning: **If you are using under @cosmostation/cosmosjs@0.8.2**: Be very careful! @cosmostation/cosmosjs@0.9.0+ will supports protobuf signing for cosmos-sdk 0.40.0+. You can download it from `protobuf-test` branch.
+> :warning: @cosmostation/cosmosjs@0.9.0+ supports protobuf signing for cosmos-sdk 0.40.0+. If you need for amino signing, download a version under @cosmostation/cosmosjs@0.8.2
 
 [![License](https://img.shields.io/npm/l/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs)
 [![Latest Stable Version](https://img.shields.io/npm/v/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs)
@@ -25,163 +25,95 @@ This library supports cosmos address generation and verification. It enables you
 
 In order to fully use this library, you need to run a local or remote full node and set up its rest server, which acts as an intermediary between the front-end and the full-node
 
-### NPM (Amino)
-
-```bash
-npm install @cosmostation/cosmosjs
-```
-
-### Yarn (Amino)
-
-```bash
-yarn add @cosmostation/cosmosjs
-```
-
 ### Warning
-- If you use a version under 0.8.2, it will be deprecated. You need to test 0.9.0+ for protobuf signing. You can download it from the branch of `protobuf-test`.
+- This branch source is for protobuf signing.
 
 ## Import 
 
-#### NodeJS
-
-```js
-const cosmosjs = require("@cosmostation/cosmosjs");
-```
-
-#### ES6 module
 ```js
 import cosmosjs from "@cosmostation/cosmosjs";
 ```
 
-#### CDN
+## Usage
 
-- You can find cosmosjs jsDelivr and use the global cosmosjs variable.
-- You can see example file at [/example/browser-example.html](https://github.com/cosmostation/cosmosjs/tree/master/example/browser-example.html)
-
-```js
-<script src="https://cdn.jsdelivr.net/npm/@cosmostation/cosmosjs@0.8.0/dist/cosmos.min.js"></script>
+- You need to import Cosmos-sdk Protobuf message file as js. It is created by [protocgen.sh](https://github.com/cosmos-client/cosmos-client-ts/blob/master/protocgen.sh).
+- @cosmostation/cosmosjs@0.9.0+ is running above nodejs v14+
+- You can run with this option for ES6.
+```sh
+$ node --es-module-specifier-resolution=node example/stargate-final.js
 ```
 
-## Usage
-- Cosmos: Generate Cosmos address from mnemonic 
 ```js
-const cosmosjs = require("@cosmostation/cosmosjs");
+import message from "../src/messages/proto";
+```
 
-const chainId = "cosmoshub-3";
-const cosmos = cosmosjs.network(lcdUrl, chainId);
-
+- Stargate-final: Generate Cosmos address from mnemonic 
+```js
 const mnemonic = "..."
+const chainId = "stargate-final";
+const cosmos = new Cosmos(lcdUrl, chainId);
+
 cosmos.setPath("m/44'/118'/0'/0/0");
 const address = cosmos.getAddress(mnemonic);
-const ecpairPriv = cosmos.getECPairPriv(mnemonic);
+
 ```
-- Iris
+
+Generate both privKey and pubKeyAny that are needed for signing. 
 ```js
-const cosmosjs = require("@cosmostation/cosmosjs");
-
-const chainId = "irishub";
-const iris = cosmosjs.network(lcdUrl, chainId);
-iris.setBech32MainPrefix("iaa");
-```
-- Kava
-```js
-const cosmosjs = require("@cosmostation/cosmosjs");
-
-const chainId = "kava-4";
-const kava = cosmosjs.network(lcdUrl, chainId);
-kava.setBech32MainPrefix("kava");
-```
-- Band
-```js
-const cosmosjs = require("@cosmostation/cosmosjs");
-
-const chainId = "band-guanyu-mainnet";
-const band = cosmosjs.network(lcdUrl, chainId);
-band.setBech32MainPrefix("band");
-```
-- Starname
-```js
-const cosmosjs = require("@cosmostation/cosmosjs");
-
-const chainId = "iov-mainnet-2";
-const iov = cosmosjs.network(lcdUrl, chainId);
-iov.setBech32MainPrefix("star");
-```
-- Secret Network
-```js
-const cosmosjs = require("@cosmostation/cosmosjs");
-
-const chainId = "secret-2";
-const scrt = cosmosjs.network(lcdUrl, chainId);
-scrt.setBech32MainPrefix("secret");
-```
-- Akash Network
-```js
-const cosmosjs = require("@cosmostation/cosmosjs");
-
-const chainId = "akashnet-1";
-const akash = cosmosjs.network(lcdUrl, chainId);
-akash.setBech32MainPrefix("akash");
-```
-- Certik
-```js
-const cosmosjs = require("@cosmostation/cosmosjs");
-
-const chainId = "shentu-1";
-const certik = cosmosjs.network(lcdUrl, chainId);
-certik.setBech32MainPrefix("certik");
+const privKey = cosmos.getECPairPriv(mnemonic);
+const pubKeyAny = cosmos.getPubKeyAny(privKey);
 ```
 
-Generate ECPairPriv value that is needed for signing signatures
-```js
-const ecpairPriv = cosmos.getECPairPriv(mnemonic);
-```
-
-Transfer ATOM to designated address. 
-* Make sure to input proper type, account number, and sequence of the cosmos account to generate StdSignMsg. You can get those account information on blockchain 
-* Above 0.5.0 version, CosmosJS follows the exact same json format as Cosmos SDK defines.
+Transfer MUON to designated address. 
+* Make sure to input proper type, account number, and sequence of the cosmos account to generate protobuf structure. You can get those account information on blockchain. Protobuf signing is different from Amino signing.
 ```js
 cosmos.getAccounts(address).then(data => {
-	let stdSignMsg = cosmos.newStdMsg({
-		msgs: [
-			{
-				type: "cosmos-sdk/MsgSend",
-				value: {
-					amount: [
-						{
-							amount: String(100000),
-							denom: "uatom"
-						}
-					],
-					from_address: address,
-					to_address: "cosmos18vhdczjut44gpsy804crfhnd5nq003nz0nf20v"
-				}
-			}
-		],
-		chain_id: chainId,
-		fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
-		memo: "",
-		account_number: String(data.result.value.account_number),
-		sequence: String(data.result.value.sequence)
+	// signDoc = (1)txBody + (2)authInfo
+	// ---------------------------------- (1)txBody ----------------------------------
+	const msgSend = new message.cosmos.bank.v1beta1.MsgSend({
+		from_address: address,
+		to_address: "cosmos1jf874x5vr6wkza6ahvamck4sy4w76aq4w9c4s5",
+		amount: [{ denom: "umuon", amount: String(100000) }]		// 6 decimal places (1000000 uatom = 1 ATOM)
 	});
 
+	const msgSendAny = new message.google.protobuf.Any({
+		type_url: "/cosmos.bank.v1beta1.MsgSend",
+		value: message.cosmos.bank.v1beta1.MsgSend.encode(msgSend).finish()
+	});
+
+	const txBody = new message.cosmos.tx.v1beta1.TxBody({ messages: [msgSendAny], memo: "" });
+
+	// --------------------------------- (2)authInfo ---------------------------------
+	const signerInfo = new message.cosmos.tx.v1beta1.SignerInfo({
+		public_key: pubKeyAny,
+		mode_info: { single: { mode: message.cosmos.tx.signing.v1beta1.SignMode.SIGN_MODE_DIRECT } },
+		sequence: data.account.sequence
+	});
+
+	const feeValue = new message.cosmos.tx.v1beta1.Fee({
+		amount: [{ denom: "umuon", amount: String(5000) }],
+		gas_limit: 200000
+	});
+
+	const authInfo = new message.cosmos.tx.v1beta1.AuthInfo({ signer_infos: [signerInfo], fee: feeValue });
+
 	...
-})
+});
 ```
 
-Sign transaction by using stdSignMsg and broadcast by using [/txs](https://lcd-cosmos-free.cosmostation.io/txs) REST API
+Sign transaction by using stdSignMsg and broadcast by using [/txs](http://34.71.170.158:1317/cosmos/tx/v1beta1/txs) REST API
 ```js
-const signedTx = cosmos.sign(stdSignMsg, ecpairPriv);
-cosmos.broadcast(signedTx).then(response => console.log(response));
+const signedTxBytes = cosmos.sign(txBody, authInfo, data.account.account_number, privKey);
+cosmos.broadcast(signedTxBytes).then(response => console.log(response));
 ```
 
-Cosmostation offers LCD url([https://lcd-cosmos-free.cosmostation.io](https://lcd-cosmos-free.cosmostation.io/node_info)).
+Official LCD url([http://34.71.170.158:1317](http://34.71.170.158:1317/node_info)).
 - This rest server URL may be disabled at any time. In order to maintain stable blockchain service, it is recommended to prepare your rest server.
 - Setting up the rest server: (https://hub.cosmos.network/master/resources/service-providers.html#setting-up-the-rest-server)
-- API Rate Limiting: 2 requests per second
 
 ## Supporting Message Types (Updating...)
-- If you need more message types, you can see [/docs/msg_types](https://github.com/cosmostation/cosmosjs/tree/master/docs/msg_types)
+
+We will continue to update the protobuf signing structure.
 
 ## Documentation
 

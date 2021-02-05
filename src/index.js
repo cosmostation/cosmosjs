@@ -2,278 +2,125 @@
     Developed / Developing by Cosmostation
     [WARNING] CosmosJS is under ACTIVE DEVELOPMENT and should be treated as alpha version. We will remove this warning when we have a release that is stable, secure, and propoerly tested.
 */
+import fetch from 'node-fetch';
+import request from "request";
+import * as bip32 from "bip32";
+import * as bip39 from "bip39";
+import * as bech32 from "bech32";
+import secp256k1 from "secp256k1";
+import crypto from "crypto";
+import bitcoinjs from "bitcoinjs-lib";
+import message from "./messages/proto";
 
-'use strict'
-
-global.fetch || (global.fetch = require('node-fetch').default);
-const bip39 = require('bip39');
-const bip32 = require('bip32');
-const bech32 = require('bech32');
-const secp256k1 = require('secp256k1');
-const crypto = require('crypto');
-const bitcoinjs = require('bitcoinjs-lib');
-
-let Cosmos = function(url, chainId) {
-	this.url = url;
-	this.chainId = chainId;
-	this.path = "m/44'/118'/0'/0/0";
-	this.bech32MainPrefix = "cosmos";
-
-	if (!this.url) {
-		throw new Error("url object was not set or invalid")
-	}
-	if (!this.chainId) {
-		throw new Error("chainId object was not set or invalid")
+export class Cosmos {
+	constructor(url, chainId) {
+		this.url = url;
+		this.chainId = chainId;
+		this.path = "m/44'/118'/0'/0/0";
+		this.bech32MainPrefix = "cosmos";
 	}
 
-	console.log("WARN deprecated @cosmostation/cosmosjs@0.8.2: You needs to upgrade to @cosmostation/cosmosjs above 0.9.0+ : 1) Proper nodejs v14+ support 2) 0.9.0+ supports protobuf signing for cosmos-sdk 0.40.0+");
-}
-
-function network(url, chainId) {
-	return new Cosmos(url, chainId);
-}
-
-function convertStringToBytes(str) {
-	if (typeof str !== "string") {
-	    throw new Error("str expects a string")
+	setBech32MainPrefix(value) {
+		this.bech32MainPrefix = value;
+		if (!this.bech32MainPrefix) throw new Error("bech32MainPrefix object was not set or invalid");
 	}
-	var myBuffer = [];
-	var buffer = Buffer.from(str, 'utf8');
-	for (var i = 0; i < buffer.length; i++) {
-	    myBuffer.push(buffer[i]);
+
+	setPath(value) {
+		this.path = value;
+		if (!this.path) throw new Error("path object was not set or invalid");
 	}
-	return myBuffer;
-}
 
-function getPubKeyBase64(ecpairPriv) {
-	const pubKeyByte = secp256k1.publicKeyCreate(ecpairPriv);
-	return Buffer.from(pubKeyByte, 'binary').toString('base64');
-}
-
-function sortObject(obj) {
-	if (obj === null) return null;
-	if (typeof obj !== "object") return obj;
-	if (Array.isArray(obj)) return obj.map(sortObject);
-	const sortedKeys = Object.keys(obj).sort();
-	const result = {};
-	sortedKeys.forEach(key => {
-		result[key] = sortObject(obj[key])
-	});
-	return result;
-}
-
-Cosmos.prototype.setBech32MainPrefix = function(bech32MainPrefix) {
-	this.bech32MainPrefix = bech32MainPrefix;
-
-	if (!this.bech32MainPrefix) {
-		throw new Error("bech32MainPrefix object was not set or invalid")
-	}
-}
-
-Cosmos.prototype.setPath = function(path) {
-	this.path = path;
-
-	if (!this.path) {
-		throw new Error("path object was not set or invalid")
-	}
-}
-
-Cosmos.prototype.getAccounts = function(address) {
-	let accountsApi = "";
-	if (this.chainId.indexOf("irishub") != -1) {
-		accountsApi = "/bank/accounts/";
-	} else if (this.chainId.indexOf("stargate-final") != -1) {
-		accountsApi = "/cosmos/auth/v1beta1/accounts/";
-	} else {
-		accountsApi = "/auth/accounts/";
-	}
-	return fetch(this.url + accountsApi + address)
-	.then(response => response.json())
-}
-
-Cosmos.prototype.getAddress = function(mnemonic, checkSum = true) {
-	if (typeof mnemonic !== "string") {
-	    throw new Error("mnemonic expects a string")
-	}
-	if (checkSum) {
-		if (!bip39.validateMnemonic(mnemonic)) throw new Error("mnemonic phrases have invalid checksums");
-	}
-	const seed = bip39.mnemonicToSeed(mnemonic);
-	const node = bip32.fromSeed(seed);
-	const child = node.derivePath(this.path);
-	const words = bech32.toWords(child.identifier);
-	return bech32.encode(this.bech32MainPrefix, words);
-}
-
-Cosmos.prototype.getECPairPriv = function(mnemonic) {
-	if (typeof mnemonic !== "string") {
-	    throw new Error("mnemonic expects a string")
-	}
-	const seed = bip39.mnemonicToSeed(mnemonic);
-	const node = bip32.fromSeed(seed);
-	const child = node.derivePath(this.path);
-	const ecpair = bitcoinjs.ECPair.fromPrivateKey(child.privateKey, {compressed : false})
-	return ecpair.privateKey;
-}
-
-Cosmos.prototype.newStdMsg = function(input) {
-	const stdSignMsg = new Object;
-	stdSignMsg.json = input;
-
-	// Exception
-	if (input.msgs[0].type == "irishub/bank/Send") {
-		stdSignMsg.jsonForSigningIrisTx =
-		{
-			msgs: [
-				{
-					inputs: [
-						{
-							address: input.msgs[0].value.inputs[0].address,
-							coins: [
-								{
-									denom: input.msgs[0].value.inputs[0].coins[0].denom,
-									amount: input.msgs[0].value.inputs[0].coins[0].amount
-								}
-							]
-						}
-					],
-					outputs: [
-						...input.msgs[0].value.outputs
-					]
-				}
-			],
-			chain_id: input.chain_id,
-			fee: { amount: [ { amount: input.fee.amount[0].amount, denom: input.fee.amount[0].denom } ], gas: input.fee.gas },
-			memo: input.memo,
-			account_number: input.account_number,
-			sequence: input.sequence
+	getAddress(mnemonic, checkSum = true) {
+		if (typeof mnemonic !== "string") {
+		    throw new Error("mnemonic expects a string")
 		}
-	} else if (input.msgs[0].type == "irishub/stake/BeginUnbonding") {
-		stdSignMsg.jsonForSigningIrisTx =
-		{
-			msgs: [
-				{
-					shares_amount: String(input.msgs[0].value.shares_amount),
-					delegator_addr: input.msgs[0].value.delegator_addr,
-					validator_addr: input.msgs[0].value.validator_addr
-				}
-			],
-			chain_id: input.chain_id,
-			fee: { amount: [ { amount: input.fee.amount[0].amount, denom: input.fee.amount[0].denom } ], gas: input.fee.gas },
-			memo: input.memo,
-			account_number: input.account_number,
-			sequence: input.sequence
+		if (checkSum) {
+			if (!bip39.validateMnemonic(mnemonic)) throw new Error("mnemonic phrases have invalid checksums");
 		}
-	} else if (input.msgs[0].type == "irishub/stake/BeginRedelegate") {
-		stdSignMsg.jsonForSigningIrisTx =
-		{
-			msgs: [
-				{
-					delegator_addr: input.msgs[0].value.delegator_addr,
-					validator_src_addr: input.msgs[0].value.validator_src_addr,
-					validator_dst_addr: input.msgs[0].value.validator_dst_addr,
-					shares: String(input.msgs[0].value.shares_amount) + ".0000000000"		// IRIS Exception) For signing, shares is correct.
-				}
-			],
-			chain_id: input.chain_id,
-			fee: { amount: [ { amount: input.fee.amount[0].amount, denom: input.fee.amount[0].denom } ], gas: input.fee.gas },
-			memo: input.memo,
-			account_number: input.account_number,
-			sequence: input.sequence
-		}
+		const seed = bip39.mnemonicToSeed(mnemonic);
+		const node = bip32.fromSeed(seed)
+		const child = node.derivePath(this.path)
+		const words = bech32.toWords(child.identifier);
+		return bech32.encode(this.bech32MainPrefix, words);
 	}
 
-	stdSignMsg.bytes = convertStringToBytes(JSON.stringify(sortObject(stdSignMsg.json)));
-	return stdSignMsg;
-}
-
-Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
-	// The supported return types includes "block"(return after tx commit), "sync"(return after CheckTx) and "async"(return right away).
-	let signMessage = new Object;
-	if (stdSignMsg.json.msgs[0].type == "irishub/bank/Send" ||
-		stdSignMsg.json.msgs[0].type == "irishub/stake/BeginUnbonding" ||
-		stdSignMsg.json.msgs[0].type == "irishub/stake/BeginRedelegate") {
-		signMessage = stdSignMsg.jsonForSigningIrisTx;
-	} else {
-		signMessage = stdSignMsg.json;
-	}
-	const hash = crypto.createHash('sha256').update(JSON.stringify(sortObject(signMessage))).digest('hex');
-	const buf = Buffer.from(hash, 'hex');
-	let signObj = secp256k1.sign(buf, ecpairPriv);
-	var signatureBase64 = Buffer.from(signObj.signature, 'binary').toString('base64');
-	let signedTx = new Object;
-	if (this.chainId.indexOf("irishub") != -1) {
-		signedTx = {
-		    "tx": {
-		        "msg": stdSignMsg.json.msgs,
-		        "fee": stdSignMsg.json.fee,
-		        "signatures": [
-		            {
-		                "signature": signatureBase64,
-		                "account_number": stdSignMsg.json.account_number,
-                		"sequence": stdSignMsg.json.sequence,
-		                "pub_key": {
-		                    "type": "tendermint/PubKeySecp256k1",
-		                    "value": getPubKeyBase64(ecpairPriv)
-		                }
-		            }
-		        ],
-		        "memo": stdSignMsg.json.memo
-		    },
-		    "mode": modeType
+	getECPairPriv(mnemonic) {
+		if (typeof mnemonic !== "string") {
+		    throw new Error("mnemonic expects a string")
 		}
-
-		// The key of "shares" is using to sign for IRIS Redelegate.
-		// After signing, you have to replace the "shares" key name to "shares_amount".
-		// It is an exception to "irishub/stake/BeginRedelegate".
-		if (stdSignMsg.json.msgs[0].type == "irishub/stake/BeginRedelegate") {
-			var txBodyStr = JSON.stringify(signedTx);
-			txBodyStr = txBodyStr.replace("\"shares", "\"shares_amount");
-			signedTx = JSON.parse(txBodyStr);
-		}
-	} else {
-		signedTx = {
-		    "tx": {
-		        "msg": stdSignMsg.json.msgs,
-		        "fee": stdSignMsg.json.fee,
-		        "signatures": [
-		            {
-		            	"account_number": stdSignMsg.json.account_number,
-		            	"sequence": stdSignMsg.json.sequence,
-		                "signature": signatureBase64,
-		                "pub_key": {
-		                    "type": "tendermint/PubKeySecp256k1",
-		                    "value": getPubKeyBase64(ecpairPriv)
-		                }
-		            }
-		        ],
-		        "memo": stdSignMsg.json.memo
-		    },
-		    "mode": modeType
-		}
+		const seed = bip39.mnemonicToSeed(mnemonic);
+		const node = bip32.fromSeed(seed);
+		const child = node.derivePath(this.path);
+		return child.privateKey;
 	}
 
-	return signedTx;
-}
-
-Cosmos.prototype.broadcast = function(signedTx) {
-	let broadcastApi = "";
-	if (this.chainId.indexOf("irishub") != -1) {
-		broadcastApi = "/tx/broadcast";
-	} else {
-		broadcastApi = "/txs";
+	getPubKey(privKey) {
+		const pubKeyByte = secp256k1.publicKeyCreate(privKey);
+		return pubKeyByte;
 	}
 
-	return fetch(this.url + broadcastApi, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify(signedTx)
-	})
-	.then(response => response.json())
-}
+	getPubKeyAny(privKey) {
+		const pubKeyByte = secp256k1.publicKeyCreate(privKey);
+		var buf1 = new Buffer.from([10]);
+		var buf2 = new Buffer.from([pubKeyByte.length]);
+		var buf3 = new Buffer.from(pubKeyByte);
+		const pubKey = Buffer.concat([buf1, buf2, buf3]);
+		const pubKeyAny = new message.google.protobuf.Any({
+			type_url: "/cosmos.crypto.secp256k1.PubKey",
+			value: pubKey
+		});
+		return pubKeyAny;
+	}
+	
+	getAccounts(address) {
+		let accountsApi = "/cosmos/auth/v1beta1/accounts/";
+		return fetch(this.url + accountsApi + address).then(response => response.json())
+	}
 
-module.exports = {
-	network: network
+	sign(txBody, authInfo, accountNumber, privKey) {
+		const bodyBytes = message.cosmos.tx.v1beta1.TxBody.encode(txBody).finish();
+		const authInfoBytes = message.cosmos.tx.v1beta1.AuthInfo.encode(authInfo).finish();
+		const signDoc = new message.cosmos.tx.v1beta1.SignDoc({
+			body_bytes: bodyBytes,
+			auth_info_bytes: authInfoBytes,
+			chain_id: this.chainId,
+			account_number: Number(accountNumber)
+		});
+		let signMessage = message.cosmos.tx.v1beta1.SignDoc.encode(signDoc).finish();
+		const hash = crypto.createHash("sha256").update(signMessage).digest();
+		const sig = secp256k1.sign(hash, Buffer.from(privKey));
+		const txRaw = new message.cosmos.tx.v1beta1.TxRaw({
+		    body_bytes: bodyBytes,
+		    auth_info_bytes: authInfoBytes,
+		    signatures: [sig.signature],
+		});
+		const txBytes = message.cosmos.tx.v1beta1.TxRaw.encode(txRaw).finish();
+		const txBytesBase64 = Buffer.from(txBytes, 'binary').toString('base64');
+		return txBytes;
+	}
+
+	// "BROADCAST_MODE_UNSPECIFIED", "BROADCAST_MODE_BLOCK", "BROADCAST_MODE_SYNC", "BROADCAST_MODE_ASYNC"
+	broadcast(signedTxBytes, broadCastMode = "BROADCAST_MODE_SYNC") {
+		const txBytesBase64 = Buffer.from(signedTxBytes, 'binary').toString('base64');
+
+		var options = { 
+			method: 'POST',
+			url: this.url + '/cosmos/tx/v1beta1/txs',
+			headers: 
+			{ 'Content-Type': 'application/json' },
+			body: { tx_bytes: txBytesBase64, mode: broadCastMode },
+			json: true 
+		};
+
+		return new Promise(function(resolve, reject){
+	        request(options, function (error, response, body) {
+	            if (error) return reject(error);
+	            try {
+	                resolve(body);
+	            } catch(e) {
+	                reject(e);
+	            }
+	        });
+	    });
+	}
 }
