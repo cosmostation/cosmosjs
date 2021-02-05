@@ -1,9 +1,9 @@
 <!-- TOTAL-DOWNLOADS-BADGE:START - Do not remove or modify this section -->
-[![NPM Downloads](https://img.shields.io/npm/dt/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs)
+<!-- [![NPM Downloads](https://img.shields.io/npm/dt/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs) -->
 <!-- TOTAL-DOWNLOADS-BADGE:END -->
 
 <p align="center">
-  <a href="https://www.cosmostation.io" target="_blank" rel="noopener noreferrer"><img width="100" src="https://user-images.githubusercontent.com/20435620/55696624-d7df2e00-59f8-11e9-9126-edf9a40b11a8.png" alt="Cosmostation logo"></a>
+  <a href="https://www.cosmostation.io" target="_blank" rel="noopener noreferrer"><img width="100" src="https://user-images.githubusercontent.com/34641838/107007567-0cc79200-67d6-11eb-83c8-9af239866785.png" alt="Cosmostation logo"></a>
 </p>
 <h1 align="center">
     CosmosJS - Cosmos JavaScript Library 
@@ -18,8 +18,8 @@ This library supports cosmos address generation and verification. It enables you
 > :warning: @cosmostation/cosmosjs@0.9.0+ supports protobuf signing for cosmos-sdk 0.40.0+. If you need for amino signing, download a version under @cosmostation/cosmosjs@0.8.2
 
 [![License](https://img.shields.io/npm/l/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs)
-[![Latest Stable Version](https://img.shields.io/npm/v/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs)
-[![NPM Downloads](https://img.shields.io/npm/dm/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs)
+<!-- [![Latest Stable Version](https://img.shields.io/npm/v/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs)
+[![NPM Downloads](https://img.shields.io/npm/dm/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs) -->
 
 ## Installation
 
