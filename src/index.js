@@ -25,6 +25,8 @@ let Cosmos = function(url, chainId) {
 	if (!this.chainId) {
 		throw new Error("chainId object was not set or invalid")
 	}
+
+	console.log("WARN deprecated @cosmostation/cosmosjs@0.8.2: You needs to upgrade to @cosmostation/cosmosjs above 0.9.0+ : 1) Proper nodejs v14+ support 2) 0.9.0+ supports protobuf signing for cosmos-sdk 0.40.0+");
 }
 
 function network(url, chainId) {
