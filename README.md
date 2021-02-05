@@ -31,7 +31,7 @@ In order to fully use this library, you need to run a local or remote full node 
 ## Import 
 
 ```js
-import cosmosjs from "@cosmostation/cosmosjs";
+import { Cosmos } from "../src/index.js";
 ```
 
 ## Usage
@@ -42,6 +42,8 @@ import cosmosjs from "@cosmostation/cosmosjs";
 ```sh
 $ node --es-module-specifier-resolution=node example/stargate-final.js
 ```
+
+- Import the message file that is converted from Cosmos-sdk proto.
 
 ```js
 import message from "../src/messages/proto";
