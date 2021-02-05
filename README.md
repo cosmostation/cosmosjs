@@ -15,6 +15,8 @@ A JavasSript Open Source Library for [Cosmos Network](https://cosmos.network/), 
 
 This library supports cosmos address generation and verification. It enables you to create an offline signature functions of different types of transaction messages. It will eventually support all the other blockchains that are based on Tendermint in the future.
 
+> :warning: **If you are using under @cosmostation/cosmosjs@0.8.2**: Be very careful! @cosmostation/cosmosjs@0.9.0+ will supports protobuf signing for cosmos-sdk 0.40.0+. You can download it from `protobuf-test` branch.
+
 [![License](https://img.shields.io/npm/l/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs)
 [![Latest Stable Version](https://img.shields.io/npm/v/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs)
 [![NPM Downloads](https://img.shields.io/npm/dm/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs)
@@ -23,21 +25,20 @@ This library supports cosmos address generation and verification. It enables you
 
 In order to fully use this library, you need to run a local or remote full node and set up its rest server, which acts as an intermediary between the front-end and the full-node
 
-### NPM
+### NPM (Amino)
 
 ```bash
 npm install @cosmostation/cosmosjs
 ```
 
-### Yarn
+### Yarn (Amino)
 
 ```bash
 yarn add @cosmostation/cosmosjs
 ```
 
-### Browser Distribution
-
-CosmosJS supports browserify.
+### Warning
+- If you use a version under 0.8.2, it will be deprecated. You need to test 0.9.0+ for protobuf signing. You can download it from the branch of `protobuf-test`.
 
 ## Import 
 
