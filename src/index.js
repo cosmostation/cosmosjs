@@ -80,10 +80,10 @@ Cosmos.prototype.setPath = function(path) {
 
 Cosmos.prototype.getAccounts = function(address) {
 	let accountsApi = "";
-	if (this.chainId.indexOf("irishub") != -1) {
-		accountsApi = "/bank/accounts/";
-	} else if (this.chainId.indexOf("stargate-final") != -1) {
+	if (this.chainId.indexOf("cosmos") != -1) {
 		accountsApi = "/cosmos/auth/v1beta1/accounts/";
+	} else if (this.chainId.indexOf("irishub") != -1) {
+		accountsApi = "/bank/accounts/";
 	} else {
 		accountsApi = "/auth/accounts/";
 	}
