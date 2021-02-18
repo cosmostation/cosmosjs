@@ -15,7 +15,7 @@ A JavasSript Open Source Library for [Cosmos Network](https://cosmos.network/), 
 
 This library supports cosmos address generation and verification. It enables you to create an offline signature functions of different types of transaction messages. It will eventually support all the other blockchains that are based on Tendermint in the future.
 
-> :warning: **If you are using under @cosmostation/cosmosjs@0.8.2**: Be very careful! @cosmostation/cosmosjs@0.9.0+ will supports protobuf signing for cosmos-sdk 0.40.0+. You can download it from `protobuf-test` branch.
+> :warning: **If you are using under @cosmostation/cosmosjs@0.9.x**: Be very careful! @cosmostation/cosmosjs@0.10.0+ will supports protobuf signing for cosmos-sdk 0.40.0+. You can download it from `protobuf-test` branch.
 
 [![License](https://img.shields.io/npm/l/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs)
 [![Latest Stable Version](https://img.shields.io/npm/v/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs)
