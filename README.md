@@ -38,7 +38,7 @@ yarn add @cosmostation/cosmosjs
 ```
 
 ### Warning
-- If you use a version under 0.8.2, it will be deprecated. You need to test 0.9.0+ for protobuf signing. You can download it from the branch of `protobuf-test`.
+- If you use a version under 0.9.x, it will be deprecated. You can download protobuf version from the branch of `protobuf-test`.
 
 ## Import 
 
@@ -67,7 +67,7 @@ import cosmosjs from "@cosmostation/cosmosjs";
 ```js
 const cosmosjs = require("@cosmostation/cosmosjs");
 
-const chainId = "cosmoshub-3";
+const chainId = "cosmoshub-4";
 const cosmos = cosmosjs.network(lcdUrl, chainId);
 
 const mnemonic = "..."
@@ -161,8 +161,8 @@ cosmos.getAccounts(address).then(data => {
 		chain_id: chainId,
 		fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
 		memo: "",
-		account_number: String(data.result.value.account_number),
-		sequence: String(data.result.value.sequence)
+		account_number: String(data.account.account_number),
+		sequence: String(data.account.sequence)
 	});
 
 	...
