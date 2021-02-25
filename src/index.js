@@ -26,7 +26,7 @@ let Cosmos = function(url, chainId) {
 		throw new Error("chainId object was not set or invalid")
 	}
 
-	console.log("WARN deprecated @cosmostation/cosmosjs@0.8.2: You needs to upgrade to @cosmostation/cosmosjs above 0.9.0+ : 1) Proper nodejs v14+ support 2) 0.9.0+ supports protobuf signing for cosmos-sdk 0.40.0+");
+	console.log("WARN deprecated @cosmostation/cosmosjs@0.9.x: You needs to upgrade to @cosmostation/cosmosjs above 0.10.0+ : 1) Proper nodejs v14+ support 2) 0.10.0+ supports protobuf signing for cosmos-sdk 0.40.0+");
 }
 
 function network(url, chainId) {
@@ -84,8 +84,10 @@ Cosmos.prototype.getAccounts = function(address) {
 		accountsApi = "/cosmos/auth/v1beta1/accounts/";
 	} else if (this.chainId.indexOf("stargate-final") != -1) {
 		accountsApi = "/cosmos/auth/v1beta1/accounts/";
+	} else if (this.chainId.indexOf("bifrost") != -1) {
+		accountsApi = "/cosmos/auth/v1beta1/accounts/";
 	} else if (this.chainId.indexOf("irishub") != -1) {
-		accountsApi = "/bank/accounts/";
+		accountsApi = "/cosmos/auth/v1beta1/accounts/";
 	} else {
 		accountsApi = "/auth/accounts/";
 	}
@@ -121,70 +123,6 @@ Cosmos.prototype.getECPairPriv = function(mnemonic) {
 Cosmos.prototype.newStdMsg = function(input) {
 	const stdSignMsg = new Object;
 	stdSignMsg.json = input;
-
-	// Exception
-	if (input.msgs[0].type == "irishub/bank/Send") {
-		stdSignMsg.jsonForSigningIrisTx =
-		{
-			msgs: [
-				{
-					inputs: [
-						{
-							address: input.msgs[0].value.inputs[0].address,
-							coins: [
-								{
-									denom: input.msgs[0].value.inputs[0].coins[0].denom,
-									amount: input.msgs[0].value.inputs[0].coins[0].amount
-								}
-							]
-						}
-					],
-					outputs: [
-						...input.msgs[0].value.outputs
-					]
-				}
-			],
-			chain_id: input.chain_id,
-			fee: { amount: [ { amount: input.fee.amount[0].amount, denom: input.fee.amount[0].denom } ], gas: input.fee.gas },
-			memo: input.memo,
-			account_number: input.account_number,
-			sequence: input.sequence
-		}
-	} else if (input.msgs[0].type == "irishub/stake/BeginUnbonding") {
-		stdSignMsg.jsonForSigningIrisTx =
-		{
-			msgs: [
-				{
-					shares_amount: String(input.msgs[0].value.shares_amount),
-					delegator_addr: input.msgs[0].value.delegator_addr,
-					validator_addr: input.msgs[0].value.validator_addr
-				}
-			],
-			chain_id: input.chain_id,
-			fee: { amount: [ { amount: input.fee.amount[0].amount, denom: input.fee.amount[0].denom } ], gas: input.fee.gas },
-			memo: input.memo,
-			account_number: input.account_number,
-			sequence: input.sequence
-		}
-	} else if (input.msgs[0].type == "irishub/stake/BeginRedelegate") {
-		stdSignMsg.jsonForSigningIrisTx =
-		{
-			msgs: [
-				{
-					delegator_addr: input.msgs[0].value.delegator_addr,
-					validator_src_addr: input.msgs[0].value.validator_src_addr,
-					validator_dst_addr: input.msgs[0].value.validator_dst_addr,
-					shares: String(input.msgs[0].value.shares_amount) + ".0000000000"		// IRIS Exception) For signing, shares is correct.
-				}
-			],
-			chain_id: input.chain_id,
-			fee: { amount: [ { amount: input.fee.amount[0].amount, denom: input.fee.amount[0].denom } ], gas: input.fee.gas },
-			memo: input.memo,
-			account_number: input.account_number,
-			sequence: input.sequence
-		}
-	}
-
 	stdSignMsg.bytes = convertStringToBytes(JSON.stringify(sortObject(stdSignMsg.json)));
 	return stdSignMsg;
 }
@@ -192,79 +130,37 @@ Cosmos.prototype.newStdMsg = function(input) {
 Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
 	// The supported return types includes "block"(return after tx commit), "sync"(return after CheckTx) and "async"(return right away).
 	let signMessage = new Object;
-	if (stdSignMsg.json.msgs[0].type == "irishub/bank/Send" ||
-		stdSignMsg.json.msgs[0].type == "irishub/stake/BeginUnbonding" ||
-		stdSignMsg.json.msgs[0].type == "irishub/stake/BeginRedelegate") {
-		signMessage = stdSignMsg.jsonForSigningIrisTx;
-	} else {
-		signMessage = stdSignMsg.json;
-	}
+	signMessage = stdSignMsg.json;
 	const hash = crypto.createHash('sha256').update(JSON.stringify(sortObject(signMessage))).digest('hex');
 	const buf = Buffer.from(hash, 'hex');
 	let signObj = secp256k1.sign(buf, ecpairPriv);
 	var signatureBase64 = Buffer.from(signObj.signature, 'binary').toString('base64');
 	let signedTx = new Object;
-	if (this.chainId.indexOf("irishub") != -1) {
-		signedTx = {
-		    "tx": {
-		        "msg": stdSignMsg.json.msgs,
-		        "fee": stdSignMsg.json.fee,
-		        "signatures": [
-		            {
-		                "signature": signatureBase64,
-		                "account_number": stdSignMsg.json.account_number,
-                		"sequence": stdSignMsg.json.sequence,
-		                "pub_key": {
-		                    "type": "tendermint/PubKeySecp256k1",
-		                    "value": getPubKeyBase64(ecpairPriv)
-		                }
-		            }
-		        ],
-		        "memo": stdSignMsg.json.memo
-		    },
-		    "mode": modeType
-		}
-
-		// The key of "shares" is using to sign for IRIS Redelegate.
-		// After signing, you have to replace the "shares" key name to "shares_amount".
-		// It is an exception to "irishub/stake/BeginRedelegate".
-		if (stdSignMsg.json.msgs[0].type == "irishub/stake/BeginRedelegate") {
-			var txBodyStr = JSON.stringify(signedTx);
-			txBodyStr = txBodyStr.replace("\"shares", "\"shares_amount");
-			signedTx = JSON.parse(txBodyStr);
-		}
-	} else {
-		signedTx = {
-		    "tx": {
-		        "msg": stdSignMsg.json.msgs,
-		        "fee": stdSignMsg.json.fee,
-		        "signatures": [
-		            {
-		            	"account_number": stdSignMsg.json.account_number,
-		            	"sequence": stdSignMsg.json.sequence,
-		                "signature": signatureBase64,
-		                "pub_key": {
-		                    "type": "tendermint/PubKeySecp256k1",
-		                    "value": getPubKeyBase64(ecpairPriv)
-		                }
-		            }
-		        ],
-		        "memo": stdSignMsg.json.memo
-		    },
-		    "mode": modeType
-		}
+	signedTx = {
+	    "tx": {
+	        "msg": stdSignMsg.json.msgs,
+	        "fee": stdSignMsg.json.fee,
+	        "signatures": [
+	            {
+	            	"account_number": stdSignMsg.json.account_number,
+	            	"sequence": stdSignMsg.json.sequence,
+	                "signature": signatureBase64,
+	                "pub_key": {
+	                    "type": "tendermint/PubKeySecp256k1",
+	                    "value": getPubKeyBase64(ecpairPriv)
+	                }
+	            }
+	        ],
+	        "memo": stdSignMsg.json.memo
+	    },
+	    "mode": modeType
 	}
 
 	return signedTx;
 }
 
 Cosmos.prototype.broadcast = function(signedTx) {
-	let broadcastApi = "";
-	if (this.chainId.indexOf("irishub") != -1) {
-		broadcastApi = "/tx/broadcast";
-	} else {
-		broadcastApi = "/txs";
-	}
+	let broadcastApi = "/txs";
 
 	return fetch(this.url + broadcastApi, {
 		method: 'POST',

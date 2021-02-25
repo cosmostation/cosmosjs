@@ -79,7 +79,7 @@ const ecpairPriv = cosmos.getECPairPriv(mnemonic);
 ```js
 const cosmosjs = require("@cosmostation/cosmosjs");
 
-const chainId = "irishub";
+const chainId = "irishub-1";
 const iris = cosmosjs.network(lcdUrl, chainId);
 iris.setBech32MainPrefix("iaa");
 ```
