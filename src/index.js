@@ -131,7 +131,12 @@ Cosmos.prototype.sign = function(stdSignMsg, ecpairPriv, modeType = "sync") {
 	// The supported return types includes "block"(return after tx commit), "sync"(return after CheckTx) and "async"(return right away).
 	let signMessage = new Object;
 	signMessage = stdSignMsg.json;
-	const hash = crypto.createHash('sha256').update(JSON.stringify(sortObject(signMessage))).digest('hex');
+	const json = JSON.stringify(sortObject(signMessage))
+		.replace(/&/g, '\\u0026')
+		.replace(/</g, '\\u003c')
+		.replace(/>/g, '\\u003e')
+
+	const hash = crypto.createHash('sha256').update(json).digest('hex');
 	const buf = Buffer.from(hash, 'hex');
 	let signObj = secp256k1.sign(buf, ecpairPriv);
 	var signatureBase64 = Buffer.from(signObj.signature, 'binary').toString('base64');
