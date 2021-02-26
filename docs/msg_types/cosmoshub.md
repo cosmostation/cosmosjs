@@ -1,6 +1,6 @@
 # Cosmos  
 
-In this docs, these are supporting message types in Cosmos Hub.
+In this docs, these are supporting message types in Cosmos Hub(cosmoshub-4).
 
 ### Supporting Message Types
 
@@ -42,8 +42,8 @@ let stdSignMsg = cosmos.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
 });
 ```
 
@@ -84,8 +84,8 @@ let stdSignMsg = cosmos.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
 });
 ```
 
@@ -123,8 +123,8 @@ let stdSignMsg = cosmos.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
 });
 ```
 
@@ -152,8 +152,8 @@ let stdSignMsg = cosmos.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
 });
 ```
 
@@ -178,8 +178,8 @@ let stdSignMsg = cosmos.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
 });
 ```
 
@@ -204,8 +204,8 @@ let stdSignMsg = cosmos.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
 });
 ```
 
@@ -231,8 +231,8 @@ let stdSignMsg = cosmos.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
 });
 ```
 
@@ -253,8 +253,8 @@ let stdSignMsg = cosmos.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
 });
 ```
 
@@ -274,8 +274,8 @@ let stdSignMsg = cosmos.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
 });
 ```
 
@@ -296,8 +296,8 @@ let stdSignMsg = cosmos.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
 });
 ```
 
@@ -326,8 +326,8 @@ let stdSignMsg = cosmos.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
 });
 ```
 
@@ -354,8 +354,8 @@ let stdSignMsg = cosmos.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
 });
 ```
 
@@ -377,8 +377,8 @@ let stdSignMsg = cosmos.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
 });
 ```
 
@@ -398,7 +398,7 @@ let stdSignMsg = cosmos.newStdMsg({
 	chain_id: chainId,
 	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
 	memo: "",
-	account_number: String(data.result.value.account_number),
-	sequence: String(data.result.value.sequence)
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
 });
 ```

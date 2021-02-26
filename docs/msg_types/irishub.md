@@ -1,49 +1,68 @@
 # Iris  
 
-In this docs, these are supporting message types in Iris Hub.
+In this docs, these are supporting message types in Iris Hub(irishub-1).
 
 ### Supporting Message Types
 
-- [irishub/bank/Send](#send)
-- [irishub/bank/Issue](#issue)
-- [irishub/bank/Burn](#burn)
-- [irishub/distr/MsgWithdrawValidatorRewardsAll](#msgwithdrawvalidatorrewardsall)
-- [irishub/distr/MsgWithdrawDelegationReward](#msgwithdrawdelegationreward)
-- [irishub/distr/MsgWithdrawDelegationRewardsAll](#msgwithdrawdelegationrewardsall)
-- [irishub/distr/MsgModifyWithdrawAddress](#msgmodifywithdrawaddress)
-- [irishub/gov/MsgSubmitProposal](#msgsubmitproposal)
-- [irishub/gov/MsgSubmitCommunityTaxUsageProposal](#msgsubmitcommunitytaxusageproposal)
-- [irishub/gov/MsgSubmitSoftwareUpgradeProposal](#msgsubmitsoftwareupgradeproposal)
-- [irishub/gov/MsgDeposit](#msgdeposit)
-- [irishub/gov/MsgVote](#msgvote)
-- [irishub/guardian/MsgAddProfiler](#msgaddprofiler)
-- [irishub/guardian/MsgAddTrustee](#msgaddtrustee)
-- [irishub/service/MsgSvcWithdrawFees](#msgsvcwithdrawfees)
-- [irishub/slashing/MsgUnjail](#msgunjail)
-- [irishub/stake/MsgCreateValidator](#msgcreatevalidator)
-- [irishub/stake/MsgEditValidator](#msgeditvalidator)
-- [irishub/stake/MsgDelegate](#msgdelegate)
-- [irishub/stake/BeginUnbonding](#beginunbonding)
-- [irishub/stake/BeginRedelegate](#beginredelegate)
-- [irishub/asset/MsgIssueToken](#msgissuetoken)
-- [irishub/rand/MsgRequestRand](#msgrequestrand)
+- [cosmos-sdk/MsgSend](#msgsend)
+- [cosmos-sdk/MsgMultiSend](#msgmultisend)
+- [cosmos-sdk/MsgCreateValidator](#msgcreatevalidator)
+- [cosmos-sdk/MsgEditValidator](#msgeditvalidator)
+- [cosmos-sdk/MsgDelegate](#msgdelegate)
+- [cosmos-sdk/MsgUndelegate](#msgundelegate)
+- [cosmos-sdk/MsgBeginRedelegate](#msgbeginredelegate)
+- [cosmos-sdk/MsgWithdrawDelegationReward](#msgwithdrawdelegationreward)
+- [cosmos-sdk/MsgWithdrawValidatorCommission](#msgwithdrawvalidatorcommission)
+- [cosmos-sdk/MsgModifyWithdrawAddress](#msgmodifywithdrawaddress)
+- [cosmos-sdk/MsgSubmitProposal](#msgsubmitproposal)
+- [cosmos-sdk/MsgDeposit](#msgdeposit)
+- [cosmos-sdk/MsgVote](#msgvote)
+- [cosmos-sdk/MsgUnjail](#msgunjail)
 
 ### Send
 
 ```js
-// irishub/bank/Send
-let stdSignMsg = iris.newStdMsg({
+// cosmos-sdk/MsgSend
+let stdSignMsg = cosmos.newStdMsg({
 	msgs: [
 		{
-			type: "irishub/bank/Send",
+			type: "cosmos-sdk/MsgSend",
+			value: {
+				amount: [
+					{
+						amount: String(100000), 	// 6 decimal places (1000000 uiris = 1 IRIS)
+						denom: "uiris"
+					}
+				],
+				from_address: address,
+				to_address: "iaa12g4vfyq65yf5cds4v5pr3jmdd4v6s40fkaaxtf"
+			}
+		}
+	],
+	chain_id: chainId,
+	fee: { amount: [ { amount: String(20000), denom: "uiris" } ], gas: String(200000) },
+	memo: "",
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
+});
+```
+
+###  MsgMultiSend
+
+```js
+// cosmos-sdk/MsgMultiSend
+let stdSignMsg = cosmos.newStdMsg({
+	msgs: [
+		{
+			type: "cosmos-sdk/MsgMultiSend",
 			value: {
 				inputs: [
 					{
 						address: address,
 						coins: [
 							{
-								denom: "iris-atto",
-								amount: String(1000000000000000000)		// 18 decimal places
+								amount: String(100000),		// 6 decimal places (1000000 uiris = 1 IRIS)
+								denom: "uiris"
 							}
 						]
 					}
@@ -53,8 +72,8 @@ let stdSignMsg = iris.newStdMsg({
 						address: "iaa12g4vfyq65yf5cds4v5pr3jmdd4v6s40fkaaxtf",
 						coins: [
 							{
-								denom: "iris-atto",
-								amount: String(1000000000000000000)
+								amount: String(100000),
+								denom: "uiris"
 							}
 						]
 					}
@@ -63,603 +82,323 @@ let stdSignMsg = iris.newStdMsg({
 		}
 	],
 	chain_id: chainId,
-	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
+	fee: { amount: [ { amount: String(20000), denom: "uiris" } ], gas: String(200000) },
 	memo: "",
-	account_number: String(data.value.account_number),
-	sequence: String(data.value.sequence)
-});
-```
-
-### Issue
-
-```js
-// irishub/bank/Issue
-let stdSignMsg = iris.newStdMsg({
-	msgs: [
-		{
-			type: "irishub/bank/Issue",
-			value: {
-				banker: "iaa12g4vfyq65yf5cds4v5pr3jmdd4v6s40fkaaxtf",
-				outputs: [
-					{
-						address: "iaa12g4vfyq65yf5cds4v5pr3jmdd4v6s40fkaaxtf",
-						coins: [
-							{
-								denom: "iris-atto",
-								amount: String(2000000000000000000)
-							}
-						]
-					}
-				]
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
-	memo: "",
-	account_number: String(data.value.account_number),
-	sequence: String(data.value.sequence)
-});
-```
-
-### Burn
-
-```js
-// irishub/bank/Burn
-let stdSignMsg = iris.newStdMsg({
-	msgs: [
-		{
-			type: "irishub/bank/Burn",
-			value: {
-				owner: "iaa12g4vfyq65yf5cds4v5pr3jmdd4v6s40fkaaxtf",
-				coins: [
-					{
-						denom: "iris-atto",
-						amount: String(1000000000000000000)
-					}
-				]
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
-	memo: "",
-	account_number: String(data.value.account_number),
-	sequence: String(data.value.sequence)
-});
-```
-
-### MsgWithdrawValidatorRewardsAll
-
-```js
-// irishub/distr/MsgWithdrawValidatorRewardsAll
-let stdSignMsg = iris.newStdMsg({
-	msgs: [
-		{
-			type: "irishub/distr/MsgWithdrawValidatorRewardsAll",
-			value: {
-				delegator_addr: "iva18pva3yzzzaxj7l5a9uk66a0q7lflscyw966jud"
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
-	memo: "",
-	account_number: String(data.value.account_number),
-	sequence: String(data.value.sequence)
-});
-```
-
-### MsgWithdrawDelegationReward
-
-```js
-// irishub/distr/MsgWithdrawDelegationReward
-let stdSignMsg = iris.newStdMsg({
-	msgs: [
-		{
-			type: "irishub/distr/MsgWithdrawDelegationReward",
-			value: {
-				delegator_addr: address,
-				validator_addr: "iva18pva3yzzzaxj7l5a9uk66a0q7lflscyw966jud"
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(600000000000000000), denom: "iris-atto" } ], gas: String(100000) },
-	memo: "",
-	account_number: String(data.value.account_number),
-	sequence: String(data.value.sequence)
-});
-```
-
-### MsgWithdrawDelegationRewardsAll
-
-```js
-// irishub/distr/MsgWithdrawDelegationRewardsAll
-let stdSignMsg = iris.newStdMsg({
-	msgs: [
-		{
-			type: "irishub/distr/MsgWithdrawDelegationRewardsAll",
-			value: {
-				validator_addr: address
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(600000000000000000), denom: "iris-atto" } ], gas: String(100000) },
-	memo: "",
-	account_number: String(data.value.account_number),
-	sequence: String(data.value.sequence)
-});
-```
-
-### MsgModifyWithdrawAddress
-
-```js
-// irishub/distr/MsgModifyWithdrawAddress
-let stdSignMsg = iris.newStdMsg({
-	msgs: [
-		{
-			type: "irishub/distr/MsgModifyWithdrawAddress",
-			value: {
-				delegator_addr: address,
-				withdraw_addr: "iaa12g4vfyq65yf5cds4v5pr3jmdd4v6s40fkaaxtf"
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
-	memo: "",
-	account_number: String(data.value.account_number),
-	sequence: String(data.value.sequence)
-});
-```
-
-### MsgSubmitProposal
-
-```js
-// irishub/gov/MsgSubmitProposal
-let stdSignMsg = iris.newStdMsg({
-	msgs: [
-		{
-			type: "irishub/gov/MsgSubmitProposal",
-			value: {
-				title: "Raising the difficulty level for Validators",
-				description: "",
-				proposal_type: "ParameterChange",
-				proposer: address,
-				initial_deposit: [
-					{
-						denom: "iris-atto",
-						amount: String(600000000000000000000)
-					}
-				],
-				params: [
-					{
-						subspace: "slashing",
-						key: "SlashFractionDowntime",
-						value: "0.0003"
-					}
-				]
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
-	memo: "",
-	account_number: String(data.value.account_number),
-	sequence: String(data.value.sequence)
-});
-```
-
-### MsgSubmitCommunityTaxUsageProposal
-
-```js
-// irishub/gov/MsgSubmitCommunityTaxUsageProposal
-let stdSignMsg = iris.newStdMsg({
-	msgs: [
-		{
-			type: "",
-			value: {
-				MsgSubmitProposal: {
-				title: "70% airdrop + 30% community building",
-				description: "The 70% of the remaining is allocated to those active addresses, and the 30% is used for community building.",
-				proposal_type: "CommunityTaxUsage",
-				proposer: address,
-				initial_deposit: [
-				    {
-				        denom: "iris-atto",
-				        amount: String(600000000000000000000)
-				    }
-				],
-				params: null
-			},
-			usage: "Distribute",
-			dest_address: "iaa12g4vfyq65yf5cds4v5pr3jmdd4v6s40fkaaxtf",
-			percent: "1.0000000000"
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
-	memo: "",
-	account_number: String(data.value.account_number),
-	sequence: String(data.value.sequence)
-});
-```
-
-### MsgSubmitSoftwareUpgradeProposal
-
-```js
-// irishub/gov/MsgSubmitSoftwareUpgradeProposal
-let stdSignMsg = iris.newStdMsg({
-	msgs: [
-		{
-			type: "irishub/gov/MsgSubmitSoftwareUpgradeProposal",
-			value: {
-				MsgSubmitProposal: {
-					title: "IRIS Hub Upgrade to v0.16.0",
-					description: "New exciting features, namely AtomicSwap, Uniswap, Snapshot, etc. are coming.",
-					proposal_type: "SoftwareUpgrade",
-					proposer: address,
-					initial_deposit: [
-						{
-							denom: "iris-atto",
-							amount: String(1200000000000000000000)
-						}
-					],
-					params: null
-				},
-				version: "2",
-				software: "https://github.com/irisnet/irishub/tree/v0.16.0",
-				switch_height: "3447000",
-				threshold: "0.8000000000"
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
-	memo: "",
-	account_number: String(data.value.account_number),
-	sequence: String(data.value.sequence)
-});
-```
-
-### MsgDeposit
-
-```js
-// irishub/gov/MsgDeposit
-let stdSignMsg = iris.newStdMsg({
-	msgs: [
-		{
-			type: "irishub/gov/MsgDeposit",
-			value: {
-				proposal_id: "9",
-				depositor: address,
-				amount: [
-					{
-						denom: "iris-atto",
-						amount: String(750000000000000000000)
-					}
-				]
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
-	memo: "",
-	account_number: String(data.value.account_number),
-	sequence: String(data.value.sequence)
-});
-```
-
-### MsgVote
-
-```js
-// irishub/gov/MsgVote
-let stdSignMsg = iris.newStdMsg({
-	msgs: [
-		{
-			type: "irishub/gov/MsgVote",
-			value: {
-				proposal_id: "9",
-				voter: address,
-				option: "Yes"		// Yes, No, NowithVeto, Abstain
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
-	memo: "",
-	account_number: String(data.value.account_number),
-	sequence: String(data.value.sequence)
-});
-```
-
-### MsgAddProfiler
-
-```js
-// irishub/guardian/MsgAddProfiler
-let stdSignMsg = iris.newStdMsg({
-	msgs: [
-		{
-			type: "irishub/guardian/MsgAddProfiler",
-			value: {
-				AddGuardian: {
-					description: "ZYL",
-					address: "iaa12060eqmpeskvs9ffyctrsfhdl33v8z3fgldst3",
-					added_by: "iaa1v6c3sa76s3grss3xu64tvn9nd556jlcw6azc85"
-				}
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
-	memo: "",
-	account_number: String(data.value.account_number),
-	sequence: String(data.value.sequence)
-});
-```
-
-### MsgAddTrustee
-
-```js
-// irishub/guardian/MsgAddTrustee
-let stdSignMsg = iris.newStdMsg({
-	msgs: [
-		{
-			type: "irishub/guardian/MsgAddTrustee",
-			value: {
-				AddGuardian: {
-					description: "Trustee for Community Pool Distribution",
-					address: "iaa1ke2my4hxr5mzntv3ec42vsp5dlkjssr7e8tgjx",
-					added_by: "iaa1k4vk9xv2ywq3p209qe2etwmlfav8aknt3agqzc"
-				}
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
-	memo: "",
-	account_number: String(data.value.account_number),
-	sequence: String(data.value.sequence)
-});
-```
-
-### MsgSvcWithdrawFees
-
-```js
-// irishub/service/MsgSvcWithdrawFees
-let stdSignMsg = iris.newStdMsg({
-	msgs: [
-		{
-			type: "irishub/service/MsgSvcWithdrawFees",
-			value: {
-				provider: address
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
-	memo: "",
-	account_number: String(data.value.account_number),
-	sequence: String(data.value.sequence)
-});
-```
-
-### MsgUnjail
-
-```js
-// irishub/slashing/MsgUnjail
-let stdSignMsg = iris.newStdMsg({
-	msgs: [
-		{
-			type: "irishub/slashing/MsgUnjail",
-			value: {
-				address: address
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
-	memo: "",
-	account_number: String(data.value.account_number),
-	sequence: String(data.value.sequence)
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
 });
 ```
 
 ### MsgCreateValidator
 
 ```js
-// irishub/stake/MsgCreateValidator
-let stdSignMsg = iris.newStdMsg({
+// cosmos-sdk/MsgCreateValidator
+let stdSignMsg = cosmos.newStdMsg({
 	msgs: [
 		{
-			type: "irishub/stake/MsgCreateValidator",
+			type: "cosmos-sdk/MsgCreateValidator",
 			value: {
-				Description: {
-                    moniker: "Test Validator",
-                    identity: "",
-                    website: "",
-                    details: ""
-                },
-                Commission: {
-                    rate: "0.1000000000",
-                    max_rate: "1.0000000000",
-                    max_change_rate: "1.0000000000"
-                },
-                delegator_address: "iaa1mjqef3jkgksk59rtnz3ljz94easln6cm9rj5th",
-                validator_address: "iva1mjqef3jkgksk59rtnz3ljz94easln6cmsjcmks",
-                pubkey: {
-                    type: "tendermint/PubKeyEd25519",
-                    value: "OOWKIOGG/k3Ts6i93ErlMGXu+vWTgC5mKDNl1L3I/xo="
-                },
-                delegation: {
-                    denom: "iris-atto",
-                    amount: String(100000000000000000000)
-                }
+				description: {
+					moniker: "Test Validator",
+					identity: "",
+					website: "",
+					details: ""
+				},
+				commission: {
+					rate: "0.250000000000000000",	// 25.0%
+					max_rate: "1.000000000000000000",
+					max_change_rate: "0.100000000000000000"
+				},
+				min_self_delegation: String(1),
+				delegator_address: address,
+				validator_address: "iva1mjqef3jkgksk59rtnz3ljz94easln6cmsjcmks",
+				pubkey: "iap1addwnpepq24rufap6u0sysqcpgsfzqhw3x8nfkhqhtmpgqt0369rlyqcg0vkgwzc4k0",
+				value: {
+					denom: "uiris",
+					amount: String(1)
+				}
 			}
 		}
 	],
 	chain_id: chainId,
-	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
+	fee: { amount: [ { amount: String(20000), denom: "uiris" } ], gas: String(200000) },
 	memo: "",
-	account_number: String(data.value.account_number),
-	sequence: String(data.value.sequence)
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
 });
 ```
 
 ### MsgEditValidator
 
 ```js
-// irishub/stake/MsgEditValidator
-let stdSignMsg = iris.newStdMsg({
+// cosmos-sdk/MsgEditValidator
+let stdSignMsg = cosmos.newStdMsg({
 	msgs: [
 		{
-			type: "irishub/stake/MsgEditValidator",
+			type: "cosmos-sdk/MsgEditValidator",
 			value: {
 				Description: {
-					moniker: "[do-not-modify]",
+					moniker: "Best Validator",
 					identity: "[do-not-modify]",
 					website: "[do-not-modify]",
 					details: "[do-not-modify]"
 				},
-				address: "iva1gyhapedd7l0jaxe35hnwxc2tmjcdrvzx52sv0u",
-				commission_rate: "0.2000000000"
+				address: "iva18pva3yzzzaxj7l5a9uk66a0q7lflscyw966jud",
+				commission_rate: "0.220000000000000000",	// 22.0%
+				min_self_delegation: null
 			}
 		}
 	],
 	chain_id: chainId,
-	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
+	fee: { amount: [ { amount: String(20000), denom: "uiris" } ], gas: String(200000) },
 	memo: "",
-	account_number: String(data.value.account_number),
-	sequence: String(data.value.sequence)
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
 });
 ```
 
 ### MsgDelegate
 
 ```js
-// irishub/stake/MsgDelegate
-let stdSignMsg = iris.newStdMsg({
+// cosmos-sdk/MsgDelegate
+let stdSignMsg = cosmos.newStdMsg({
 	msgs: [
 		{
-			type: "irishub/stake/MsgDelegate",
+			type: "cosmos-sdk/MsgDelegate",
 			value: {
-				delegator_addr: address,
-				validator_addr: "iva18pva3yzzzaxj7l5a9uk66a0q7lflscyw966jud",
-				delegation: {
-					denom: "iris-atto",
-					amount: String(1000000000000000000)
-				}
+				amount: {
+					amount: String(1000000),
+					denom: "uiris"
+				},
+				delegator_address: address,
+				validator_address: "iva18pva3yzzzaxj7l5a9uk66a0q7lflscyw966jud"
 			}
 		}
 	],
 	chain_id: chainId,
-	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
+	fee: { amount: [ { amount: String(20000), denom: "uiris" } ], gas: String(200000) },
 	memo: "",
-	account_number: String(data.value.account_number),
-	sequence: String(data.value.sequence)
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
 });
 ```
 
-### BeginUnbonding
+### MsgUndelegate
 
 ```js
-// irishub/stake/BeginUnbonding
-let stdSignMsg = iris.newStdMsg({
+// cosmos-sdk/MsgUndelegate
+let stdSignMsg = cosmos.newStdMsg({
 	msgs: [
 		{
-			type: "irishub/stake/BeginUnbonding",
+			type: "cosmos-sdk/MsgUndelegate",
 			value: {
-				shares_amount: String(1000000000000000000) + ".0000000000",
-				delegator_addr: address,
-				validator_addr: "iva18pva3yzzzaxj7l5a9uk66a0q7lflscyw966jud"
+				amount: {
+					amount: String(1000000),
+					denom: "uiris"
+				},
+				delegator_address: address,
+				validator_address: "iva18pva3yzzzaxj7l5a9uk66a0q7lflscyw966jud"
 			}
 		}
 	],
 	chain_id: chainId,
-	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
+	fee: { amount: [ { amount: String(20000), denom: "uiris" } ], gas: String(200000) },
 	memo: "",
-	account_number: String(data.value.account_number),
-	sequence: String(data.value.sequence)
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
 });
 ```
 
-### BeginRedelegate
+### MsgBeginRedelegate 
 
 ```js
-// irishub/stake/BeginRedelegate
-let stdSignMsg = iris.newStdMsg({
+// cosmos-sdk/MsgBeginRedelegate
+let stdSignMsg = cosmos.newStdMsg({
 	msgs: [
 		{
-			type: "irishub/stake/BeginRedelegate",
+			type: "cosmos-sdk/MsgBeginRedelegate",
 			value: {
-				delegator_addr: address,
-				validator_src_addr: "iva18pva3yzzzaxj7l5a9uk66a0q7lflscyw966jud",
-				validator_dst_addr: "iva1msqqkd3v0gmullzwm56c4frevyczzxfeczvjru",
-				shares_amount: String(1000000000000000000) + ".0000000000"
+				amount: {
+					amount: String(1000000),
+					denom: "uiris"
+				},
+				delegator_address: address,
+				validator_dst_address: "iva1msqqkd3v0gmullzwm56c4frevyczzxfeczvjru",
+				validator_src_address: "iva18pva3yzzzaxj7l5a9uk66a0q7lflscyw966jud"
 			}
 		}
 	],
 	chain_id: chainId,
-	fee: { amount: [ { amount: String(600000000000000000), denom: "iris-atto" } ], gas: String(65000) },
+	fee: { amount: [ { amount: String(20000), denom: "uiris" } ], gas: String(200000) },
 	memo: "",
-	account_number: String(data.value.account_number),
-	sequence: String(data.value.sequence)
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
 });
 ```
 
-### MsgIssueToken
+### MsgWithdrawDelegationReward
 
 ```js
-// irishub/asset/MsgIssueToken
-let stdSignMsg = iris.newStdMsg({
+// cosmos-sdk/MsgWithdrawDelegationReward
+let stdSignMsg = cosmos.newStdMsg({
 	msgs: [
 		{
-			type: "irishub/asset/MsgIssueToken",
+			type: "cosmos-sdk/MsgWithdrawDelegationReward",
 			value: {
-				family: "fungible",
-                source: "native",
-                gateway: "",
-                symbol: "iBTC",
-                canonical_symbol: "",
-                name: "Iris BTC Token",
-                decimal: 18,
-                min_unit_alias: "",
-                initial_supply: "137000000",
-                max_supply: "1000000000000",
-                mintable: true,
-                owner: address
+				delegator_address: address,
+				validator_address: "iva18pva3yzzzaxj7l5a9uk66a0q7lflscyw966jud"
 			}
 		}
 	],
 	chain_id: chainId,
-	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
+	fee: { amount: [ { amount: String(20000), denom: "uiris" } ], gas: String(200000) },
 	memo: "",
-	account_number: String(data.value.account_number),
-	sequence: String(data.value.sequence)
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
 });
 ```
 
-### MsgRequestRand
+### MsgWithdrawValidatorCommission
 
 ```js
-// irishub/rand/MsgRequestRand
-let stdSignMsg = iris.newStdMsg({
+// cosmos-sdk/MsgWithdrawValidatorCommission
+let stdSignMsg = cosmos.newStdMsg({
 	msgs: [
 		{
-			type: "irishub/rand/MsgRequestRand",
+			type: "cosmos-sdk/MsgWithdrawValidatorCommission",
 			value: {
-				consumer: address,
-				block-interval: "60515"
+				validator_address: "iva18pva3yzzzaxj7l5a9uk66a0q7lflscyw966jud"
 			}
 		}
 	],
 	chain_id: chainId,
-	fee: { amount: [ { amount: String(400000000000000000), denom: "iris-atto" } ], gas: String(50000) },
+	fee: { amount: [ { amount: String(20000), denom: "uiris" } ], gas: String(200000) },
 	memo: "",
-	account_number: String(data.value.account_number),
-	sequence: String(data.value.sequence)
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
+});
+```
+
+### MsgModifyWithdrawAddress
+
+```js
+// cosmos-sdk/MsgModifyWithdrawAddress
+let stdSignMsg = cosmos.newStdMsg({
+	msgs: [
+		{
+			type: "cosmos-sdk/MsgModifyWithdrawAddress",
+			value: {
+				delegator_address: address,
+				withdraw_address: "iaa18pva3yzzzaxj7l5a9uk66a0q7lflscywstsap2"
+			}
+		}
+	],
+	chain_id: chainId,
+	fee: { amount: [ { amount: String(20000), denom: "uiris" } ], gas: String(200000) },
+	memo: "",
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
+});
+```
+
+### MsgSubmitProposal
+
+```js
+// cosmos-sdk/MsgSubmitProposal
+let stdSignMsg = cosmos.newStdMsg({
+	msgs: [
+		{
+			type: "cosmos-sdk/MsgSubmitProposal",
+			value: {
+				title: "Activate the Community Pool",
+				description: "Enable governance to spend funds from the community pool. Full proposal: https://ipfs.io/ipfs/QmNsVCsyRmEiep8rTQLxVNdMHm2uiZkmaSHCR6S72Y1sL1",
+				initial_deposit: [
+                    {
+                    	amount: String(1000000),
+                        denom: "uiris"
+                    }
+                ],
+                proposal_type: "Text",
+                proposer: address
+			}
+		}
+	],
+	chain_id: chainId,
+	fee: { amount: [ { amount: String(20000), denom: "uiris" } ], gas: String(200000) },
+	memo: "",
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
+});
+```
+
+### MsgDeposit
+
+```js
+// cosmos-sdk/MsgDeposit
+let stdSignMsg = cosmos.newStdMsg({
+	msgs: [
+		{
+			type: "cosmos-sdk/MsgDeposit",
+			value: {
+				amount: [
+                    {
+                    	amount: String(1000000),
+                        denom: "uiris"
+                    }
+                ],
+                depositor: address,
+				proposal_id: String(1)
+			}
+		}
+	],
+	chain_id: chainId,
+	fee: { amount: [ { amount: String(20000), denom: "uiris" } ], gas: String(200000) },
+	memo: "",
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
+});
+```
+
+### MsgVote
+
+```js
+// cosmos-sdk/MsgVote
+let stdSignMsg = cosmos.newStdMsg({
+	msgs: [
+		{
+			type: "cosmos-sdk/MsgVote",
+			value: {
+				option: "Yes",	// Yes, No, NowithVeto, Abstain
+				proposal_id: String(1),
+                voter: address
+			}
+		}
+	],
+	chain_id: chainId,
+	fee: { amount: [ { amount: String(20000), denom: "uiris" } ], gas: String(200000) },
+	memo: "",
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
+});
+```
+
+### MsgUnjail
+
+```js
+// cosmos-sdk/MsgUnjail
+let stdSignMsg = cosmos.newStdMsg({
+	msgs: [
+		{
+			type: "cosmos-sdk/MsgUnjail",
+			value: {
+				address: "iva18pva3yzzzaxj7l5a9uk66a0q7lflscyw966jud"
+			}
+		}
+	],
+	chain_id: chainId,
+	fee: { amount: [ { amount: String(20000), denom: "uiris" } ], gas: String(200000) },
+	memo: "",
+	account_number: String(data.account.account_number),
+	sequence: String(data.account.sequence)
 });
 ```
