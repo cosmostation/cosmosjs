@@ -119,7 +119,7 @@ scrt.setBech32MainPrefix("secret");
 ```js
 const cosmosjs = require("@cosmostation/cosmosjs");
 
-const chainId = "akashnet-1";
+const chainId = "akashnet-2";
 const akash = cosmosjs.network(lcdUrl, chainId);
 akash.setBech32MainPrefix("akash");
 ```
