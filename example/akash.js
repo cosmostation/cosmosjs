@@ -24,15 +24,15 @@ akash.getAccounts(address).then(data => {
 						}
 					],
 					from_address: address,
-					to_address: "secret1quxn7c79z5vd85wzzpt4cxh0xcqyrl7fphcgx3"
+					to_address: "akash1fnk3lxlks7tdg6x55ynv6vggtnd73ycqam2zf9"
 				}
 			}
 		],
 		chain_id: chainId,
 		fee: { amount: [ { amount: String(5000), denom: "uakt" } ], gas: String(200000) },
 		memo: "",
-		account_number: String(data.result.value.account_number),
-		sequence: String(data.result.value.sequence)
+		account_number: String(data.account.account_number),
+		sequence: String(data.account.sequence)
 	});
 
 	const signedTx = akash.sign(stdSignMsg, ecpairPriv);
