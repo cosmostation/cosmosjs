@@ -1,6 +1,6 @@
 {
   "name": "@cosmostation/cosmosjs",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "description": "A JavasSript Open Source Library for Cosmos Network, IRISnet, Kava, Band Protocol, Starname, Secret Network, Akash, and Certik. (HTML developers can use /dist/cosmos.js)",
   "main": "./src/index.js",
   "repository": {
