@@ -31,8 +31,8 @@ akash.getAccounts(address).then(data => {
 		chain_id: chainId,
 		fee: { amount: [ { amount: String(5000), denom: "uakt" } ], gas: String(200000) },
 		memo: "",
-		account_number: String(data.account.account_number),
-		sequence: String(data.account.sequence)
+		account_number: String(data.account.account_number), 	// If the address is a vesting account, use account_number of base_vesting_account
+		sequence: String(data.account.sequence)					// If the address is a vesting account, use sequence of base_vesting_account
 	});
 
 	const signedTx = akash.sign(stdSignMsg, ecpairPriv);
