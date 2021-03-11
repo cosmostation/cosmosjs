@@ -169,16 +169,14 @@ cosmos.getAccounts(address).then(data => {
 })
 ```
 
-Sign transaction by using stdSignMsg and broadcast by using [/txs](https://lcd-cosmos-free.cosmostation.io/txs) REST API
+Sign transaction by using stdSignMsg and broadcast by using `/tx` REST API
 ```js
 const signedTx = cosmos.sign(stdSignMsg, ecpairPriv);
 cosmos.broadcast(signedTx).then(response => console.log(response));
 ```
 
-Cosmostation offers LCD url([https://lcd-cosmos-free.cosmostation.io](https://lcd-cosmos-free.cosmostation.io/node_info)).
-- This rest server URL may be disabled at any time. In order to maintain stable blockchain service, it is recommended to prepare your rest server.
+Cosmostation offers LCD url is deprecated. In order to maintain stable blockchain service, it is recommended to prepare your rest server.
 - Setting up the rest server: (https://hub.cosmos.network/master/resources/service-providers.html#setting-up-the-rest-server)
-- API Rate Limiting: 2 requests per second
 
 ## Supporting Message Types (Updating...)
 - If you need more message types, you can see [/docs/msg_types](https://github.com/cosmostation/cosmosjs/tree/master/docs/msg_types)
