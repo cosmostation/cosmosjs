@@ -48,6 +48,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",
+    "@babel/helper-module-transforms": "^7.14.0",
     "babelify": "^10.0.0",
     "browser-resolve": "^2.0.0",
     "esmify": "^2.1.1",
