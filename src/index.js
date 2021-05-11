@@ -94,6 +94,8 @@ Cosmos.prototype.getAccounts = function(address) {
 		accountsApi = "/cosmos/auth/v1beta1/accounts/";
 	} else if (this.chainId.indexOf("core-1") != -1) {
 		accountsApi = "/cosmos/auth/v1beta1/accounts/";
+	} else if (this.chainId.indexOf("crypto-org-chain-mainnet") != -1) {
+		accountsApi = "/cosmos/auth/v1beta1/accounts/";
 	} else {
 		accountsApi = "/auth/accounts/";
 	}
