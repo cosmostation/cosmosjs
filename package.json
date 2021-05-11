@@ -47,7 +47,7 @@
     "secp256k1": "^3.8.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.10",
+    "@babel/core": "^7.14.0",
     "babelify": "^10.0.0",
     "browser-resolve": "^2.0.0",
     "esmify": "^2.1.1",
