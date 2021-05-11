@@ -19,7 +19,7 @@ cosmos.getAccounts(address).then(data => {
 	const msgSend = new message.cosmos.bank.v1beta1.MsgSend({
 		from_address: address,
 		to_address: "cosmos18vhdczjut44gpsy804crfhnd5nq003nz0nf20v",
-		amount: [{ denom: "umuon", amount: String(100000) }]		// 6 decimal places (1000000 uatom = 1 ATOM)
+		amount: [{ denom: "uatom", amount: String(100000) }]		// 6 decimal places (1000000 uatom = 1 ATOM)
 	});
 
 	const msgSendAny = new message.google.protobuf.Any({
@@ -37,7 +37,7 @@ cosmos.getAccounts(address).then(data => {
 	});
 
 	const feeValue = new message.cosmos.tx.v1beta1.Fee({
-		amount: [{ denom: "umuon", amount: String(5000) }],
+		amount: [{ denom: "uatom", amount: String(5000) }],
 		gas_limit: 200000
 	});
 
