@@ -1,404 +1,68 @@
 # Cosmos  
 
-In this docs, these are supporting message types in Cosmos Hub(cosmoshub-4).
+In this docs, these are supporting protobuf message types in Cosmoshub.
 
 ### Supporting Message Types
 
-- [cosmos-sdk/MsgSend](#msgsend)
-- [cosmos-sdk/MsgMultiSend](#msgmultisend)
-- [cosmos-sdk/MsgCreateValidator](#msgcreatevalidator)
-- [cosmos-sdk/MsgEditValidator](#msgeditvalidator)
-- [cosmos-sdk/MsgDelegate](#msgdelegate)
-- [cosmos-sdk/MsgUndelegate](#msgundelegate)
-- [cosmos-sdk/MsgBeginRedelegate](#msgbeginredelegate)
-- [cosmos-sdk/MsgWithdrawDelegationReward](#msgwithdrawdelegationreward)
-- [cosmos-sdk/MsgWithdrawValidatorCommission](#msgwithdrawvalidatorcommission)
-- [cosmos-sdk/MsgModifyWithdrawAddress](#msgmodifywithdrawaddress)
-- [cosmos-sdk/MsgSubmitProposal](#msgsubmitproposal)
-- [cosmos-sdk/MsgDeposit](#msgdeposit)
-- [cosmos-sdk/MsgVote](#msgvote)
-- [cosmos-sdk/MsgUnjail](#msgunjail)
+- [cosmos.bank.v1beta1.MsgSend](#msgsend)
+- [cosmos.staking.v1beta1.MsgDelegate](#msgdelegate)
 
-###  MsgSend
+### MsgSend
 
 ```js
-// cosmos-sdk/MsgSend
-let stdSignMsg = cosmos.newStdMsg({
-	msgs: [
-		{
-			type: "cosmos-sdk/MsgSend",
-			value: {
-				amount: [
-					{
-						amount: String(100000), 	// 6 decimal places (1000000 uatom = 1 ATOM)
-						denom: "uatom"
-					}
-				],
-				from_address: address,
-				to_address: "cosmos18vhdczjut44gpsy804crfhnd5nq003nz0nf20v"
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
-	memo: "",
-	account_number: String(data.account.account_number),
-	sequence: String(data.account.sequence)
+// cosmos.bank.v1beta1.MsgSend
+// ---------------------------------- (1)txBody ----------------------------------
+const msgSend = new message.cosmos.bank.v1beta1.MsgSend({
+	from_address: address,
+	to_address: "cosmos18vhdczjut44gpsy804crfhnd5nq003nz0nf20v",
+	amount: [{ denom: "uatom", amount: String(100000) }]		// 6 decimal places (1000000 uatom = 1 ATOM)
 });
-```
 
-###  MsgMultiSend
-
-```js
-// cosmos-sdk/MsgMultiSend
-let stdSignMsg = cosmos.newStdMsg({
-	msgs: [
-		{
-			type: "cosmos-sdk/MsgMultiSend",
-			value: {
-				inputs: [
-					{
-						address: address,
-						coins: [
-							{
-								amount: String(100000),		// 6 decimal places (1000000 uatom = 1 ATOM)
-								denom: "uatom"
-							}
-						]
-					}
-				],
-				outputs: [
-					{
-						address: "cosmos18vhdczjut44gpsy804crfhnd5nq003nz0nf20v",
-						coins: [
-							{
-								amount: String(100000),
-								denom: "uatom"
-							}
-						]
-					}
-				]
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
-	memo: "",
-	account_number: String(data.account.account_number),
-	sequence: String(data.account.sequence)
+const msgSendAny = new message.google.protobuf.Any({
+	type_url: "/cosmos.bank.v1beta1.MsgSend",
+	value: message.cosmos.bank.v1beta1.MsgSend.encode(msgSend).finish()
 });
-```
 
-### MsgCreateValidator
+const txBody = new message.cosmos.tx.v1beta1.TxBody({ messages: [msgSendAny], memo: "" });
 
-```js
-// cosmos-sdk/MsgCreateValidator
-let stdSignMsg = cosmos.newStdMsg({
-	msgs: [
-		{
-			type: "cosmos-sdk/MsgCreateValidator",
-			value: {
-				description: {
-					moniker: "Test Validator",
-					identity: "",
-					website: "",
-					details: ""
-				},
-				commission: {
-					rate: "0.250000000000000000",	// 25.0%
-					max_rate: "1.000000000000000000",
-					max_change_rate: "0.100000000000000000"
-				},
-				min_self_delegation: String(1),
-				delegator_address: address,
-				validator_address: "cosmosvaloper106kt5cmued596rqusmthfnh39h38k64e73fxce",
-				pubkey: "cosmosvalconspub1zcjduepq8ve2hfuvnyhan9tz7vjgstslw7lygnk85sgp3emehtnxjpu3j7gqw5wvcz",
-				value: {
-					denom: "uatom",
-					amount: String(1)
-				}
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
-	memo: "",
-	account_number: String(data.account.account_number),
-	sequence: String(data.account.sequence)
+// --------------------------------- (2)authInfo ---------------------------------
+const signerInfo = new message.cosmos.tx.v1beta1.SignerInfo({
+	public_key: pubKeyAny,
+	mode_info: { single: { mode: message.cosmos.tx.signing.v1beta1.SignMode.SIGN_MODE_DIRECT } },
+	sequence: data.account.sequence
 });
-```
 
-### MsgEditValidator
-
-```js
-// cosmos-sdk/MsgEditValidator
-let stdSignMsg = cosmos.newStdMsg({
-	msgs: [
-		{
-			type: "cosmos-sdk/MsgEditValidator",
-			value: {
-				Description: {
-					moniker: "Best Validator",
-					identity: "[do-not-modify]",
-					website: "[do-not-modify]",
-					details: "[do-not-modify]"
-				},
-				address: "cosmosvaloper106kt5cmued596rqusmthfnh39h38k64e73fxce",
-				commission_rate: "0.220000000000000000",	// 22.0%
-				min_self_delegation: null
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
-	memo: "",
-	account_number: String(data.account.account_number),
-	sequence: String(data.account.sequence)
+const feeValue = new message.cosmos.tx.v1beta1.Fee({
+	amount: [{ denom: "uatom", amount: String(5000) }],
+	gas_limit: 200000
 });
+
+const authInfo = new message.cosmos.tx.v1beta1.AuthInfo({ signer_infos: [signerInfo], fee: feeValue });
 ```
 
 ### MsgDelegate
 
 ```js
-// cosmos-sdk/MsgDelegate
-let stdSignMsg = cosmos.newStdMsg({
-	msgs: [
-		{
-			type: "cosmos-sdk/MsgDelegate",
-			value: {
-				amount: {
-					amount: String(1000000),
-					denom: "uatom"
-				},
-				delegator_address: address,
-				validator_address: "cosmosvaloper1clpqr4nrk4khgkxj78fcwwh6dl3uw4epsluffn"
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
-	memo: "",
-	account_number: String(data.account.account_number),
-	sequence: String(data.account.sequence)
-});
-```
+cosmos.getAccounts(address).then(data => {
+	// signDoc = (1)txBody + (2)authInfo
+	// --------------------------------- (1)txBody ---------------------------------
+	const msgDelegate = new message.cosmos.staking.v1beta1.MsgDelegate({
+		delegator_address: address,
+		validator_address: "cosmosvaloper1tflk30mq5vgqjdly92kkhhq3raev2hnz6eete3",
+		amount: new message.cosmos.base.v1beta1.Coin({ denom: "uatom", amount: String(100000) })
+	});
 
-### MsgUndelegate
+	const msgDelegateAny = new message.google.protobuf.Any({
+		type_url: "/cosmos.staking.v1beta1.MsgDelegate",
+		value: message.cosmos.staking.v1beta1.MsgDelegate.encode(msgDelegate).finish()
+	});
 
-```js
-// cosmos-sdk/MsgUndelegate
-let stdSignMsg = cosmos.newStdMsg({
-	msgs: [
-		{
-			type: "cosmos-sdk/MsgUndelegate",
-			value: {
-				amount: {
-					amount: String(1000000),
-					denom: "uatom"
-				},
-				delegator_address: address,
-				validator_address: "cosmosvaloper1clpqr4nrk4khgkxj78fcwwh6dl3uw4epsluffn"
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
-	memo: "",
-	account_number: String(data.account.account_number),
-	sequence: String(data.account.sequence)
-});
-```
+	const txBody = new message.cosmos.tx.v1beta1.TxBody({ messages: [msgDelegateAny], memo: "" });
 
-### MsgBeginRedelegate 
+	// --------------------------------- (2)authInfo ---------------------------------
+	// ...
 
-```js
-// cosmos-sdk/MsgBeginRedelegate
-let stdSignMsg = cosmos.newStdMsg({
-	msgs: [
-		{
-			type: "cosmos-sdk/MsgBeginRedelegate",
-			value: {
-				amount: {
-					amount: String(1000000),
-					denom: "uatom"
-				},
-				delegator_address: address,
-				validator_dst_address: "cosmosvaloper1ec3p6a75mqwkv33zt543n6cnxqwun37rr5xlqv",
-				validator_src_address: "cosmosvaloper1clpqr4nrk4khgkxj78fcwwh6dl3uw4epsluffn"
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
-	memo: "",
-	account_number: String(data.account.account_number),
-	sequence: String(data.account.sequence)
-});
-```
-
-### MsgWithdrawDelegationReward
-
-```js
-// cosmos-sdk/MsgWithdrawDelegationReward
-let stdSignMsg = cosmos.newStdMsg({
-	msgs: [
-		{
-			type: "cosmos-sdk/MsgWithdrawDelegationReward",
-			value: {
-				delegator_address: address,
-				validator_address: "cosmosvaloper1clpqr4nrk4khgkxj78fcwwh6dl3uw4epsluffn"
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
-	memo: "",
-	account_number: String(data.account.account_number),
-	sequence: String(data.account.sequence)
-});
-```
-
-### MsgWithdrawValidatorCommission
-
-```js
-// cosmos-sdk/MsgWithdrawValidatorCommission
-let stdSignMsg = cosmos.newStdMsg({
-	msgs: [
-		{
-			type: "cosmos-sdk/MsgWithdrawValidatorCommission",
-			value: {
-				validator_address: "cosmosvaloper1clpqr4nrk4khgkxj78fcwwh6dl3uw4epsluffn"
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
-	memo: "",
-	account_number: String(data.account.account_number),
-	sequence: String(data.account.sequence)
-});
-```
-
-### MsgModifyWithdrawAddress
-
-```js
-// cosmos-sdk/MsgModifyWithdrawAddress
-let stdSignMsg = cosmos.newStdMsg({
-	msgs: [
-		{
-			type: "cosmos-sdk/MsgModifyWithdrawAddress",
-			value: {
-				delegator_address: address,
-				withdraw_address: "cosmos133mtfk63fuac5e2npfgcktwufnty2536wedfal"
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
-	memo: "",
-	account_number: String(data.account.account_number),
-	sequence: String(data.account.sequence)
-});
-```
-
-### MsgSubmitProposal
-
-```js
-// cosmos-sdk/MsgSubmitProposal
-let stdSignMsg = cosmos.newStdMsg({
-	msgs: [
-		{
-			type: "cosmos-sdk/MsgSubmitProposal",
-			value: {
-				title: "Activate the Community Pool",
-				description: "Enable governance to spend funds from the community pool. Full proposal: https://ipfs.io/ipfs/QmNsVCsyRmEiep8rTQLxVNdMHm2uiZkmaSHCR6S72Y1sL1",
-				initial_deposit: [
-                    {
-                    	amount: String(1000000),
-                        denom: "uatom"
-                    }
-                ],
-                proposal_type: "Text",
-                proposer: address
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
-	memo: "",
-	account_number: String(data.account.account_number),
-	sequence: String(data.account.sequence)
-});
-```
-
-### MsgDeposit
-
-```js
-// cosmos-sdk/MsgDeposit
-let stdSignMsg = cosmos.newStdMsg({
-	msgs: [
-		{
-			type: "cosmos-sdk/MsgDeposit",
-			value: {
-				amount: [
-                    {
-                    	amount: String(1000000),
-                        denom: "uatom"
-                    }
-                ],
-                depositor: address,
-				proposal_id: String(1)
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
-	memo: "",
-	account_number: String(data.account.account_number),
-	sequence: String(data.account.sequence)
-});
-```
-
-### MsgVote
-
-```js
-// cosmos-sdk/MsgVote
-let stdSignMsg = cosmos.newStdMsg({
-	msgs: [
-		{
-			type: "cosmos-sdk/MsgVote",
-			value: {
-				option: "Yes",	// Yes, No, NowithVeto, Abstain
-				proposal_id: String(1),
-                voter: address
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
-	memo: "",
-	account_number: String(data.account.account_number),
-	sequence: String(data.account.sequence)
-});
-```
-
-### MsgUnjail
-
-```js
-// cosmos-sdk/MsgUnjail
-let stdSignMsg = cosmos.newStdMsg({
-	msgs: [
-		{
-			type: "cosmos-sdk/MsgUnjail",
-			value: {
-				address: "cosmosvaloper1clpqr4nrk4khgkxj78fcwwh6dl3uw4epsluffn"
-			}
-		}
-	],
-	chain_id: chainId,
-	fee: { amount: [ { amount: String(5000), denom: "uatom" } ], gas: String(200000) },
-	memo: "",
-	account_number: String(data.account.account_number),
-	sequence: String(data.account.sequence)
+	// -------------------------------- sign --------------------------------
+	// ...
 });
 ```
