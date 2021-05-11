@@ -51,6 +51,6 @@
     "babelify": "^10.0.0",
     "browser-resolve": "^2.0.0",
     "esmify": "^2.1.1",
-    "mocha": "^7.1.1"
+    "mocha": "^7.2.0"
   }
 }
