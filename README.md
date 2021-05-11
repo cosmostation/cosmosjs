@@ -23,7 +23,31 @@ This library supports cosmos address generation and verification. It enables you
 
 ## Installation
 
-In order to fully use this library, you need to run a local or remote full node and set up its rest server, which acts as an intermediary between the front-end and the full-node
+In order to fully use this library, you need to run a local or remote full node and set up its rest server, which acts as an intermediary between the front-end and the full-node.
+
+### NPM (Protobuf)
+
+```bash
+npm install @cosmostation/cosmosjs
+```
+
+### Yarn (Protobuf)
+
+```bash
+yarn add @cosmostation/cosmosjs
+```
+
+### NPM (Amino)
+
+```bash
+npm install @cosmostation/cosmosjs@0.9.5
+```
+
+### Yarn (Amino)
+
+```bash
+yarn add @cosmostation/cosmosjs@0.9.5
+```
 
 ## Import 
 
