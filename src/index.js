@@ -35,21 +35,21 @@ export class Cosmos {
 		    throw new Error("mnemonic expects a string")
 		}
 		if (checkSum) {
-			if (!bip39.validateMnemonic(mnemonic)) throw new Error("mnemonic phrases have invalid checksums");
+			if (!bip39.default.validateMnemonic(mnemonic)) throw new Error("mnemonic phrases have invalid checksums");
 		}
-		const seed = bip39.mnemonicToSeed(mnemonic);
-		const node = bip32.fromSeed(seed)
+		const seed = bip39.default.mnemonicToSeed(mnemonic);
+		const node = bip32.default.fromSeed(seed)
 		const child = node.derivePath(this.path)
-		const words = bech32.toWords(child.identifier);
-		return bech32.encode(this.bech32MainPrefix, words);
+		const words = bech32.default.toWords(child.identifier);
+		return bech32.default.encode(this.bech32MainPrefix, words);
 	}
 
 	getECPairPriv(mnemonic) {
 		if (typeof mnemonic !== "string") {
 		    throw new Error("mnemonic expects a string")
 		}
-		const seed = bip39.mnemonicToSeed(mnemonic);
-		const node = bip32.fromSeed(seed);
+		const seed = bip39.default.mnemonicToSeed(mnemonic);
+		const node = bip32.default.fromSeed(seed);
 		const child = node.derivePath(this.path);
 		return child.privateKey;
 	}
