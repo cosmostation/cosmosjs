@@ -178,6 +178,7 @@ Scott Burch</b></sub></a><br /><a href="https://github.com/cosmostation/cosmosjs
     <td align="center"><a href="https://github.com/okwme"><img src="https://avatars0.githubusercontent.com/u/1866496?s=460&v=4" width="100px;" alt=""/><br /><sub><b>billy rennekamp</b></sub></a><br /><a href="https://github.com/cosmostation/cosmosjs/commits?author=okwme" title="Maintenance">🚧</a></td>
     <td align="center"><a href="https://github.com/pgrimaud"><img src="https://avatars3.githubusercontent.com/u/5483234?v=4" width="100px;" alt=""/><br /><sub><b>Pierre Grimaud</b></sub></a><br /><a href="https://github.com/cosmostation/cosmosjs/commits?author=pgrimaud" title="Maintenance">🚧</a></td>
     <td align="center"><a href="https://github.com/levackt"><img src="https://avatars3.githubusercontent.com/u/10286403?s=460&v=4" width="100px;" alt=""/><br /><sub><b>Taariq Levack</b></sub></a><br /><a href="https://github.com/cosmostation/cosmosjs/commits?author=levackt" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://github.com/atmoner"><img src="https://avatars.githubusercontent.com/u/1071490?v=4" width="100px;" alt=""/><br /><sub><b>ɐʇɯon3ɹ</b></sub></a><br /><a href="https://github.com/cosmostation/cosmosjs/commits?author=atmoner" title="Maintenance">🚧</a></td>
   </tr>
 </table>
 
