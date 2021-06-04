@@ -20,6 +20,11 @@ export class Cosmos {
 		this.bech32MainPrefix = "cosmos";
 	}
 
+	// strength(128): 12 words, strength(256): 24 words
+	getRandomMnemonic(strength = 256) {
+		return bip39.generateMnemonic(strength);
+	}
+
 	setBech32MainPrefix(value) {
 		this.bech32MainPrefix = value;
 		if (!this.bech32MainPrefix) throw new Error("bech32MainPrefix object was not set or invalid");
