@@ -1,6 +1,6 @@
 {
   "name": "@cosmostation/cosmosjs",
-  "version": "0.10.4",
+  "version": "0.10.5",
   "description": "A JavasSript Open Source Library for Cosmos(ATOM).",
   "main": "src/index.js",
   "type": "module",
