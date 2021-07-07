@@ -28,17 +28,17 @@ In order to fully use this library, you need to run a local or remote full node 
 ### NPM (Amino)
 
 ```bash
-npm install @cosmostation/cosmosjs
+npm install @cosmostation/cosmosjs@0.9.7
 ```
 
 ### Yarn (Amino)
 
 ```bash
-yarn add @cosmostation/cosmosjs
+yarn add @cosmostation/cosmosjs@0.9.7
 ```
 
 ### Warning
-- If you use a version under 0.9.x, it will be deprecated. You can download protobuf version from the branch of `protobuf-test`.
+- If you use a version under 0.9.x, it will be deprecated. You can download protobuf version from the branch of `master`.
 
 ## Import 
 
@@ -59,7 +59,7 @@ import cosmosjs from "@cosmostation/cosmosjs";
 - You can see example file at [/example/browser-example.html](https://github.com/cosmostation/cosmosjs/tree/master/example/browser-example.html)
 
 ```js
-<script src="https://cdn.jsdelivr.net/npm/@cosmostation/cosmosjs@0.8.0/dist/cosmos.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@cosmostation/cosmosjs@0.9.7/dist/cosmos.min.js"></script>
 ```
 
 ## Usage
@@ -141,7 +141,7 @@ Transfer ATOM to designated address.
 * Make sure to input proper type, account number, and sequence of the cosmos account to generate StdSignMsg. You can get those account information on blockchain 
 * Above 0.5.0 version, CosmosJS follows the exact same json format as Cosmos SDK defines.
 ```js
-cosmos.getAccounts(address).then(data => {
+cosmos.getAccounts(address, true).then(data => {
 	let stdSignMsg = cosmos.newStdMsg({
 		msgs: [
 			{
@@ -176,7 +176,8 @@ cosmos.broadcast(signedTx).then(response => console.log(response));
 ```
 
 Cosmostation offers LCD url is deprecated. In order to maintain stable blockchain service, it is recommended to prepare your rest server.
-- Setting up the rest server: (https://hub.cosmos.network/master/resources/service-providers.html#setting-up-the-rest-server)
+- Setting up the rest server: https://hub.cosmos.network/master/resources/service-providers.html#setting-up-the-rest-server
+- Cosmos official Rest URL: [https://api.cosmos.network](https://api.cosmos.network/node_info)
 
 ## Supporting Message Types (Updating...)
 - If you need more message types, you can see [/docs/msg_types](https://github.com/cosmostation/cosmosjs/tree/master/docs/msg_types)
