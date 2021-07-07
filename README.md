@@ -56,7 +56,7 @@ import cosmosjs from "@cosmostation/cosmosjs";
 #### CDN
 
 - You can find cosmosjs jsDelivr and use the global cosmosjs variable.
-- You can see example file at [/example/browser-example.html](https://github.com/cosmostation/cosmosjs/tree/master/example/browser-example.html)
+- You can see example file at [/example/browser-example.html](https://github.com/cosmostation/cosmosjs/blob/classic/example/browser-example.html)
 
 ```js
 <script src="https://cdn.jsdelivr.net/npm/@cosmostation/cosmosjs@0.9.7/dist/cosmos.min.js"></script>
