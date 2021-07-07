@@ -17,9 +17,9 @@ This library supports cosmos address generation and verification. It enables you
 
 > :warning: ** This repo is class version. It's @cosmostation/cosmosjs@0.9.x**: Be very careful! If you need to use protobuf tx type, you can download @cosmostation/cosmosjs@0.10.0+.
 
-[![License](https://img.shields.io/npm/l/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs)
-[![Latest Stable Version](https://img.shields.io/npm/v/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs)
-[![NPM Downloads](https://img.shields.io/npm/dm/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs)
+[![License](https://img.shields.io/npm/l/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs/v/0.9.7)
+[![Classic Version](https://img.shields.io/npm/v/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs/v/0.9.7)
+[![NPM Downloads](https://img.shields.io/npm/dm/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs/v/0.9.7)
 
 ## Installation
 
