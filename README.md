@@ -15,7 +15,7 @@ A JavasSript Open Source Library for [Cosmos Network](https://cosmos.network/), 
 
 This library supports cosmos address generation and verification. It enables you to create an offline signature functions of different types of transaction messages. It will eventually support all the other blockchains that are based on Tendermint in the future.
 
-> :warning: If you need for amino signing, download a version under v0.9.6
+> :warning: If you need for classic version for amino signing, download a version under v0.9.7
 
 [![License](https://img.shields.io/npm/l/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs)
 [![Latest Stable Version](https://img.shields.io/npm/v/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs)
@@ -38,15 +38,17 @@ yarn add @cosmostation/cosmosjs
 ```
 
 ### NPM (Amino)
+- https://github.com/cosmostation/cosmosjs/tree/classic
 
 ```bash
-npm install @cosmostation/cosmosjs@0.9.5
+npm install @cosmostation/cosmosjs@0.9.7
 ```
 
 ### Yarn (Amino)
+- https://github.com/cosmostation/cosmosjs/tree/classic
 
 ```bash
-yarn add @cosmostation/cosmosjs@0.9.5
+yarn add @cosmostation/cosmosjs@0.9.7
 ```
 
 ## Import 
