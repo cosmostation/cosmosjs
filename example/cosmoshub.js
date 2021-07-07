@@ -12,7 +12,8 @@ const address = cosmos.getAddress(mnemonic);
 const ecpairPriv = cosmos.getECPairPriv(mnemonic);
 
 // Generate MsgSend transaction and broadcast 
-cosmos.getAccounts(address).then(data => {
+// Above Cosmos SDK 40, use getAccounts([YOUR ADDRESS], true) and below Cosmos SDK 40, use getAccounts([YOUR ADDRESS]) or getAccounts([YOUR ADDRESS], false)
+cosmos.getAccounts(address, true).then(data => {
 	let stdSignMsg = cosmos.newStdMsg({
 		msgs: [
 			{

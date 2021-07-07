@@ -26,7 +26,7 @@ let Cosmos = function(url, chainId) {
 		throw new Error("chainId object was not set or invalid")
 	}
 
-	console.log("WARN deprecated @cosmostation/cosmosjs@0.9.x: You needs to upgrade to @cosmostation/cosmosjs above 0.10.0+ : 1) Proper nodejs v14+ support 2) 0.10.0+ supports protobuf signing for cosmos-sdk 0.40.0+");
+	// console.log("WARN deprecated @cosmostation/cosmosjs@0.9.x: You needs to upgrade to @cosmostation/cosmosjs above 0.10.0+ : 1) Proper nodejs v14+ support 2) 0.10.0+ supports protobuf signing for cosmos-sdk 0.40.0+");
 }
 
 function network(url, chainId) {
@@ -78,27 +78,16 @@ Cosmos.prototype.setPath = function(path) {
 	}
 }
 
-Cosmos.prototype.getAccounts = function(address) {
+Cosmos.prototype.getAccounts = function(address, stargateFlag = false) {
 	let accountsApi = "";
-	if (this.chainId.indexOf("cosmos") != -1) {
-		accountsApi = "/cosmos/auth/v1beta1/accounts/";
-	} else if (this.chainId.indexOf("stargate-final") != -1) {
-		accountsApi = "/cosmos/auth/v1beta1/accounts/";
-	} else if (this.chainId.indexOf("bifrost") != -1) {
-		accountsApi = "/cosmos/auth/v1beta1/accounts/";
-	} else if (this.chainId.indexOf("irishub") != -1) {
-		accountsApi = "/cosmos/auth/v1beta1/accounts/";
-	} else if (this.chainId.indexOf("akash") != -1) {
-		accountsApi = "/cosmos/auth/v1beta1/accounts/";
-	} else if (this.chainId.indexOf("edgenet") != -1) {
-		accountsApi = "/cosmos/auth/v1beta1/accounts/";
-	} else if (this.chainId.indexOf("core-1") != -1) {
-		accountsApi = "/cosmos/auth/v1beta1/accounts/";
-	} else if (this.chainId.indexOf("crypto-org-chain-mainnet") != -1) {
+
+	if (stargateFlag) {
+		// above Cosmos SDK 0.40
 		accountsApi = "/cosmos/auth/v1beta1/accounts/";
 	} else {
 		accountsApi = "/auth/accounts/";
 	}
+	
 	return fetch(this.url + accountsApi + address)
 	.then(response => response.json())
 }

@@ -11,7 +11,8 @@ const address = iris.getAddress(mnemonic);
 const ecpairPriv = iris.getECPairPriv(mnemonic);
 
 // Generate MsgSend transaction and broadcast 
-iris.getAccounts(address).then(data => {
+// Above Cosmos SDK 40, use getAccounts([YOUR ADDRESS], true) and below Cosmos SDK 40, use getAccounts([YOUR ADDRESS]) or getAccounts([YOUR ADDRESS], false)
+iris.getAccounts(address, true).then(data => {
 	let stdSignMsg = iris.newStdMsg({
 		msgs: [
 			{

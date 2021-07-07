@@ -11,7 +11,8 @@ const address = akash.getAddress(mnemonic);
 const ecpairPriv = akash.getECPairPriv(mnemonic);
 
 // Generate MsgSend transaction and broadcast
-akash.getAccounts(address).then(data => {
+// Above Cosmos SDK 40, use getAccounts([YOUR ADDRESS], true) and below Cosmos SDK 40, use getAccounts([YOUR ADDRESS]) or getAccounts([YOUR ADDRESS], false)
+akash.getAccounts(address, true).then(data => {
 	let stdSignMsg = akash.newStdMsg({
 		msgs: [
 			{
