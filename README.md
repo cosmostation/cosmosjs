@@ -59,7 +59,7 @@ import { Cosmos } from "../src/index.js";
 
 ## Usage
 
-- You need to import Cosmos-sdk Protobuf message file as js. It is created by [protocgen.sh](https://github.com/cosmos-client/cosmos-client-ts/blob/master/protocgen.sh).
+- You need to import Cosmos-sdk Protobuf message file as js. It is created by [gen-proto.sh](https://github.com/cosmos-client/cosmos-client-ts/blob/master/gen-proto.sh).
 - @cosmostation/cosmosjs@0.10.0+ is running above nodejs v14+
 - You can run with this option for ES6.
 ```sh
