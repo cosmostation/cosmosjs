@@ -69,7 +69,7 @@ $ node --es-module-specifier-resolution=node example/cosmoshub.js
 - Import the message file that is converted from Cosmos-sdk proto.
 
 ```js
-import message from "../src/messages/proto";
+import message from "@cosmostation/cosmosjs/src/messages/proto";
 ```
 
 - Stargate-final: Generate Cosmos address from mnemonic 
