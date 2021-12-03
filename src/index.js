@@ -1,16 +1,17 @@
+import * as bech32 from "bech32";
+import * as bip32 from "bip32";
+import * as bip39 from "bip39";
+
+import bitcoinjs from "bitcoinjs-lib";
+import crypto from "crypto";
 /*
     Developed / Developing by Cosmostation
     [WARNING] CosmosJS is under ACTIVE DEVELOPMENT and should be treated as alpha version. We will remove this warning when we have a release that is stable, secure, and propoerly tested.
 */
 import fetch from 'node-fetch';
-import request from "request";
-import * as bip32 from "bip32";
-import * as bip39 from "bip39";
-import * as bech32 from "bech32";
-import secp256k1 from "secp256k1";
-import crypto from "crypto";
-import bitcoinjs from "bitcoinjs-lib";
 import message from "./messages/proto";
+import request from "request";
+import secp256k1 from "secp256k1";
 
 export class Cosmos {
 	constructor(url, chainId) {
@@ -40,21 +41,21 @@ export class Cosmos {
 		    throw new Error("mnemonic expects a string")
 		}
 		if (checkSum) {
-			if (!bip39.default.validateMnemonic(mnemonic)) throw new Error("mnemonic phrases have invalid checksums");
+			if (!bip39.validateMnemonic(mnemonic)) throw new Error("mnemonic phrases have invalid checksums");
 		}
-		const seed = bip39.default.mnemonicToSeed(mnemonic);
-		const node = bip32.default.fromSeed(seed)
+		const seed = bip39.mnemonicToSeed(mnemonic);
+		const node = bip32.fromSeed(seed)
 		const child = node.derivePath(this.path)
-		const words = bech32.default.toWords(child.identifier);
-		return bech32.default.encode(this.bech32MainPrefix, words);
+		const words = bech32.toWords(child.identifier);
+		return bech32.encode(this.bech32MainPrefix, words);
 	}
 
 	getECPairPriv(mnemonic) {
 		if (typeof mnemonic !== "string") {
 		    throw new Error("mnemonic expects a string")
 		}
-		const seed = bip39.default.mnemonicToSeed(mnemonic);
-		const node = bip32.default.fromSeed(seed);
+		const seed = bip39.mnemonicToSeed(mnemonic);
+		const node = bip32.fromSeed(seed);
 		const child = node.derivePath(this.path);
 		return child.privateKey;
 	}
