@@ -26,8 +26,8 @@ export class Cosmos {
 		return bip39.generateMnemonic(strength);
 	}
 
-	setBech32MainPrefix(value) {
-		this.bech32MainPrefix = value;
+	setBech32MainPrefix(prefix) {
+		this.bech32MainPrefix = prefix;
 		if (!this.bech32MainPrefix) throw new Error("bech32MainPrefix object was not set or invalid");
 	}
 
@@ -48,6 +48,16 @@ export class Cosmos {
 		const child = node.derivePath(this.path)
 		const words = bech32.toWords(child.identifier);
 		return bech32.encode(this.bech32MainPrefix, words);
+	}
+
+	changeAddress(prefix, address) {
+		try {
+			const decode = bech32.decode(address);
+			return bech32.encode(prefix, decode.words);
+		} catch (e) {
+			throw new Error("cannot change address")
+			return "";
+		}
 	}
 
 	getECPairPriv(mnemonic) {

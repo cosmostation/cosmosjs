@@ -7,7 +7,7 @@ const chainId = "cosmoshub-4";
 // This rest server URL may be disabled at any time. In order to maintain stable blockchain service, it is recommended to prepare your rest server.
 // (https://hub.cosmos.network/main/gaia-tutorials/join-mainnet.html#enable-the-rest-api)
 const cosmos = new Cosmos("https://api.cosmos.network", chainId);
-cosmos.setBech32MainPrefix("cosmos");
+cosmos.setBech32MainPrefix("juno");
 cosmos.setPath("m/44'/118'/0'/0/0");
 const address = cosmos.getAddress(mnemonic);
 const privKey = cosmos.getECPairPriv(mnemonic);
