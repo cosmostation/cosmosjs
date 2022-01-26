@@ -3,7 +3,7 @@
 <!-- TOTAL-DOWNLOADS-BADGE:END -->
 
 <p align="center">
-  <a href="https://www.cosmostation.io" target="_blank" rel="noopener noreferrer"><img width="100" src="https://user-images.githubusercontent.com/34641838/107007567-0cc79200-67d6-11eb-83c8-9af239866785.png" alt="Cosmostation logo"></a>
+  <a href="https://www.cosmostation.io" target="_blank" rel="noopener noreferrer"><img width="500" src="https://user-images.githubusercontent.com/34641838/151108162-216c3b7e-aa43-47be-8298-b7f20e669af9.png" alt="Cosmostation logo"></a>
 </p>
 <h1 align="center">
     CosmosJS - Cosmos JavaScript Library 
@@ -11,7 +11,7 @@
 
 *:star: Developed / Developing by [Cosmostation](https://www.cosmostation.io/)*
 
-A JavasSript Open Source Library for [Cosmoshub](https://cosmos.network/), [IRISnet](https://www.irisnet.org/), [Akash Network](https://akash.network/), [Juno](https://www.junonetwork.io/).
+A Javascript Open Source Library for blockchain made using by Cosmos SDK like [Cosmoshub](https://cosmos.network/), [IRISnet](https://www.irisnet.org/), [Akash Network](https://akash.network/), and [Juno](https://www.junonetwork.io/).
 
 This library supports cosmos address generation and verification. It enables you to create an offline signature functions of different types of transaction messages. It will eventually support all the other blockchains that are based on Tendermint in the future.
 
