@@ -11,7 +11,7 @@
 
 *:star: Developed / Developing by [Cosmostation](https://www.cosmostation.io/)*
 
-A JavasSript Open Source Library for [Cosmoshub](https://cosmos.network/), [IRISnet](https://www.irisnet.org/), [Starname](https://iov.one/), and [Akash Network](https://akash.network/).
+A JavasSript Open Source Library for [Cosmoshub](https://cosmos.network/), [IRISnet](https://www.irisnet.org/), [Akash Network](https://akash.network/), [Juno](https://www.junonetwork.io/).
 
 This library supports cosmos address generation and verification. It enables you to create an offline signature functions of different types of transaction messages. It will eventually support all the other blockchains that are based on Tendermint in the future.
 
@@ -157,7 +157,7 @@ cosmos.getAccounts(address).then(data => {
 
 Official LCD url([https://api.cosmos.network](https://api.cosmos.network/node_info)).
 - This rest server URL may be disabled at any time. In order to maintain stable blockchain service, it is recommended to prepare your rest server.
-- Setting up the rest server: (https://hub.cosmos.network/main/gaia-tutorials/join-mainnet.html#enable-the-rest-api)
+- Setting up the rest server: (https://docs.cosmos.network/master/core/grpc_rest.html#rest-server)
 
 ## Supporting Message Types (Updating...)
 
