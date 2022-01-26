@@ -1,6 +1,6 @@
 {
   "name": "@cosmostation/cosmosjs",
-  "version": "0.10.9",
+  "version": "0.11.0",
   "description": "A JavasSript Open Source Library for Cosmos(ATOM).",
   "main": "src/index.js",
   "type": "module",
@@ -22,10 +22,11 @@
     "akash",
     "akt",
     "stargate",
-    "cryptoorg"
+    "cryptoorg",
+    "juno"
   ],
   "scripts": {
-    "start": "node --es-module-specifier-resolution=node example/cosmoshub.js",
+    "start": "node --es-module-specifier-resolution=node example/juno.js",
     "dev": "node --es-module-specifier-resolution=node example/stargate-final.js",
     "test": "mocha --es-module-specifier-resolution=node"
   },
