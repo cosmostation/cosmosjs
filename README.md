@@ -155,6 +155,20 @@ cosmos.getAccounts(address).then(data => {
 });
 ```
 
+In addition, you can query CW20 token balance using wasmQuery.
+```js
+cosmos.wasmQuery(
+	'juno168ctmpyppk90d34p3jjy658zf5a5l3w8wk35wht6ccqj4mr0yv8s4j5awr',
+	'{"balance": {"address": "juno1sautwkp7mzftvqtct3ugtq9xuuq680tzqzvf5g"}}'
+).then(json => {
+	let smartCode = json.result.smart;
+	let decoded = new Buffer(smartCode, 'base64').toString();
+	let parsed = JSON.parse(decoded);
+
+	console.log("NETA balance: ", parsed.balance);
+})
+```
+
 Official LCD url([https://api.cosmos.network](https://api.cosmos.network/node_info)).
 - This rest server URL may be disabled at any time. In order to maintain stable blockchain service, it is recommended to prepare your rest server.
 - Setting up the rest server: (https://docs.cosmos.network/master/core/grpc_rest.html#rest-server)

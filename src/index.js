@@ -87,6 +87,11 @@ export class Cosmos {
 		});
 		return pubKeyAny;
 	}
+
+	wasmQuery(contractAddress, query) {
+		let smartQueryApi = "/wasm/contract/" + contractAddress + "/smart/" + toHex(query) + "?encoding=UTF-8";
+		return fetch(this.url + smartQueryApi).then(response => response.json())
+	}
 	
 	getAccounts(address) {
 		let accountsApi = "/cosmos/auth/v1beta1/accounts/";
@@ -139,4 +144,16 @@ export class Cosmos {
 	        });
 	    });
 	}
+}
+
+function toHex(str,hex){
+	try {
+		hex = unescape(encodeURIComponent(str)).split('').map(function(v) {
+			return v.charCodeAt(0).toString(16) 
+		}).join('')
+	} catch(e) {
+		hex = str
+		console.log('invalid text input: ' + str)
+	}
+	return hex
 }

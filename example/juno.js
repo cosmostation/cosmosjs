@@ -16,7 +16,7 @@ const pubKeyAny = cosmos.getPubKeyAny(privKey);
 cosmos.getAccounts(address).then(data => {
 	// signDoc = (1)txBody + (2)authInfo
 	// ---------------------------------- (1)txBody ----------------------------------
-	let cw20Contract = "juno10rktvmllvgctcmhl5vv8kl3mdksukyqf2tdveh8drpn0sppugwwqjzz30z";
+	let cw20Contract = "juno168ctmpyppk90d34p3jjy658zf5a5l3w8wk35wht6ccqj4mr0yv8s4j5awr";
 	let transferBytes = new Buffer('{"transfer":{"amount":"1","recipient":"juno1cx4nq77x3unvl2xsa9fmm9drxkexzkjnzwt2y7"}}');
 	const msgExecuteContract = new message.cosmwasm.wasm.v1.MsgExecuteContract({
 		sender: address,
