@@ -2,6 +2,8 @@
 [![NPM Downloads](https://img.shields.io/npm/dt/@cosmostation/cosmosjs.svg)](https://www.npmjs.com/package/@cosmostation/cosmosjs)
 <!-- TOTAL-DOWNLOADS-BADGE:END -->
 
+> **IMPORTANT** THIS REPO IS DEPRECATED. Please use [cosmos/cosmjs](https://github.com/cosmos/cosmjs) instead of this repository.
+
 <p align="center">
   <a href="https://www.cosmostation.io" target="_blank" rel="noopener noreferrer"><img width="500" src="https://user-images.githubusercontent.com/34641838/151108162-216c3b7e-aa43-47be-8298-b7f20e669af9.png" alt="Cosmostation logo"></a>
 </p>
